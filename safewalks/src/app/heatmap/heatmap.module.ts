@@ -1,19 +1,16 @@
+import { IonicModule } from '@ionic/angular';
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-import { IonicModule } from '@ionic/angular';
-
-import { HeatmapPageRoutingModule } from './heatmap-routing.module';
-
 import { HeatmapPage } from './heatmap.page';
 
 @NgModule({
   imports: [
+    IonicModule,
     CommonModule,
     FormsModule,
-    IonicModule,
-    HeatmapPageRoutingModule
+    RouterModule.forChild([{ path: '', component: HeatmapPage }])
   ],
   declarations: [HeatmapPage]
 })
