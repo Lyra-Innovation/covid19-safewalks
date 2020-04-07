@@ -1,5 +1,5 @@
 web:
-   image: tutum/apache-php
+   image: registry.gitlab.com/agora_team/examen_web_basis/php-7.3
    environment:
      - ALLOW_OVERRIDE=true
    ports:
@@ -7,7 +7,7 @@ web:
    links:
      - db
    volumes:
-     - ./api:/app
+     - ./api:/var/www/html/
 
 db:
   image: mariadb
