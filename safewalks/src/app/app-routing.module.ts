@@ -17,6 +17,10 @@ const routes: Routes = [
   {
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'newtrip',
+    loadChildren: () => import('./newtrip/newtrip.module').then( m => m.NewtripPageModule)
   }
 ];
 @NgModule({
