@@ -4,7 +4,12 @@ import { TabsPage } from './tabs.page';
 
 const routes: Routes = [
   {
-    path: 'tabs',
+    path: '',
+    redirectTo: '/app/trips',
+    pathMatch: 'full'
+  },
+  {
+    path: '',
     component: TabsPage,
     children: [
       {
@@ -36,18 +41,8 @@ const routes: Routes = [
               import('../profile/profile.module').then(m => m.ProfilePageModule)
           }
         ]
-      },
-      {
-        path: '',
-        redirectTo: '/tabs/trips',
-        pathMatch: 'full'
       }
     ]
-  },
-  {
-    path: '',
-    redirectTo: '/tabs/trips',
-    pathMatch: 'full'
   }
 ];
 

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+
 
 @Component({
   selector: 'app-profile',
@@ -6,7 +8,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage {
+  user = {};
 
-  constructor() { }
+  constructor(
+    private auth: AuthService
+  ) { }
+ 
+  ionViewWillEnter() {
+    this.user = this.auth.getUser();
+    console.log(this.user)
+  }
 
+  logout() {
+    this.auth.logout();
+  }
+  
 }

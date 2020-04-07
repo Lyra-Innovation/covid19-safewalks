@@ -1,22 +1,23 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
+import { LoginGuardGuard } from './guards/login-guard.guard';
 
 const routes: Routes = [
   {
+    path: 'app',
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: '',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule),
+    canActivate: [LoginGuardGuard]
   },
   {
-    path: 'trips',
-    loadChildren: () => import('./trips/trips.module').then( m => m.TripsPageModule)
-  },
-  {
-    path: 'heatmap',
-    loadChildren: () => import('./heatmap/heatmap.module').then( m => m.HeatmapPageModule)
-  },
-  {
-    path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule),
+    canActivate: [LoginGuardGuard]
   }
 ];
 @NgModule({
