@@ -25,6 +25,7 @@ export class HeatmapPage {
 
   leafletMap(lat, long) {
     this.map = new Map('map').setView([lat, long], 15);
+    this.map.invalidateSize();
 
     tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
       attribution: 'edupala.com',
