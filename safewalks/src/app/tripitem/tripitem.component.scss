@@ -1,0 +1,42 @@
+.tripitem {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+}
+
+.tripitem-imagecontainer {
+    display: flex;
+    align-content: center;
+    height: 100%;
+    flex-basis: 45%;
+}
+
+.tripitem-image {
+    object-fit: contain;
+    align-items: center;
+    max-height: 100%;
+    padding: 5px;
+}
+
+.tripitem-info {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+}
+
+ion-card-header {
+    padding: 8px 5px 5px 5px;
+    display: flex;
+}
+
+ion-card-title {
+    font-size: 16px;
+}
+
+ion-card-content {
+    padding: 10px 5px 5px 5px;
+    font-size: 12px;
+}

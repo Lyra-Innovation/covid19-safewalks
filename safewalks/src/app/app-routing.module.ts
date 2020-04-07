@@ -18,6 +18,12 @@ const routes: Routes = [
     path: 'register',
     loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule),
     canActivate: [LoginGuardGuard]
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'newtrip',
+    loadChildren: () => import('./newtrip/newtrip.module').then( m => m.NewtripPageModule)
   }
 ];
 @NgModule({

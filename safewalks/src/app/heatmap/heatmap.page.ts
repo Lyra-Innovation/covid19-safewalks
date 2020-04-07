@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Map, latLng, tileLayer, Layer, marker } from 'leaflet';
+import { Map, latLng, tileLayer, Layer, marker, icon } from 'leaflet';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @Component({
@@ -9,22 +9,25 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 })
 export class HeatmapPage {
 
-  constructor(private geolocation: Geolocation) { }
-
   map: Map;
+  locationMarker: any;
 
-  ionViewDidEnter() {
+  constructor(private geolocation: Geolocation) {
     this.geolocation.getCurrentPosition().then((resp) => {
-      this.leafletMap(resp.coords.latitude, resp.coords.longitude);
+      this.loadMap(resp.coords.latitude, resp.coords.longitude);
+      this.locatePosition();
     }).catch((error) => {
       console.log('Error getting location', error);
       // Default location
-      this.leafletMap(41.3870154, 2.1678531);
+      this.loadMap(41.3870154, 2.1678531);
     });
-  }
+   }
 
-  leafletMap(lat, long) {
-    this.map = new Map('map').setView([lat, long], 15);
+  ionViewDidEnter() {}
+
+  loadMap(lat, long) {
+    if (this.map != undefined) { this.map.remove(); }
+    this.map = new Map('map').setView([lat, long], 16);
     this.map.invalidateSize();
 
     tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
@@ -32,9 +35,34 @@ export class HeatmapPage {
     }).addTo(this.map);
   }
 
+  locatePosition() {
+    var myIcon = icon({
+      iconUrl: 'assets/map_marker.png',
+      iconSize: [26, 40],
+      iconAnchor: [13, 40],
+      shadowUrl: "",
+      shadowSize: [35, 50],
+      shadowAnchor: [0, 55],
+      popupAnchor: [0, -40]
+    });
+
+    this.map.locate({setView:true}).on("locationfound", (e: any)=> {
+      this.locationMarker = marker([e.latitude,e.longitude], {
+        draggable:false,
+        opacity: 1,
+        icon: myIcon
+        }).addTo(this.map);
+      this.locationMarker.bindPopup("Vostè està aquí").openPopup();
+    });
+  }
+
   /** Remove map when we have multiple map object */
   ionViewWillLeave() {
-    this.map.remove();
+    //this.map.remove();
+  }
+
+  paintHeatmap() {
+    
   }
 
 }
