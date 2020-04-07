@@ -4,11 +4,19 @@ import { AuthGuard } from './guards/auth.guard';
 import { LoginGuardGuard } from './guards/login-guard.guard';
 
 const routes: Routes = [
+  //private pages
   {
     path: 'app',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'newtrip',
+    loadChildren: () => import('./newtrip/newtrip.module').then( m => m.NewtripPageModule),
+    canActivate: [AuthGuard]
+  },
+  
+  //public pages
   {
     path: '',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule),
@@ -18,12 +26,6 @@ const routes: Routes = [
     path: 'register',
     loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule),
     canActivate: [LoginGuardGuard]
-    path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
-  },
-  {
-    path: 'newtrip',
-    loadChildren: () => import('./newtrip/newtrip.module').then( m => m.NewtripPageModule)
   }
 ];
 @NgModule({
