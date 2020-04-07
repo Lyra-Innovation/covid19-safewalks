@@ -1,0 +1,20 @@
+web:
+   image: registry.gitlab.com/agora_team/examen_web_basis/php-7.3
+   environment:
+     - ALLOW_OVERRIDE=true
+   ports:
+     - "80:80"
+   links:
+     - db
+   volumes:
+     - ./api:/var/www/html/
+
+db:
+  image: mariadb
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_USER: admin
+    MYSQL_PASSWORD: test
+    MYSQL_DATABASE: database
+  ports:
+    - "3306:3306"
