@@ -4,7 +4,7 @@ namespace Safewalks\Controllers;
 
 class Heatmap {
 
-    static function get_heat($cell, $start_time, $end_time) {
+    static function getHeat($cell, $start_time, $end_time) {
         $ret = Safewalks\Repository\TripCell::select([
             'coord_x' =>  $cell['x'], 
             'coord_y' =>  $cell['y'], 

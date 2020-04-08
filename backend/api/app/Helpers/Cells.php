@@ -4,7 +4,7 @@ namespace Safewalks\Helpers;
 
 class Cells {
 
-    static function pos_to_cell($pos) {
+    static function posToCell($pos) {
         global $CNF;
 
         $cell = [];
@@ -15,7 +15,7 @@ class Cells {
         return $cell;
     }
 
-    static function cell_to_pos($cell) {
+    static function cellToPos($cell) {
         global $CNF;
 
         $pos = [];
