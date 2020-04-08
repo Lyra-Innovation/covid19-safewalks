@@ -19,6 +19,5 @@ class AuthToken {
         if(!$result) throw new \Exception("Unauthorized", 401);;
         
         $ME = Token::getPayload($token, $CNF["auth_secret"])["user_id"];
-        print_r($ME);
     }
 }
