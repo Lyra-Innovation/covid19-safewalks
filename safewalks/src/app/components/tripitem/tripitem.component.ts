@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TripItemInfo } from '../tripiteminfo';
+import { TripItemInfo } from '../../tripiteminfo';
 
 @Component({
   selector: 'app-tripitem',
