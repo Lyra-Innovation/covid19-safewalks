@@ -1,6 +1,6 @@
 <?php
 
-$CNF["host"] = 'db';
-$CNF["user"] = 'admin';
-$CNF["password"] = 'test';
-$CNF["database"] = 'database';
+$CNF["db_host"] = 'db';
+$CNF["db_user"] = 'admin';
+$CNF["db_password"] = 'test';
+$CNF["db_database"] = 'database';
