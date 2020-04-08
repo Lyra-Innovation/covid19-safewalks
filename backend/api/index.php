@@ -4,6 +4,10 @@ use Safewalks\Helpers\Database;
 use Safewalks\Helpers\AuthToken;
 use Safewalks\Controllers\Auth;
 
+//headers Access-control
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers: *');
+
 // safe check, we are an api only accepting post methods
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     die();

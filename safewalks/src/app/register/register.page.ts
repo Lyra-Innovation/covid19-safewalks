@@ -9,12 +9,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-  credentials = {
+  user_data = {
     name: '',
-    surnames: '',
+    surname1: '',
+    surname2: '',
     dni: '',
     pw: '',
-    pw2: ''
+    pw2: '',
+    email: '',
+    city: ''
   };
 
   constructor(
@@ -27,16 +30,18 @@ export class RegisterPage implements OnInit {
   }
 
   register() {
-    this.auth.register(this.credentials).subscribe(async res => {
+    this.auth.register(this.user_data).subscribe(async res => {
       if (res) {
-        this.router.navigateByUrl('/app');
+        this.auth.login({dni: this.user_data.dni, pw: this.user_data.pw}).subscribe(async res => {
+          this.router.navigateByUrl('/app');
+        });
       } else {
-        /*const alert = await this.alertCtrl.create({
-          header: 'Login Failed',
-          message: 'Wrong credentials.',
+        const alert = await this.alertCtrl.create({
+          header: 'Register error',
+          message: 'User with DNI ' + this.user_data.dni + ' exists',
           buttons: ['OK']
         });
-        await alert.present();*/
+        await alert.present();
       }
     });
   }

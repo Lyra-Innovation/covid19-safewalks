@@ -4,7 +4,8 @@ import { Storage } from '@ionic/storage';
 import { BehaviorSubject, Observable, from, of } from 'rxjs';
 import { take, map, switchMap } from 'rxjs/operators';
 import { JwtHelperService } from "@auth0/angular-jwt";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { catchError } from 'rxjs/operators'
 import { Router } from '@angular/router';
  
 const helper = new JwtHelperService();
@@ -40,47 +41,53 @@ export class AuthService {
   }
  
   login(credentials: {dni: string, pw: string }) {
-    if (credentials.dni != '48038617N' || credentials.pw != '123') {
-      return of(null);
-    }
-
-    return this.http.get('https://randomuser.me/api/').pipe(
-      take(1),
-      map(res => {
-        // Extract the JWT, here we just fake it
-        return `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE1Njc2NjU3MDYsImV4cCI6MTU5OTIwMTcwNiwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoiMTIzNDUiLCJmaXJzdF9uYW1lIjoiU2ltb24iLCJsYXN0X25hbWUiOiJHcmltbSIsImVtYWlsIjoic2FpbW9uQGRldmRhY3RpYy5jb20ifQ.4LZTaUxsX2oXpWN6nrSScFXeBNZVEyuPxcOkbbDVZ5U`;
+    return this.http.post('http://localhost', {
+      "classname" : "Auth",
+      "func" : "login",
+      "params": {
+        "nif": credentials.dni,
+        "password": credentials.pw
+      }
+    }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        return of(null);
       }),
-      switchMap(token => {
-        let decoded = helper.decodeToken(token);
-        this.userData.next(decoded);
- 
-        let storageObs = from(this.storage.set('token', token));
-        return storageObs;
+      map(resp => {
+        if(resp) {
+          let decoded = helper.decodeToken(resp.data.token);
+          this.userData.next(decoded);
+          let storageObs = from(this.storage.set('token', resp.data.token));
+          return storageObs;
+        }
       })
     );
   }
 
-  register(credentials: {dni: string, pw: string }) {
-    if (credentials.dni != '48038617N' || credentials.pw != '123') {
-      return of(null);
-    }
-
-    return this.http.get('https://randomuser.me/api/').pipe(
-      take(1),
-      map(res => {
-        // Extract the JWT, here we just fake it
-        return `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE1Njc2NjU3MDYsImV4cCI6MTU5OTIwMTcwNiwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoiMTIzNDUiLCJmaXJzdF9uYW1lIjoiU2ltb24iLCJsYXN0X25hbWUiOiJHcmltbSIsImVtYWlsIjoic2FpbW9uQGRldmRhY3RpYy5jb20ifQ.4LZTaUxsX2oXpWN6nrSScFXeBNZVEyuPxcOkbbDVZ5U`;
+  register(usr_data: {dni: string, email: string, name: string, surname1: string, surname2: string, city: string, pw: string }) {
+    return this.http.post('http://localhost', {
+      "classname" : "Auth",
+      "func" : "register",
+      "params": {
+        "nif": usr_data.dni,
+		    "email" : usr_data.email,
+        "name" : usr_data.name,
+        "surname1": usr_data.surname1,
+        "surname2": usr_data.surname2,
+        "city": usr_data.city,
+        "password": usr_data.pw,
+      }
+    }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        return of(null);
       }),
-      switchMap(token => {
-        let decoded = helper.decodeToken(token);
-        this.userData.next(decoded);
- 
-        let storageObs = from(this.storage.set('token', token));
-        return storageObs;
+      map(resp => {
+        if(resp) {
+          return of(true);
+        }
       })
     );
   }
- 
+
   getUser() {
     return this.userData.getValue();
   }

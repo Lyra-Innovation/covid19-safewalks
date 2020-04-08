@@ -5,9 +5,41 @@
 </ion-header>
 
 <ion-content>
+    <ion-grid>
+      <ion-row justify-content-center>
+        <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+          <div text-center>
+            <h4>Dades de perfil</h4>
+          </div>
+          <br/>
+          <div padding>
+            <ion-item>
+                <ion-label>DNI</ion-label>
+                <ion-label>{{user.nif}}</ion-label>
+            </ion-item>
 
-    {{ user.email }} - {{ user.first_name }} {{ user.last_name }}
+            <ion-item>
+                <ion-label>Correu</ion-label>
+                <ion-label>{{user.email}}</ion-label>
+            </ion-item>
 
-    <ion-button (click)="logout()" expand="block">LOGOUT</ion-button>
+            <ion-item>
+                <ion-label>Nom complert</ion-label>
+                <ion-label>{{user.name}} {{user.surname1}} {{user.surname2}}</ion-label>
+            </ion-item>
 
-</ion-content>
+            <ion-item>
+                <ion-label>Ciutat</ion-label>
+                <ion-label>{{user.city}}</ion-label>
+            </ion-item>
+
+          </div>
+          <br/><br/>
+          <div padding>
+            <ion-button size="large" (click)="logout()" expand="block">Tancar sessió</ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+  
