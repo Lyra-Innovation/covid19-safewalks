@@ -45,11 +45,17 @@ abstract class BaseRepository {
         return $sql;
     }
 
+    static function sqlType($value) {
+        if(gettype($value) == "string") return "'" . $value . "'";
+        return $value;
+    }
+
     static function select($arrayFields) {
         $sql = "SELECT * FROM " . static::$tablename;
 
         if(count($arrayFields) > 0) {
             $sql .= BaseRepository::constructString($arrayFields, " WHERE  ", ";", " AND ", function($key, $value) {
+                if(gettype($value) == "array") return $key . " " . $value["op"] . " '" . self::$sqlType($value["value"]) ."'";
                 return $key . " = '" . $value ."'";
             });
         }
@@ -74,7 +80,7 @@ abstract class BaseRepository {
             });
 
             $sql .= BaseRepository::constructString(" VALUES (", ")", ", ", function($key, $value) {
-                return $value;
+                return self::$sqlType($value["value"]);
             });
         }
     }

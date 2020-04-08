@@ -14,7 +14,7 @@ class User {
     }
 
     static function getUser($params) {
-        $ret = UserRepository::selectFirst(['nif' => $params['nif']]);
+        $ret = UserRepository::selectFirst(['id' => $params['id']]);
         return $ret;
     }
 
