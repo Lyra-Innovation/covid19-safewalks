@@ -4,7 +4,7 @@ namespace Safewalks\Controllers;
 
 use \Safewalks\Repository\User;
 
-class Trip {
+class Trip extends BaseController {
     static function createTrip($params) {
         $ret = [];
 

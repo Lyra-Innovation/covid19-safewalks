@@ -7,7 +7,21 @@ abstract class BaseRepository {
     static protected $tablename = "";
     static protected $excludes = [];
 
-    static function executeSelect($sql) {
+    static function execute($sql) {
+        global $DB, $CNF;
+        
+        $result = $DB->query($sql);
+        if(!$result) {
+
+            $errorText = $CNF['debug'] ? $DB->error : "Invalid query";
+
+            throw new \Exception($errorText, 400);
+        }
+
+        return $result;
+    }
+
+    static function executeSelect($sql, $excludes = true) {
         global $DB;
 
         $result = $DB->query($sql);
@@ -16,8 +30,10 @@ abstract class BaseRepository {
 
         $ret = [];
         while ($row = $result->fetch_assoc()) {
-            foreach(self::$excludes as $exclude) {
-                unset($row[$exclude]);
+            if($excludes) {
+                foreach(static::$excludes as $exclude) {
+                    unset($row[$exclude]);
+                }
             }
             $ret[] = $row;
         }
@@ -46,25 +62,27 @@ abstract class BaseRepository {
     }
 
     static function sqlType($value) {
-        if(gettype($value) == "string") return "'" . $value . "'";
+        global $DB;
+
+        if(gettype($value) == "string") return "'" . $DB->real_escape_string($value) . "'";
         return $value;
     }
 
-    static function select($arrayFields) {
+    static function select($arrayFields, $excludes = true) {
         $sql = "SELECT * FROM " . static::$tablename;
 
         if(count($arrayFields) > 0) {
             $sql .= BaseRepository::constructString($arrayFields, " WHERE  ", ";", " AND ", function($key, $value) {
-                if(gettype($value) == "array") return $key . " " . $value["op"] . " '" . self::$sqlType($value["value"]) ."'";
+                if(gettype($value) == "array") return $key . " " . $value["op"] . " '" . self::sqlType($value["value"]) ."'";
                 return $key . " = '" . $value ."'";
             });
         }
 
-        return self::executeSelect($sql);
+        return self::executeSelect($sql, $excludes);
     }
 
-    static function selectFirst($arrayFields) {        
-        $result = self::select($arrayFields);
+    static function selectFirst($arrayFields, $excludes = true) {        
+        $result = self::select($arrayFields, $excludes);
 
         if(!$result) return false;
         return $result[0];
@@ -79,15 +97,18 @@ abstract class BaseRepository {
                 return $key;
             });
 
-            $sql .= BaseRepository::constructString(" VALUES (", ")", ", ", function($key, $value) {
-                return self::$sqlType($value["value"]);
+            $sql .= BaseRepository::constructString($arrayFields, " VALUES (", ")", ", ", function($key, $value) {
+                return self::sqlType($value);
             });
         }
+
+        return self::execute($sql, $excludes);
     }
 
     static function update($arrayFields) {
     }
 
     static function delete($arrayFields) {
+
     }
 }

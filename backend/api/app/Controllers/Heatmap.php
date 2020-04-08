@@ -2,7 +2,7 @@
 
 namespace Safewalks\Controllers;
 
-class Heatmap {
+class Heatmap extends BaseController {
 
     static function getHeat($cell, $start_time, $end_time) {
         $ret = Safewalks\Repository\TripCell::select([

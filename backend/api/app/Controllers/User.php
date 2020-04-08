@@ -4,17 +4,12 @@ namespace Safewalks\Controllers;
 
 use \Safewalks\Repository\User as UserRepository;
 
-class User {
-    static function createUser($params) {
-
-        $params["password"] = password_hash($params["password"]);
-
-        $ret = UserRepository::selectFirst(['nif' =>  'adi']);
-        return $ret;
-    }
+class User extends BaseController {
 
     static function getUser($params) {
-        $ret = UserRepository::selectFirst(['id' => $params['id']]);
+        global $ME;
+
+        $ret = UserRepository::selectFirst(['id' => $ME]);
         return $ret;
     }
 
