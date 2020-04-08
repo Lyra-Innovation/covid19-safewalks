@@ -3,5 +3,7 @@
 namespace Safewalks\Repository;
 
 class User extends BaseRepository {
-    protected $tablename = "User";
+    static protected $tablename = "User";
+    
+    static protected $excludes = ["password"];
 }
