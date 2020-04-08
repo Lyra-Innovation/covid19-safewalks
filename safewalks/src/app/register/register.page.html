@@ -8,5 +8,39 @@
 </ion-header>
 
 <ion-content>
-registeerr
+  <ion-grid>
+    <ion-row justify-content-center>
+      <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+        <div text-center>
+          <h4>Registre d'usuari</h4>
+        </div>
+        <br/>
+        <div padding>
+          <ion-item>
+            <ion-input type="text" placeholder="Name" name="name" [(ngModel)]="credentials.name"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input type="text" placeholder="Surnames" name="surnames" [(ngModel)]="credentials.surnames"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input type="text" placeholder="DNI" name="dni" [(ngModel)]="credentials.dni"></ion-input>
+          </ion-item>
+  
+          <ion-item>
+            <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="credentials.pw"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input type="password" placeholder="Repeat password" name="password2" [(ngModel)]="credentials.pw2"></ion-input>
+          </ion-item>
+        </div>
+        <br/><br/>
+        <div padding>
+          <ion-button size="large" (click)="register()" expand="block">Register</ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

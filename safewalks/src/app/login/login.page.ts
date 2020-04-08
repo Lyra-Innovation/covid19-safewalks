@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginPage implements OnInit {
   credentials = {
-    dni: '48038617N',
+    dni: '',
     pw: ''
   };
 
