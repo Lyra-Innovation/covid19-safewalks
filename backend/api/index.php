@@ -1,26 +1,36 @@
 <?php
 
+use Safewalks\Helpers\Database;
+
+// safe check, we are an api only accepting post methods
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    die();
+}
+
+//libs
+require_once('vendor/autoload.php');
+require_once("config/autoload.php");
+
 global $DB;
 global $CNF;
-
-require_once("config/autoload.php");
-require_once("helpers/database.php");
-require_once("controllers/autoload.php");
 
 header('Content-Type: application/json');
 
 $inputJSON = file_get_contents('php://input');
 $input = json_decode($inputJSON, TRUE);
 
-db_connect();
+Database::connect();
 
 try {
-    $data = $input["func"]($input["params"]);
+    $class = "Safewalks\Controllers\\" . $input["classname"];
+    $func = $input["func"];
+    $data = $class::$func($input["params"]);
+    $response = ["status" => 0, "data" => $data];
 }
 catch(Exception $e) {
-    print_r($e);
+    $response = [ "status" =>  1, "data" => $e->getMessage(), "stacktrace" => $e->getTraceAsString()];
 }
 
-db_disconnect();
+Database::disconnect();
 
-echo json_encode($data);
+echo json_encode($response);

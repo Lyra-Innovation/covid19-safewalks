@@ -11,6 +11,7 @@ export class HeatmapPage {
 
   map: Map;
   locationMarker: any;
+  selectedDate: Date;
 
   constructor(private geolocation: Geolocation) {
     this.geolocation.getCurrentPosition().then((resp) => {
@@ -27,7 +28,7 @@ export class HeatmapPage {
 
   loadMap(lat, long) {
     if (this.map != undefined) { this.map.remove(); }
-    this.map = new Map('map').setView([lat, long], 16);
+    this.map = new Map('map', {drawControl: true}).setView([lat, long], 16);
     this.map.invalidateSize();
 
     tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
@@ -52,13 +53,17 @@ export class HeatmapPage {
         opacity: 1,
         icon: myIcon
         }).addTo(this.map);
-      this.locationMarker.bindPopup("Vostè està aquí").openPopup();
+      this.locationMarker.bindPopup("Vostè és aquí");
     });
   }
 
   /** Remove map when we have multiple map object */
   ionViewWillLeave() {
     //this.map.remove();
+  }
+
+  dateSelected(event) {
+    this.selectedDate = event.detail.value;
   }
 
   paintHeatmap() {

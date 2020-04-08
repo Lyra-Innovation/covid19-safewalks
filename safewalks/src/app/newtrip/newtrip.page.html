@@ -1,11 +1,19 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>newtrip</ion-title>
+        <div class="flexrow">
+            <ion-title>
+                Nova sortida
+            </ion-title>
+            <ion-button class="header-button" expand="block" routerLink="/" routerDirection="back">
+                Tornar
+            </ion-button>
+        </div>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-    <canvas #myCanvas (touchstart)="handleStart($event)" (touchmove)="handleMove($event)"></canvas>
+    <div id="map"></div>
+    <canvas #pathDrawer (mousedown)="startDrawing($event)" (touchstart)="startDrawing($event)" (touchmove)="moved($event)" (mousemove)="moved($event)" (mouseup)="endDrawing()" (touchend)="endDrawing()"></canvas>
 
 </ion-content>
