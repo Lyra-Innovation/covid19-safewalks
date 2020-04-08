@@ -4,52 +4,90 @@ namespace Safewalks\Repository;
 
 abstract class BaseRepository {
 
-    protected static $tablename = null;
+    static protected $tablename = "";
+    static protected $excludes = [];
 
-    static function execute($sql) {
+    static function executeSelect($sql) {
         global $DB;
-        return $DB->query($sql);
+
+        $result = $DB->query($sql);
+
+        if(!$result) return false;
+
+        $ret = [];
+        while ($row = $result->fetch_assoc()) {
+            foreach(self::$excludes as $exclude) {
+                unset($row[$exclude]);
+            }
+            $ret[] = $row;
+        }
+
+        
+        return $ret;
+    }
+
+    static function constructString($arrayFields, $start, $end, $middleNotFirst, $keyValueFunction) {
+        $sql = $start;
+
+        $first = true;
+        foreach ($arrayFields as $key => $value) {
+            
+            if(!$first) {
+                $sql .= $middleNotFirst;
+            }
+            $first = false;
+
+            $sql .= $keyValueFunction($key, $value);
+        }
+
+        $sql .= $end;
+
+        return $sql;
+    }
+
+    static function sqlType($value) {
+        if(gettype($value) == "string") return "'" . $value . "'";
+        return $value;
     }
 
     static function select($arrayFields) {
-        global $DB;
-        
-        $sql = "SELECT * FROM " . $self::$tablename;
+        $sql = "SELECT * FROM " . static::$tablename;
 
         if(count($arrayFields) > 0) {
-            $sql .= " WHERE ";
-            $first = true;
-            foreach ($arrayFields as $key => $value) {
-                
-                if(!$first) {
-                    $sql .= " AND ";
-                }
-                $first = false;
-
-                $sql .= $key . " = " . $value;
-            }
-            
+            $sql .= BaseRepository::constructString($arrayFields, " WHERE  ", ";", " AND ", function($key, $value) {
+                if(gettype($value) == "array") return $key . " " . $value["op"] . " '" . self::$sqlType($value["value"]) ."'";
+                return $key . " = '" . $value ."'";
+            });
         }
 
-        return self::execute($sql);
-
+        return self::executeSelect($sql);
     }
 
-    static function selectFirst($arrayFields) {
-        global $DB;
+    static function selectFirst($arrayFields) {        
+        $result = self::select($arrayFields);
 
-        return self::execute($sql)[0];
+        if(!$result) return false;
+        return $result[0];
     }
 
     static function insert($arrayFields) {
-        global $DB;
+        $sql = "INSERT INTO " . static::$tablename;
+
+        if(count($arrayFields) > 0) {
+
+            $sql .= BaseRepository::constructString($arrayFields, " (", ")", ", ", function($key, $value) {
+                return $key;
+            });
+
+            $sql .= BaseRepository::constructString(" VALUES (", ")", ", ", function($key, $value) {
+                return self::$sqlType($value["value"]);
+            });
+        }
     }
 
     static function update($arrayFields) {
-        global $DB;
     }
 
     static function delete($arrayFields) {
-        global $DB;
     }
 }

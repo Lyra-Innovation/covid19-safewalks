@@ -25,11 +25,12 @@ try {
     $class = "Safewalks\Controllers\\" . $input["classname"];
     $func = $input["func"];
     $data = $class::$func($input["params"]);
+    $response = ["status" => 0, "data" => $data];
 }
 catch(Exception $e) {
-    print_r($e);
+    $response = [ "status" =>  1, "data" => $e->getMessage(), "stacktrace" => $e->getTraceAsString()];
 }
 
 Database::disconnect();
 
-echo json_encode($data);
+echo json_encode($response);

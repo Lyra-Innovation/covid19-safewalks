@@ -3,5 +3,5 @@
 namespace Safewalks\Repository;
 
 class TripCell extends BaseRepository {
-    protected $tablename = "TripCell";
+    static protected $tablename = "TripCell";
 }

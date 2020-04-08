@@ -3,5 +3,5 @@
 namespace Safewalks\Repository;
 
 class Trip extends BaseRepository {
-    protected $tablename = "Trip";
+    static protected $tablename = "Trip";
 }
