@@ -1,3 +1,47 @@
 {
-    "test": "es test"
+    "profile": {
+        "title": "Perfil",
+        "subtitle": "Datos de perfil",
+        "dni": "DNI",
+        "email": "Correo",
+        "fullname": "Nombre completo",
+        "city": "Ciudad",
+        "close": "Cerrar sesión"
+    },
+    "heatmap": {
+        "title": "Mapa de calor",
+        "datepicker": "Selecciona una hora"
+    },
+    "trips": {
+        "title": "Salidas",
+        "add_trip": "Añadir salida"
+    },
+    "newtrip": {
+        "title": "Nueva salida",
+        "back": "Volver"
+    },
+    "tabs": {
+        "trips": "Salidas",
+        "heatmap": "Mapa de calor",
+        "profile": "Perfil"
+    },
+    "register": {
+        "title": "Registro",
+        "subtitle": "Registro de usuario",
+        "dni": "DNI",
+        "name": "Nombre",
+        "surname1": "Primer apellido",
+        "surname2": "Segundo apellido",
+        "email": "Correo",
+        "city": "Ciudad",
+        "password": "Contraseña"
+    },
+    "login": {
+        "title": "Inicio de sesión",
+        "subtitle": "¡Bienvenido a Safewalks!",
+        "dni": "DNI",
+        "password": "Contraseña",
+        "login": "Entrar",
+        "register": "Registrarse"
+    }
 }

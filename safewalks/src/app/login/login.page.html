@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Inici de sessió</ion-title>
+    <ion-title>{{'login.title' | translate}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -9,24 +9,24 @@
     <ion-row justify-content-center>
       <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
         <div text-center>
-          <h4>Benvingut a Safewalks!</h4>
+          <h4>{{'login.subtitle' | translate}}</h4>
         </div>
         <br/>
         <div padding>
           <form>
           <ion-item>
-            <ion-input type="text" placeholder="DNI" name="dni" [(ngModel)]="credentials.dni" required pattern="((([X-Z])|([LM])){1}([-]?)((\d){7})([-]?)([A-Z]{1}))|((\d{8})([-]?)([A-Z]))"></ion-input>
+            <ion-input type="text" placeholder="{{'login.dni' | translate}}" name="dni" [(ngModel)]="credentials.dni" required pattern="((([X-Z])|([LM])){1}([-]?)((\d){7})([-]?)([A-Z]{1}))|((\d{8})([-]?)([A-Z]))"></ion-input>
           </ion-item>
   
           <ion-item>
-            <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="credentials.pw" required minlength="5"></ion-input>
+            <ion-input type="password" placeholder="{{'login.password' | translate}}" name="password" [(ngModel)]="credentials.pw" required minlength="5"></ion-input>
           </ion-item>
         </form>
         </div>
         <br/><br/>
         <div padding>
-          <ion-button size="large" (click)="login()" expand="block">Login</ion-button>
-          <ion-button color="secondary" routerLink="/register" routerDirection="forward" expand="block">Register</ion-button>
+          <ion-button size="large" (click)="login()" expand="block">{{'login.login' | translate}}</ion-button>
+          <ion-button color="secondary" routerLink="/register" routerDirection="forward" expand="block">{{'login.register' | translate}}</ion-button>
         </div>
       </ion-col>
     </ion-row>
