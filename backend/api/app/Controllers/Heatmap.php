@@ -12,19 +12,17 @@ class Heatmap extends BaseController {
 
         $cell = Cells::posToCell($params["cell"]);
 
-        print_r($cell);
+        $start_time = date("Y-m-d H:i:s", $params["start_time"]);
+        $end_time = date("Y-m-d H:i:s", $params["end_time"]);
 
-        $start_time = $params["start_time"];
-        $celend_time = $params["end_time"];
-
-        $ret = TripCell::select([
+        $ret = TripCell::selectCount([
             'coord_x' =>  $cell['x'], 
-            'coord_y' =>  $cell['y'], 
+            'coord_y' =>  $cell['y'],
             'timestamp1' => ['key' => 'timestamp', 'value' => $start_time, 'op' => '>='],
             'timestamp2' => ['key' => 'timestamp', 'value' => $end_time, 'op' => '<=']
         ]);
 
-        return min(count($ret) / $CNF['map_max_heat'], 1);
+        return min($ret / $CNF['map_max_heat'], 1);
     }
 
     static function getHeatMapZoom() {
