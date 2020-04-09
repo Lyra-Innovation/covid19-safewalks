@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { ApiService } from '../services/api.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile',
@@ -12,15 +13,14 @@ export class ProfilePage {
 
   constructor(
     private auth: AuthService,
-    private http: HttpClient
-  ) { }
+    private api: ApiService,
+    translate: TranslateService
+  ) {
+    translate.setDefaultLang('es');
+  }
  
   ionViewWillEnter() {
-    this.http.post('http://localhost', {
-      "classname" : "User",
-      "func" : "getUser",
-      "params": {}
-    }).subscribe({
+    this.api.post('User', 'getUser').subscribe({
       next: (resp: {data: object}) => {
         this.user = resp.data;
         console.log(this.user)

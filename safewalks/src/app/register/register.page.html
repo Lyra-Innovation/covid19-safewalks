@@ -17,15 +17,15 @@
         <br/>
         <div padding>
           <ion-item>
-            <ion-input type="text" placeholder="DNI" name="dni" [(ngModel)]="user_data.dni"></ion-input>
+            <ion-input type="text" placeholder="DNI" name="dni" [(ngModel)]="user_data.dni" required pattern="((([X-Z])|([LM])){1}([-]?)((\d){7})([-]?)([A-Z]{1}))|((\d{8})([-]?)([A-Z]))"></ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-input type="text" placeholder="Name" name="name" [(ngModel)]="user_data.name"></ion-input>
+            <ion-input type="text" placeholder="Name" name="name" [(ngModel)]="user_data.name" required></ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-input type="text" placeholder="First surname" name="surname1" [(ngModel)]="user_data.surname1"></ion-input>
+            <ion-input type="text" placeholder="First surname" name="surname1" [(ngModel)]="user_data.surname1" required></ion-input>
           </ion-item>
 
           <ion-item>
@@ -33,19 +33,15 @@
           </ion-item>
 
           <ion-item>
-            <ion-input type="text" placeholder="Email" name="email" [(ngModel)]="user_data.email"></ion-input>
+            <ion-input type="email" placeholder="Email" name="email" [(ngModel)]="user_data.email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" ></ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-input type="text" placeholder="City" name="city" [(ngModel)]="user_data.city"></ion-input>
+            <ion-input type="text" placeholder="City" name="city" [(ngModel)]="user_data.city" required></ion-input>
           </ion-item>
   
           <ion-item>
-            <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="user_data.pw"></ion-input>
-          </ion-item>
-
-          <ion-item>
-            <ion-input type="password" placeholder="Repeat password" name="password2" [(ngModel)]="user_data.pw2"></ion-input>
+            <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="user_data.pw" required minlength="5"></ion-input>
           </ion-item>
         </div>
         <br/><br/>

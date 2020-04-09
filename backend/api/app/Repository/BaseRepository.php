@@ -68,17 +68,29 @@ abstract class BaseRepository {
         return $value;
     }
 
-    static function select($arrayFields, $excludes = true) {
-        $sql = "SELECT * FROM " . static::$tablename;
-
+    static function privateSelect($sql, $arrayFields, $excludes = true, $extra = []) {
         if(count($arrayFields) > 0) {
-            $sql .= BaseRepository::constructString($arrayFields, " WHERE  ", ";", " AND ", function($key, $value) {
-                if(gettype($value) == "array") return $key . " " . $value["op"] . " '" . self::sqlType($value["value"]) ."'";
-                return $key . " = '" . $value ."'";
+            $sql .= BaseRepository::constructString($arrayFields, " WHERE  ", "", " AND ", function($key, $value) {
+                if(gettype($value) == "array") return $value["key"] . " " . $value["op"] . " " . self::sqlType($value["value"]);
+                return $key . " = " . self::sqlType($value);
             });
         }
 
+        if(isset($extra["order"])) {
+            $sql .= "ORDER BY " . $extra["order"];
+        }
+
         return self::executeSelect($sql, $excludes);
+    }
+
+    static function select($arrayFields, $excludes = true, $extra = []) {
+        $sql = "SELECT * FROM " . static::$tablename;
+        return self::privateSelect($sql, $arrayFields, $excludes = true, $extra);
+    }
+
+    static function selectCount($arrayFields, $excludes = true, $orderBy = '') {
+        $sql = "SELECT COUNT(*) FROM " . static::$tablename;
+        return self::privateSelect($sql, $arrayFields, $excludes = true, $extra);
     }
 
     static function selectFirst($arrayFields, $excludes = true) {        

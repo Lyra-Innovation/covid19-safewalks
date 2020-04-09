@@ -14,13 +14,34 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { TokenInterceptor } from './interceptors/token.interceptor';
-import { ValidNIFDirective } from './valid-nif.directive';
+
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient } from '@angular/common/http';
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
+}
 
 
 @NgModule({
-  declarations: [AppComponent, ValidNIFDirective],
+  declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot(), HttpClientModule],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    IonicStorageModule.forRoot(),
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    }),
+  ],
+  exports: [TranslateModule],
   providers: [
     StatusBar,
     SplashScreen,

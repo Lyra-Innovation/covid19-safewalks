@@ -7,7 +7,7 @@ use ReallySimpleJWT\Token;
 
 class Auth extends BaseController {
 
-    static public $public = ["register", "login"];
+    static public $public = ["register", "login", "validate"];
 
     static function register($params) {
         global $CNF;
@@ -33,6 +33,12 @@ class Auth extends BaseController {
 
         $ret["token"] = Token::create($user["id"], $CNF["auth_secret"], $CNF["auth_expiration"], $CNF["auth_issuer"]);
         return $ret;
+    }
+
+    static function validate($params) {
+        global $CNF;
+
+        return ["token" => Token::validate($params["token"], $CNF["auth_secret"])];
     }
 
 }
