@@ -14,11 +14,10 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { TokenInterceptor } from './interceptors/token.interceptor';
-import { ValidNIFDirective } from './valid-nif.directive';
 
 
 @NgModule({
-  declarations: [AppComponent, ValidNIFDirective],
+  declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot(), HttpClientModule],
   providers: [

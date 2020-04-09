@@ -7,7 +7,8 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators'
 import { Router } from '@angular/router';
- 
+import { ApiService } from './api.service';
+
 const helper = new JwtHelperService();
 
 @Injectable({
@@ -17,7 +18,12 @@ export class AuthService {
   public user: Observable<any>;
   private userData = new BehaviorSubject(null);
  
-  constructor(private storage: Storage, private http: HttpClient, private plt: Platform, private router: Router) { 
+  constructor(
+    private storage: Storage,
+    private plt: Platform,
+    private router: Router,
+    private api: ApiService
+  ) { 
     this.loadStoredToken();  
   }
  
@@ -41,13 +47,9 @@ export class AuthService {
   }
  
   login(credentials: {dni: string, pw: string }) {
-    return this.http.post('http://localhost', {
-      "classname" : "Auth",
-      "func" : "login",
-      "params": {
-        "nif": credentials.dni,
-        "password": credentials.pw
-      }
+    return this.api.post('Auth', 'login', {
+      "nif": credentials.dni,
+      "password": credentials.pw
     }).pipe(
       catchError((error: HttpErrorResponse) => {
         return of(null);
@@ -64,18 +66,14 @@ export class AuthService {
   }
 
   register(usr_data: {dni: string, email: string, name: string, surname1: string, surname2: string, city: string, pw: string }) {
-    return this.http.post('http://localhost', {
-      "classname" : "Auth",
-      "func" : "register",
-      "params": {
-        "nif": usr_data.dni,
-		    "email" : usr_data.email,
-        "name" : usr_data.name,
-        "surname1": usr_data.surname1,
-        "surname2": usr_data.surname2,
-        "city": usr_data.city,
-        "password": usr_data.pw,
-      }
+    return this.api.post('Auth', 'register', {
+      "nif": usr_data.dni,
+      "email" : usr_data.email,
+      "name" : usr_data.name,
+      "surname1": usr_data.surname1,
+      "surname2": usr_data.surname2,
+      "city": usr_data.city,
+      "password": usr_data.pw,
     }).pipe(
       catchError((error: HttpErrorResponse) => {
         return of(null);
