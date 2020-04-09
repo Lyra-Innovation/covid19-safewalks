@@ -11,8 +11,6 @@ use \Safewalks\Repository\TripCell as TripCellRepository;
 class Trip extends BaseController {
     static function createTrip($params) {
         $ret = [];
-
-        $ret["user"] = User::selectFirst(['nif' =>  'adi']);
         
         return $ret;
     }
@@ -28,6 +26,12 @@ class Trip extends BaseController {
             $trip["trip_cells"] = TripCellRepository::select(['id_trip' =>  $trip['id']]);
         }
 
+        return $ret;
+    }
+
+    static function deleteTrip($params) {
+        global $ME;
+        // TODO
         return $ret;
     }
 
