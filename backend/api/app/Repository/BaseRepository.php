@@ -24,8 +24,6 @@ abstract class BaseRepository {
     static function executeSelect($sql, $excludes = true) {
         global $DB;
 
-        print($sql);
-
         $result = $DB->query($sql);
 
         if(!$result) return false;
@@ -74,10 +72,14 @@ abstract class BaseRepository {
         $sql = "SELECT * FROM " . static::$tablename;
 
         if(count($arrayFields) > 0) {
-            $sql .= BaseRepository::constructString($arrayFields, " WHERE  ", ";", " AND ", function($key, $value) {
+            $sql .= BaseRepository::constructString($arrayFields, " WHERE  ", "", " AND ", function($key, $value) {
                 if(gettype($value) == "array") return $key . " " . $value["op"] . " '" . self::sqlType($value["value"]) ."'";
                 return $key . " = '" . $value ."'";
             });
+        }
+
+        if($orderBy != '') {
+            $sql .= "ORDER BY " . $orderBy;
         }
 
         return self::executeSelect($sql, $excludes);
