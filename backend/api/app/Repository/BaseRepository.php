@@ -24,6 +24,8 @@ abstract class BaseRepository {
     static function executeSelect($sql, $excludes = true) {
         global $DB;
 
+        print($sql);
+
         $result = $DB->query($sql);
 
         if(!$result) return false;
@@ -68,7 +70,7 @@ abstract class BaseRepository {
         return $value;
     }
 
-    static function select($arrayFields, $excludes = true) {
+    static function select($arrayFields, $excludes = true, $orderBy = '') {
         $sql = "SELECT * FROM " . static::$tablename;
 
         if(count($arrayFields) > 0) {

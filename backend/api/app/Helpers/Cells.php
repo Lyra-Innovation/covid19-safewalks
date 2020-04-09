@@ -8,9 +8,9 @@ class Cells {
         global $CNF;
 
         $cell = [];
-        $cell['x'] = $CNF["map_constant"] * ($pos['lon'] / 360.0 + 0.5);
+        $cell['x'] = floor($CNF["map_constant"] * ($pos['lon'] / 360.0 + 0.5));
         $a = $pos['lat'] * pi() / 180.0;
-        $cell['y'] = $CNF["map_constant"] * (1 - (log(tan($a) + 1.0/cos($a)) / pi())) * 0.5;
+        $cell['y'] = floor($CNF["map_constant"] * (1 - (log(tan($a) + 1.0/cos($a)) / pi())) * 0.5);
 
         return $cell;
     }
