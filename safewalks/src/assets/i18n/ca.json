@@ -1,0 +1,47 @@
+{
+    "profile": {
+        "title": "Perfil",
+        "subtitle": "Dades de perfil",
+        "dni": "DNI",
+        "email": "Correu",
+        "fullname": "Nom complert",
+        "city": "Ciutat",
+        "close": "Tancar sessió"
+    },
+    "heatmap": {
+        "title": "Mapa de calor",
+        "datepicker": "Selecciona una hora"
+    },
+    "trips": {
+        "title": "Sortides",
+        "add_trip": "Afegir sortida"
+    },
+    "newtrip": {
+        "title": "Nova sortida",
+        "back": "Tornar"
+    },
+    "tabs": {
+        "trips": "Sortides",
+        "heatmap": "Mapa de calor",
+        "profile": "Perfil"
+    },
+    "register": {
+        "title": "Registre",
+        "subtitle": "Registre d'usuari",
+        "dni": "DNI",
+        "name": "Nom",
+        "surname1": "Primer cognom",
+        "surname2": "Segon cognom",
+        "email": "Correu",
+        "city": "Ciutat",
+        "password": "Contrasenya"
+    },
+    "login": {
+        "title": "Inici de sessió",
+        "subtitle": "Benvingut a Safewalks!",
+        "dni": "DNI",
+        "password": "Contrasenya",
+        "login": "Entrar",
+        "register": "Registrar-se"
+    }
+}

@@ -1,6 +1,6 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { Platform, ToastController } from '@ionic/angular';
-import { Map, latLng, tileLayer, Layer, marker, icon } from 'leaflet';
+import * as L from 'leaflet';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @Component({
@@ -8,11 +8,12 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
   templateUrl: './newtrip.page.html',
   styleUrls: ['./newtrip.page.scss'],
 })
-export class NewtripPage implements AfterViewInit{
+export class NewtripPage implements OnInit, AfterViewInit {
 
-  map: Map;
+  map: L.Map;
   locationMarker: any;
   selectedDate: Date;
+  transportMode: string = "walk";
 
   @ViewChild('pathDrawer', { static: false }) canvas: any;
   canvasElement: any;
@@ -24,7 +25,9 @@ export class NewtripPage implements AfterViewInit{
   drawing = false;
   lineWidth = 5;
  
-  constructor(private geolocation: Geolocation, private plt: Platform, private toastCtrl: ToastController) {
+  constructor(private geolocation: Geolocation, private plt: Platform, private toastCtrl: ToastController) {}
+
+  ngOnInit(): void {
     this.geolocation.getCurrentPosition().then((resp) => {
       this.loadMap(resp.coords.latitude, resp.coords.longitude);
       this.locatePosition();
@@ -35,20 +38,28 @@ export class NewtripPage implements AfterViewInit{
     });
   }
 
+  dateSelected(event) {
+    this.selectedDate = event.detail.value;
+  }
+
+  transportModeSelected(event) {
+    this.transportMode = event.detail.value;
+  }
+
   //MAP FUNCTIONS
   
   loadMap(lat, long) {
     if (this.map != undefined) { this.map.remove(); }
-    this.map = new Map('map', {drawControl: true}).setView([lat, long], 16);
+    this.map = new L.Map('mapPath', {drawControl: true}).setView([lat, long], 16);
     this.map.invalidateSize();
 
-    tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+    L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
       attribution: 'edupala.com',
     }).addTo(this.map);
   }
 
   locatePosition() {
-    var myIcon = icon({
+    var myIcon = L.icon({
       iconUrl: 'assets/map_marker.png',
       iconSize: [26, 40],
       iconAnchor: [13, 40],
@@ -59,7 +70,7 @@ export class NewtripPage implements AfterViewInit{
     });
 
     this.map.locate({setView:true}).on("locationfound", (e: any)=> {
-      this.locationMarker = marker([e.latitude,e.longitude], {
+      this.locationMarker = L.marker([e.latitude,e.longitude], {
         draggable:false,
         opacity: 1,
         icon: myIcon
