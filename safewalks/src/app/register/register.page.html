@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>register</ion-title>
+    <ion-title>{{'register.title' | translate}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -12,36 +12,36 @@
     <ion-row justify-content-center>
       <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
         <div text-center>
-          <h4>Registre d'usuari</h4>
+          <h4>{{'register.subtitle' | translate}}</h4>
         </div>
         <br/>
         <div padding>
           <ion-item>
-            <ion-input type="text" placeholder="DNI" name="dni" [(ngModel)]="user_data.dni" required pattern="((([X-Z])|([LM])){1}([-]?)((\d){7})([-]?)([A-Z]{1}))|((\d{8})([-]?)([A-Z]))"></ion-input>
+            <ion-input type="text" placeholder="{{'register.dni' | translate}}" name="dni" [(ngModel)]="user_data.dni" required pattern="((([X-Z])|([LM])){1}([-]?)((\d){7})([-]?)([A-Z]{1}))|((\d{8})([-]?)([A-Z]))"></ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-input type="text" placeholder="Name" name="name" [(ngModel)]="user_data.name" required></ion-input>
+            <ion-input type="text" placeholder="{{'register.name' | translate}}" name="name" [(ngModel)]="user_data.name" required></ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-input type="text" placeholder="First surname" name="surname1" [(ngModel)]="user_data.surname1" required></ion-input>
+            <ion-input type="text" placeholder="{{'register.surname1' | translate}}" name="surname1" [(ngModel)]="user_data.surname1" required></ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-input type="text" placeholder="Second surname" name="surname2" [(ngModel)]="user_data.surname2"></ion-input>
+            <ion-input type="text" placeholder="{{'register.surname2' | translate}}" name="surname2" [(ngModel)]="user_data.surname2"></ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-input type="email" placeholder="Email" name="email" [(ngModel)]="user_data.email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" ></ion-input>
+            <ion-input type="email" placeholder="{{'register.email' | translate}}" name="email" [(ngModel)]="user_data.email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" ></ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-input type="text" placeholder="City" name="city" [(ngModel)]="user_data.city" required></ion-input>
+            <ion-input type="text" placeholder="{{'register.city' | translate}}" name="city" [(ngModel)]="user_data.city" required></ion-input>
           </ion-item>
   
           <ion-item>
-            <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="user_data.pw" required minlength="5"></ion-input>
+            <ion-input type="password" placeholder="{{'register.password' | translate}}" name="password" [(ngModel)]="user_data.pw" required minlength="5"></ion-input>
           </ion-item>
         </div>
         <br/><br/>

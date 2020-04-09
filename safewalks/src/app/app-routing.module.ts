@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginGuardGuard } from './guards/login-guard.guard';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
   //private pages
@@ -30,7 +31,8 @@ const routes: Routes = [
 ];
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
+    TranslateModule
   ],
   exports: [RouterModule]
 })

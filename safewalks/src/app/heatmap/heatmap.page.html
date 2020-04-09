@@ -2,10 +2,10 @@
     <ion-toolbar>
         <div class="flexrow">
             <ion-title>
-                Heatmap
+                {{'heatmap.title' | translate}}
             </ion-title>
             <ion-item id="filter">
-                <ion-datetime displayFormat="HH:mm DD/MM/YYYY" pickerFormat="DD/MMMM/YYYY HH:mm" minuteValues="0,15,30,45" min="2020" max="2030" placeholder="Selecciona una hora" (ionChange)="dateSelected($event)">
+                <ion-datetime displayFormat="HH:mm DD/MM/YYYY" pickerFormat="DD/MMMM/YYYY HH:mm" minuteValues="0,15,30,45" min="2020" max="2030" placeholder="{{'heatmap.datepicker' | translate}}" (ionChange)="dateSelected($event)">
                 </ion-datetime>
             </ion-item>
         </div>

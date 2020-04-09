@@ -1,3 +1,47 @@
 {
-    "test": "en test"
+    "profile": {
+        "title": "Profile",
+        "subtitle": "Profile data",
+        "dni": "DNI",
+        "email": "Email",
+        "fullname": "Full name",
+        "city": "City",
+        "close": "Logout"
+    },
+    "heatmap": {
+        "title": "Heatmap",
+        "datepicker": "Select a time"
+    },
+    "trips": {
+        "title": "Trips",
+        "add_trip": "Add trip"
+    },
+    "newtrip": {
+        "title": "New trip",
+        "back": "Back"
+    },
+    "tabs": {
+        "trips": "Trips",
+        "heatmap": "Heatmap",
+        "profile": "Profile"
+    },
+    "register": {
+        "title": "Register",
+        "subtitle": "User register",
+        "dni": "DNI",
+        "name": "Name",
+        "surname1": "First surname",
+        "surname2": "Second surname",
+        "email": "Email",
+        "city": "City",
+        "password": "Password"
+    },
+    "login": {
+        "title": "Login",
+        "subtitle": "Welcome to Safewalks!",
+        "dni": "DNI",
+        "password": "Password",
+        "login": "Login",
+        "register": "Register"
+    }
 }
