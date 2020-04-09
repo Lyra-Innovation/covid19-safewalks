@@ -13,7 +13,36 @@
 
 <ion-content>
 
-    <div id="map"></div>
+    <ion-item>
+        <ion-label>Hora d'inici</ion-label>
+        <ion-datetime displayFormat="HH:mm DD/MM/YYYY" pickerFormat="DD/MMMM/YYYY HH:mm" minuteValues="0,15,30,45" min="2020" max="2030" placeholder="Selecciona una hora" (ionChange)="dateSelected($event)">
+        </ion-datetime>
+    </ion-item>
+
+    <ion-radio-group name="transportMode" [value]="transportMode" (ionChange)="transportModeSelected($event)">
+
+        <ion-list-header id="header-transport">
+            Mode desplaçament
+        </ion-list-header>
+
+        <ion-item>
+            <ion-label>Caminar</ion-label>
+            <ion-radio value="walk"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Córrer</ion-label>
+            <ion-radio value="run"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Bicicleta</ion-label>
+            <ion-radio value="bike"></ion-radio>
+        </ion-item>
+
+    </ion-radio-group>
+
+    <div id="mapPath"></div>
     <canvas #pathDrawer (mousedown)="startDrawing($event)" (touchstart)="startDrawing($event)" (touchmove)="moved($event)" (mousemove)="moved($event)" (mouseup)="endDrawing()" (touchend)="endDrawing()"></canvas>
 
 </ion-content>
