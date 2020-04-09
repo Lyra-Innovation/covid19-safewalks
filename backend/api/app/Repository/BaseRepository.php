@@ -80,7 +80,10 @@ abstract class BaseRepository {
             $sql .= "ORDER BY " . $extra["order"];
         }
 
-        return self::executeSelect($sql, $excludes);
+        $result = self::executeSelect($sql, $excludes);
+        
+        if($result === false) return [];
+        return $result;
     }
 
     static function select($arrayFields, $excludes = true, $extra = []) {
