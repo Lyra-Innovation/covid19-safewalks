@@ -6,15 +6,16 @@
             </ion-title>
 
             <ion-button class="header-button" expand="block" routerLink="/newtrip" routerDirection="forward">
-                {{'trips.add_trip' | translate}}
+                <ion-icon name="add"></ion-icon>
             </ion-button>
+            
         </div>
     </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <!--<div class="tripitem" *ngFor="let item of (triplist)">
+    <div class="tripitem" *ngFor="let item of (triplist)">
         <app-tripitem [tripiteminfo]="item">
         </app-tripitem>
-    </div>-->
+    </div>
 </ion-content>

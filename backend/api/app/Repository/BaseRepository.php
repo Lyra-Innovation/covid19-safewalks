@@ -25,7 +25,7 @@ abstract class BaseRepository {
         global $DB;
 
         $result = $DB->query($sql);
-
+        
         if(!$result) return false;
 
         $ret = [];
@@ -81,14 +81,14 @@ abstract class BaseRepository {
         }
 
         $result = self::executeSelect($sql, $excludes);
-        
+       
         if($result === false) return [];
         return $result;
     }
 
     static function select($arrayFields, $excludes = true, $extra = []) {
         $sql = "SELECT * FROM " . static::$tablename;
-        return self::privateSelect($sql, $arrayFields, $excludes = true, $extra);
+        return self::privateSelect($sql, $arrayFields, $excludes, $extra);
     }
 
     static function selectCount($arrayFields, $excludes = true, $extra = []) {

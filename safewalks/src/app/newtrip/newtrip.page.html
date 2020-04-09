@@ -1,13 +1,11 @@
 <ion-header>
     <ion-toolbar>
-        <div class="flexrow">
-            <ion-title>
-                {{'newtrip.title' | translate}}
-            </ion-title>
-            <ion-button class="header-button" expand="block" routerLink="/" routerDirection="back">
-                {{'newtrip.back' | translate}}
-            </ion-button>
-        </div>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            {{'newtrip.title' | translate}}
+        </ion-title>
     </ion-toolbar>
 </ion-header>
 
