@@ -36,23 +36,9 @@ export class AuthService {
       }),
       map(token => {
         if (token) {
-          this.api.post('Auth', 'validate', {
-            "token": token
-          }).subscribe({
-            next: (resp: {data: {token: boolean}}) => {
-              if(resp.data.token) {
-                let decoded = helper.decodeToken(token);
-                this.userData.next(decoded);
-                return true;
-              }
-              else {
-                return null;
-              }
-            },
-            error: error => {
-              return null;
-            }
-          })
+          let decoded = helper.decodeToken(token);
+          this.userData.next(decoded);
+          return true;
         } else {
           return null;
         }
