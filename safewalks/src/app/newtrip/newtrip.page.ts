@@ -115,12 +115,12 @@ export class NewtripPage implements OnInit {
     }
     this.api.post('Trip', 'createTrip', {
       "start_date": Math.floor(new Date(this.selectedDate).getTime() / 1000),
-      "enforced": false,
+      "enforced": 0,
       "vehicle": this.speed_selected,
       "points": points
     }).subscribe({
       next: (resp: {data: any}) => {
-        if (resp.data.inserted) {
+        if (resp.data.success) {
           this.alertSuccess();
         } else {
           // show popup with resp.data.alternative
