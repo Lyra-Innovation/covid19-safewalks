@@ -21,7 +21,7 @@
     </ion-item>
     
     <!-- speed selector -->
-    <ion-item>
+    <ion-item style="flex-direction: column; align-items: stretch;">
         <ion-label>{{'newtrip.activity' | translate}}</ion-label>
         <ion-grid id="grid_newtrip">
             <ion-row>
@@ -45,8 +45,5 @@
     </ion-item>
 
     <!-- Map -->
-    <div id="map_trip_container">
-        <div id="map_trip"></div>
-        <canvas #pathDrawer (mousedown)="startDrawing($event)" (touchstart)="startDrawing($event)" (touchmove)="moved($event)" (mousemove)="moved($event)" (mouseup)="endDrawing()" (touchend)="endDrawing()"></canvas>
-    </div>
+    <div id="map_trip"></div>
 </ion-content>

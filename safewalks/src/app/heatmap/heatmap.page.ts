@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { ApiService } from '../services/api.service';
 import "src/assets/js/leaflet-heat.js";
 
 @Component({
@@ -15,7 +16,7 @@ export class HeatmapPage implements OnInit {
   selectedDate: Date;
   heatLayer: L.HeatLayer;
 
-  constructor(private geolocation: Geolocation) {}
+  constructor(private geolocation: Geolocation, private api: ApiService) {}
 
   ngOnInit(): void {
     this.selectedDate = new Date();
@@ -110,7 +111,32 @@ export class HeatmapPage implements OnInit {
 
   paintHeatmap() {
     var bounds = this.map.getBounds();
-    var heatArray = [41.3870154, 2.1678531];
+    console.log(bounds);
+    var heatArray = [];
+
+    this.api.post('Heatmap', 'getHeaMapZoom', {
+      "left_bot_cell": bounds[0], //Change this for correct values
+      "right_bot_cell" : bounds[1],
+      "time": this.selectedDate
+      }).subscribe({
+      next: (resp: {data: []}) => {
+        heatArray = resp.data;
+        for(var i = 0; i < heatArray.length; i++) {
+          this.heatLayer.addLatLng(heatArray[i], {radius: 25,
+            max: 1.0,
+            blur: 25,              
+            gradient: {
+                0.0: 'green',
+                0.5: 'yellow',
+                1.0: 'red'
+            },
+            minOpacity: 0.3}).addTo(this.map);
+        }
+      },
+      error: error => {
+        console.error('There was an error!', error);
+      }
+    })
     
     //TODO fer crida backend amb this.selectedDate
     for(var i; i < heatArray.length; i++) {
