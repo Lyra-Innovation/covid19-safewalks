@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { ApiService } from '../services/api.service';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile',
