@@ -28,7 +28,13 @@
         "next": "Next",
         "datepicker": "Select a time",
         "start_time": "Start time",
-        "activity": "Activity"
+        "activity": "Activity",
+        "alert_validation_header": "Missing fields",
+        "nodate": "Insert a date",
+        "nocoords": "Insert a path",
+        "alert_success_header": "Success!",
+        "success": "The trip was created successfully",
+        "ok": "Ok"
     },
     "tabs": {
         "trips": "Trips",

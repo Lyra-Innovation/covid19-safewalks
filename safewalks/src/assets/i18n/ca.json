@@ -28,7 +28,13 @@
         "next": "Següent",
         "datepicker": "Selecciona una hora",
         "start_time": "Hora d'inici",
-        "activity": "Activitat"
+        "activity": "Activitat",
+        "alert_validation_header": "Falten dades",
+        "nodate": "Introdueixi una data",
+        "nocoords": "Introdueixi un itinerari",
+        "alert_success_header": "Èxit!",
+        "success": "La sortida s'ha creat correctament",
+        "ok": "D'acord"
     },
     "tabs": {
         "trips": "Sortides",

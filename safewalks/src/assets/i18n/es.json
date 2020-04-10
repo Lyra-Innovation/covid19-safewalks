@@ -28,7 +28,13 @@
         "next": "Siguiente",
         "datepicker": "Selecciona una hora",
         "start_time": "Hora de inicio",
-        "activity": "Actividad"
+        "activity": "Actividad",
+        "alert_validation_header": "Faltan datos",
+        "nodate": "Introduzca una fecha",
+        "nocoords": "Introduzca una ruta",
+        "alert_success_header": "¡Éxito!",
+        "success": "La salida se ha creado correctamente",
+        "ok": "Aceptar"
     },
     "tabs": {
         "trips": "Salidas",
