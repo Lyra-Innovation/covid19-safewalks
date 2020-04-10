@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
 import { TranslateService } from '@ngx-translate/core';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +15,8 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private storage: Storage
   ) {
     this.initializeApp();
   }
@@ -30,7 +30,12 @@ export class AppComponent {
   }
 
   private initTranslate() {
-    // Set the default language for translation strings, and the current language.
-    this.translate.setDefaultLang('es');
+    this.storage.get('lang').then((val) => {
+      if (val == null) {
+        this.storage.set('lang', 'ca');
+        val = 'ca';
+      }
+      this.translate.setDefaultLang(val);
+    });
   }
 }

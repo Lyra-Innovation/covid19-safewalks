@@ -6,6 +6,12 @@
         "email": "Correo",
         "fullname": "Nombre completo",
         "city": "Ciudad",
+        "lang": "Idioma",
+        "ca": "Catalán",
+        "es": "Castellano",
+        "en": "Inglés",
+        "accept": "Aceptar",
+        "cancel": "Cancelar",
         "close": "Cerrar sesión"
     },
     "heatmap": {
