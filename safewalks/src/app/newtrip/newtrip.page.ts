@@ -48,6 +48,7 @@ export class NewtripPage implements OnInit, AfterViewInit {
       // Default location
       this.loadMap(41.3870154, 2.1678531);
     });
+    this.change_speed("walk");
   }
 
   dateSelected(event) {
