@@ -93,7 +93,7 @@ abstract class BaseRepository {
 
     static function selectCount($arrayFields, $excludes = true, $extra = []) {
         $sql = "SELECT COUNT(*) as cnt FROM " . static::$tablename;
-        return (int)(self::privateSelect($sql, $arrayFields, $excludes = true, $extra))[0]["cnt"];
+        return (int)(self::privateSelect($sql, $arrayFields, $extra))[0]["cnt"];
     }
 
     static function selectFirst($arrayFields, $excludes = true) {        
