@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
     "@auth0/angular-jwt": "^4.0.0",
+    "@geoman-io/leaflet-geoman-free": "^2.5.0",
     "@ionic-native/core": "^5.0.7",
     "@ionic-native/geolocation": "^5.23.0",
     "@ionic-native/splash-screen": "^5.0.0",
@@ -30,6 +31,7 @@
     "@ngx-translate/http-loader": "^4.0.0",
     "core-js": "^2.5.4",
     "leaflet": "^1.6.0",
+    "leaflet.pm": "^2.2.0",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
