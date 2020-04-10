@@ -51,8 +51,6 @@
   display: none;
 }
 
-.leaflet-pm-toolbar {}
-
 .leaflet-pm-toolbar .leaflet-buttons-control-button {
   padding: 5px;
   box-sizing: border-box;
