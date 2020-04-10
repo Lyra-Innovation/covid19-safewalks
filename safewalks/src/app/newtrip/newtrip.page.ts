@@ -9,11 +9,20 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
   styleUrls: ['./newtrip.page.scss'],
 })
 export class NewtripPage implements OnInit, AfterViewInit {
-
+  //map
   map: L.Map;
   locationMarker: any;
+  
+  //date selector
   selectedDate: Date;
-  transportMode: string = "walk";
+  
+  //speed selector
+  speed_selected = "walk";
+  speed = {
+    "walk": {"background-color": "#EEE"},
+    "running": {},
+    "bicycle": {}
+  }
 
   @ViewChild('pathDrawer', { static: false }) canvas: any;
   canvasElement: any;
@@ -25,12 +34,15 @@ export class NewtripPage implements OnInit, AfterViewInit {
   drawing = false;
   lineWidth = 5;
  
-  constructor(private geolocation: Geolocation, private plt: Platform, private toastCtrl: ToastController) {}
+  constructor(
+    private geolocation: Geolocation,
+    private plt: Platform,
+    private toastCtrl: ToastController
+  ) {}
 
   ngOnInit(): void {
     this.geolocation.getCurrentPosition().then((resp) => {
       this.loadMap(resp.coords.latitude, resp.coords.longitude);
-      this.locatePosition();
     }).catch((error) => {
       console.log('Error getting location', error);
       // Default location
@@ -42,22 +54,23 @@ export class NewtripPage implements OnInit, AfterViewInit {
     this.selectedDate = event.detail.value;
   }
 
-  transportModeSelected(event) {
-    this.transportMode = event.detail.value;
+  change_speed(speed) {
+    this.speed_selected = speed;
+    this.speed = {"walk": {}, "running": {} , "bicycle": {}}
+    this.speed[speed] = {"background-color": "#EEE"};
   }
 
   //MAP FUNCTIONS
-  
   loadMap(lat, long) {
     if (this.map != undefined) { this.map.remove(); }
-    this.map = new L.Map('mapPath', {drawControl: true}).setView([lat, long], 16);
+    this.map = new L.Map('map_trip', {drawControl: true}).setView([lat, long], 15);
     this.map.invalidateSize();
 
     L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
       attribution: 'edupala.com',
     }).addTo(this.map);
   }
-
+  
   locatePosition() {
     var myIcon = L.icon({
       iconUrl: 'assets/map_marker.png',
@@ -84,8 +97,8 @@ export class NewtripPage implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     // Set the Canvas Element and its size
     this.canvasElement = this.canvas.nativeElement;
-    this.canvasElement.width = this.plt.width() + '';
-    this.canvasElement.height = this.plt.height() - 60;
+    //this.canvasElement.width = this.plt.width() + '';
+    //this.canvasElement.height = this.plt.height() - 60;
   }
  
   startDrawing(ev) {
@@ -94,8 +107,9 @@ export class NewtripPage implements OnInit, AfterViewInit {
     this.drawing = true;
     var canvasPosition = this.canvasElement.getBoundingClientRect();
  
-    this.saveX = ev.pageX - canvasPosition.x;
-    this.saveY = ev.pageY - canvasPosition.y;
+    let position = this.getPositionTouch(ev);
+    this.saveX = position.x - canvasPosition.x;
+    this.saveY = position.y - canvasPosition.y;
   }
  
   endDrawing() {
@@ -108,8 +122,9 @@ export class NewtripPage implements OnInit, AfterViewInit {
     var canvasPosition = this.canvasElement.getBoundingClientRect();
     let ctx = this.canvasElement.getContext('2d');
    
-    let currentX = ev.touches[0].pageX - canvasPosition.x;
-    let currentY = ev.touches[0].pageY - canvasPosition.y;
+    let position = this.getPositionTouch(ev);
+    let currentX = position.x - canvasPosition.x;
+    let currentY = position.y - canvasPosition.y;
 
     ctx.lineJoin = 'round';
     ctx.strokeStyle = this.selectedColor;
@@ -129,6 +144,21 @@ export class NewtripPage implements OnInit, AfterViewInit {
   clearCanvas() {
     let ctx = this.canvasElement.getContext('2d');
     ctx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);   
+  }
+
+  getPositionTouch(ev){
+    if("touches" in ev){
+      return {
+        "x": ev.touches[0].pageX,
+        "y": ev.touches[0].pageY
+      };
+    }
+    else {
+      return {
+        "x": ev.screenX,
+        "y": ev.screenY
+      };
+    }
   }
 
 }

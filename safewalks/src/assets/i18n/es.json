@@ -14,7 +14,7 @@
     },
     "trips": {
         "title": "Salidas",
-        "add_trip": "Añadir salida"
+        "aprox_duration": "Duración "
     },
     "newtrip": {
         "title": "Nueva salida",
@@ -43,5 +43,19 @@
         "password": "Contraseña",
         "login": "Entrar",
         "register": "Registrarse"
+    },
+    "months": {
+        "01": "de enero",
+        "02": "de febrero",
+        "03": "de marzo",
+        "04": "de abril",
+        "05": "de mayo",
+        "06": "de junio",
+        "07": "de julio",
+        "08": "de agosto",
+        "09": "de septiembre",
+        "10": "de octubre",
+        "11": "de noviembre",
+        "12": "de diciembre"
     }
 }

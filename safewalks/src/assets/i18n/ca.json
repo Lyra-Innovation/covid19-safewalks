@@ -14,7 +14,7 @@
     },
     "trips": {
         "title": "Sortides",
-        "add_trip": "Afegir sortida"
+        "aprox_duration": "Duració "
     },
     "newtrip": {
         "title": "Nova sortida",
@@ -43,5 +43,19 @@
         "password": "Contrasenya",
         "login": "Entrar",
         "register": "Registrar-se"
+    },
+    "months": {
+        "01": "de gener",
+        "02": "de febrer",
+        "03": "de març",
+        "04": "d'abril",
+        "05": "de maig",
+        "06": "de juny",
+        "07": "de juliol",
+        "08": "d'agost",
+        "09": "de septembre",
+        "10": "d'octubre",
+        "11": "de novembre",
+        "12": "de desembre"
     }
 }

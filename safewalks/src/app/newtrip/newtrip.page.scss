@@ -13,12 +13,28 @@
     font-size: 18px;
 }
 
-#map {
+#map_trip_container {
+    position: relative;
+    width: 100%;
+    height: 80%;
+}
+
+#map_trip {
+    position: absolute;
+    top:0;
+    left: 0;
     width: 100%;
     height: 100%;
 }
 
 canvas {
-    width: 0%;
-    height: 0%;
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#grid_newtrip {
+    padding: 0;
 }

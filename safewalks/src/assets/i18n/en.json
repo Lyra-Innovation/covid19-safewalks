@@ -14,7 +14,7 @@
     },
     "trips": {
         "title": "Trips",
-        "add_trip": "Add trip"
+        "aprox_duration": "Time "
     },
     "newtrip": {
         "title": "New trip",
@@ -43,5 +43,19 @@
         "password": "Password",
         "login": "Login",
         "register": "Register"
+    },
+    "months": {
+        "01": "of January",
+        "02": "of February",
+        "03": "of March",
+        "04": "of April",
+        "05": "of May",
+        "06": "of June",
+        "07": "of July",
+        "08": "of August",
+        "09": "of September",
+        "10": "of October",
+        "11": "of November",
+        "12": "of December"
     }
 }

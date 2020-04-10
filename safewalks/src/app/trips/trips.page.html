@@ -14,8 +14,23 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <div class="tripitem" *ngFor="let item of (triplist)">
-        <app-tripitem [tripiteminfo]="item">
-        </app-tripitem>
+    <div class="tripitem" *ngFor="let item of triplist">
+        <ion-card class="tripitem">
+            <ion-item>
+                <ion-icon [hidden]="item.speed != 5" src="/assets/walk.svg" slot="start" size="large"></ion-icon>
+                <ion-icon [hidden]="item.speed != 10" src="/assets/running.svg" slot="start" size="large"></ion-icon>
+                <ion-icon [hidden]="item.speed != 15" src="/assets/bicycle.svg" slot="start" size="large"></ion-icon>
+                <ion-label>
+                    <ion-card-title>
+                        {{item.start_date.day}}
+                        {{'months.'+item.start_date.month | translate}}
+                        -
+                        {{item.start_date.hour}}:{{item.start_date.minute}}
+                    </ion-card-title>
+                    <ion-card-subtitle>{{'trips.aprox_duration' | translate}} {{item.duration}} min</ion-card-subtitle>
+                </ion-label>
+                <ion-icon name="arrow-forward" slot="end"></ion-icon>
+            </ion-item>
+        </ion-card>
     </div>
 </ion-content>
