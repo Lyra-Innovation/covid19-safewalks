@@ -19,7 +19,7 @@ export class NewtripPage implements OnInit, AfterViewInit {
   //speed selector
   speed_selected = "walk";
   speed = {
-    "walk": {"background-color": "#EEE"},
+    "walk": {},
     "running": {},
     "bicycle": {}
   }

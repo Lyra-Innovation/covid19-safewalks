@@ -18,7 +18,11 @@
     },
     "newtrip": {
         "title": "Nova sortida",
-        "back": "Tornar"
+        "back": "Tornar",
+        "next": "Següent",
+        "datepicker": "Selecciona una hora",
+        "start_time": "Hora d'inici",
+        "activity": "Activitat"
     },
     "tabs": {
         "trips": "Sortides",
@@ -34,7 +38,8 @@
         "surname2": "Segon cognom",
         "email": "Correu",
         "city": "Ciutat",
-        "password": "Contrasenya"
+        "password": "Contrasenya",
+        "register": "Registrar-se"
     },
     "login": {
         "title": "Inici de sessió",

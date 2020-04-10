@@ -18,7 +18,11 @@
     },
     "newtrip": {
         "title": "New trip",
-        "back": "Back"
+        "back": "Back",
+        "next": "Next",
+        "datepicker": "Select a time",
+        "start_time": "Start time",
+        "activity": "Activity"
     },
     "tabs": {
         "trips": "Trips",
@@ -34,7 +38,8 @@
         "surname2": "Second surname",
         "email": "Email",
         "city": "City",
-        "password": "Password"
+        "password": "Password",
+        "register": "Register"
     },
     "login": {
         "title": "Login",

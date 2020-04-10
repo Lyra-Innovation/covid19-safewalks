@@ -7,7 +7,7 @@
             {{'newtrip.title' | translate}}
         </ion-title>
         <ion-button class="header-button" expand="block" routerLink="/newtrip" routerDirection="forward" slot="end">
-            Siguiente
+            {{'newtrip.next' | translate}}
         </ion-button>
     </ion-toolbar>
 </ion-header>
@@ -16,13 +16,13 @@
     
     <!-- Date selector -->
     <ion-item>
-        <ion-label>Hora d'inici</ion-label>
-        <ion-datetime displayFormat="HH:mm DD/MM/YYYY" pickerFormat="DD/MMMM/YYYY HH:mm" minuteValues="0,15,30,45" min="2020" max="2030" placeholder="Selecciona una hora" (ionChange)="dateSelected($event)"></ion-datetime>
+        <ion-label>{{'newtrip.start_time' | translate}}</ion-label>
+        <ion-datetime displayFormat="HH:mm DD/MM/YYYY" pickerFormat="DD/MMMM/YYYY HH:mm" minuteValues="0,15,30,45" min="2020" max="2030" placeholder="{{'newtrip.datepicker' | translate}}" (ionChange)="dateSelected($event)"></ion-datetime>
     </ion-item>
     
     <!-- speed selector -->
     <ion-item>
-        <ion-label>Quin esport?</ion-label>
+        <ion-label>{{'newtrip.activity' | translate}}</ion-label>
         <ion-grid id="grid_newtrip">
             <ion-row>
                 <ion-col [ngStyle]="speed.walk" (click)="change_speed('walk')">

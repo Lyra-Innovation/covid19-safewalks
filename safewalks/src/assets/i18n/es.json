@@ -18,7 +18,11 @@
     },
     "newtrip": {
         "title": "Nueva salida",
-        "back": "Volver"
+        "back": "Volver",
+        "next": "Siguiente",
+        "datepicker": "Selecciona una hora",
+        "start_time": "Hora de inicio",
+        "activity": "Actividad"
     },
     "tabs": {
         "trips": "Salidas",
@@ -34,7 +38,8 @@
         "surname2": "Segundo apellido",
         "email": "Correo",
         "city": "Ciudad",
-        "password": "Contraseña"
+        "password": "Contraseña",
+        "register": "Registrarse"
     },
     "login": {
         "title": "Inicio de sesión",
