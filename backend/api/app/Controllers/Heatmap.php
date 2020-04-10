@@ -4,6 +4,7 @@ namespace Safewalks\Controllers;
 
 use Safewalks\Helpers\Cells;
 use Safewalks\Repository\TripCell;
+use Safewalks\Helpers\Database;
 
 class Heatmap extends BaseController {
 
@@ -12,14 +13,14 @@ class Heatmap extends BaseController {
 
         $cell = Cells::posToCell($params["cell"]);
 
-        $startTime = date("Y-m-d H:i:s", $params["start_time"]);
-        $endTime = date("Y-m-d H:i:s", $params["end_time"]);
+        $startTime = Database::toTime($params["start_time"]);
+        $endTime = Database::toTime($params["end_time"]);
 
         $ret = TripCell::selectCount([
-            'coord_x' =>  $cell['x'], 
-            'coord_y' =>  $cell['y'],
-            'timestamp1' => ['key' => 'timestamp', 'value' => $startTime, 'op' => '>='],
-            'timestamp2' => ['key' => 'timestamp', 'value' => $endTime, 'op' => '<=']
+            'x' =>  $cell['x'], 
+            'y' =>  $cell['y'],
+            'timestamp1' => ['key' => 'cell_time', 'value' => $startTime, 'op' => '>='],
+            'timestamp2' => ['key' => 'cell_time', 'value' => $endTime, 'op' => '<=']
         ]);
 
         return min($ret / $CNF['map_max_heat'], 1);
@@ -30,7 +31,7 @@ class Heatmap extends BaseController {
         $rightTopCell =  Cells::posToCell($params["right_top_cell"]);
 
         $startTime = date("Y-m-d H:i:s", $params["time"] - 60*60);
-        $endTime = date("Y-m-d H:i:s", $params["end_time"] + 60*60);
+        $endTime = date("Y-m-d H:i:s", $params["time"] + 60*60);
 
         $ret = [];
 
@@ -41,10 +42,10 @@ class Heatmap extends BaseController {
             while($y >= $rightTopCell['y']) {
                 
                 $value = TripCell::selectCount([
-                    'coord_x' =>  $x, 
-                    'coord_y' =>  $y,
-                    'timestamp1' => ['key' => 'timestamp', 'value' => $startTime, 'op' => '>='],
-                    'timestamp2' => ['key' => 'timestamp', 'value' => $endTime, 'op' => '<=']
+                    'x' =>  $x, 
+                    'y' =>  $y,
+                    'timestamp1' => ['key' => 'cell_time', 'value' => $startTime, 'op' => '>='],
+                    'timestamp2' => ['key' => 'cell_time', 'value' => $endTime, 'op' => '<=']
                 ]);
 
                 $y--;

@@ -19,5 +19,9 @@ class Database {
         $DB->close();
     }
 
+    static function toTime($timestamp) {
+        return date("Y-m-d H:i:s", $timestamp);
+    }
+
 }
 

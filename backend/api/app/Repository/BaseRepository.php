@@ -21,6 +21,14 @@ abstract class BaseRepository {
         return $result;
     }
 
+    static function executeInsert($sql) {
+        global $DB; 
+
+        self::execute($sql);
+        
+        return $DB->insert_id;
+    }
+
     static function executeSelect($sql, $excludes = true) {
         global $DB;
 
@@ -68,9 +76,12 @@ abstract class BaseRepository {
         return $value;
     }
 
-    static function privateSelect($sql, $arrayFields, $excludes = true, $extra = []) {
+    static function privateWhere($arrayFields, $extra = []) {
+
+        $sql = "";
+
         if(count($arrayFields) > 0) {
-            $sql .= BaseRepository::constructString($arrayFields, " WHERE  ", "", " AND ", function($key, $value) {
+            $sql .= self::constructString($arrayFields, " WHERE  ", "", " AND ", function($key, $value) {
                 if(gettype($value) == "array") return $value["key"] . " " . $value["op"] . " " . self::sqlType($value["value"]);
                 return $key . " = " . self::sqlType($value);
             });
@@ -80,23 +91,31 @@ abstract class BaseRepository {
             $sql .= "ORDER BY " . $extra["order"];
         }
 
-        $result = self::executeSelect($sql, $excludes);
+        return $sql;
+    }
+
+    static function select($arrayFields, $excludes = true, $extra = []) {
+        $sql = "SELECT * FROM " . static::$tablename;
+        
+        $sql .= self::privateWhere($arrayFields, $extra);
+        
+        $result = self::executeSelect($sql, $excludes, $extra);
        
         if($result === false) return [];
         return $result;
     }
 
-    static function select($arrayFields, $excludes = true, $extra = []) {
-        $sql = "SELECT * FROM " . static::$tablename;
-        return self::privateSelect($sql, $arrayFields, $excludes, $extra);
-    }
-
     static function selectCount($arrayFields, $excludes = true, $extra = []) {
         $sql = "SELECT COUNT(*) as cnt FROM " . static::$tablename;
-        return (int)(self::privateSelect($sql, $arrayFields, $extra))[0]["cnt"];
+        
+        $sql .= self::privateWhere($arrayFields, $extra);
+
+        $result = self::executeSelect($sql, $excludes, $extra);
+
+        return (int)($result)[0]["cnt"];
     }
 
-    static function selectFirst($arrayFields, $excludes = true) {        
+    static function selectFirst($arrayFields, $excludes = true, $extra = []) {        
         $result = self::select($arrayFields, $excludes);
 
         if(!$result) return false;
@@ -108,22 +127,35 @@ abstract class BaseRepository {
 
         if(count($arrayFields) > 0) {
 
-            $sql .= BaseRepository::constructString($arrayFields, " (", ")", ", ", function($key, $value) {
+            $sql .= self::constructString($arrayFields, " (", ")", ", ", function($key, $value) {
                 return $key;
             });
 
-            $sql .= BaseRepository::constructString($arrayFields, " VALUES (", ")", ", ", function($key, $value) {
+            $sql .= self::constructString($arrayFields, " VALUES (", ")", ", ", function($key, $value) {
                 return self::sqlType($value);
             });
         }
 
-        return self::execute($sql, $excludes);
+        return self::executeInsert($sql);
     }
 
-    static function update($arrayFields) {
+    static function update($toUpdate, $arrayFields) {
+        $sql = "UPDATE " . static::$tablename;
+
+        $sql .= self::constructString($toUpdate, " SET ", "", ", ", function($key, $value) {
+            return $key . " = " . $value;
+        });
+
+        $sql .= self::privateWhere($arrayFields, $extra);
+
+        return self::execute($sql);
     }
 
     static function delete($arrayFields) {
+        $sql = "DELETE FROM " . static::$tablename;
 
+        $sql .= self::privateWhere($arrayFields, $extra);
+
+        return self::execute($sql);
     }
 }

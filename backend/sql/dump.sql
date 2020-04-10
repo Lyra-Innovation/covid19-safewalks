@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `Trip`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Trip` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `start_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `start_date` cell_timestamp NOT NULL,
   `duration` int(11) NOT NULL,
   `enforced` tinyint(1) NOT NULL,
   `id_user` int(10) unsigned NOT NULL,
