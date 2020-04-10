@@ -14,10 +14,7 @@ export class ProfilePage {
   constructor(
     private auth: AuthService,
     private api: ApiService,
-    translate: TranslateService
-  ) {
-    translate.setDefaultLang('es');
-  }
+  ) {}
  
   ionViewWillEnter() {
     this.api.post('User', 'getUser').subscribe({
