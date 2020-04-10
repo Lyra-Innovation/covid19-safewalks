@@ -23,7 +23,10 @@ class Trip extends BaseController {
         $ret["trips"] = TripRepository::select(['id_user' =>  $ME], false, ['order' => 'start_date DESC']);
 
         foreach($ret["trips"] as &$trip) {
-            $trip["trip_cells"] = TripCellRepository::select(['id_trip' =>  $trip['id']]);
+            $tripCell = TripCellRepository::select(['id_trip' =>  $trip['id']]);
+            $lonLat = [$tripCell['x'], $tripCell['y']];
+            $tripCell["lat"] = $lonLat["y"];
+            $tripCell["lon"] = $lonLat["x"];
         }
 
         return $ret;
