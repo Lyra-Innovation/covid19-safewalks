@@ -25,4 +25,13 @@ class Cells {
 
         return $pos;
     }
+
+    static function cellToId($cell) {
+        return $cell['x'] . '-' . $cell['y'];
+    }
+
+    static function idToCell($cell_id) {
+        $split = $cell_id.explode('-', $cell_id);
+        return ['lon' => $split[0], 'lat' => $split["1"]];
+    }
 }

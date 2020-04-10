@@ -24,16 +24,16 @@ DROP TABLE IF EXISTS `Trip`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Trip` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `start_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `duration` int(11) NOT NULL,
+  `start_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `duration` float NOT NULL,
   `enforced` tinyint(1) NOT NULL,
   `id_user` int(10) unsigned NOT NULL,
   `speed` float NOT NULL,
-  `order` int(11) NOT NULL,
+  `vehicle` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `Trip_User_FK` (`id_user`),
   CONSTRAINT `Trip_User_FK` FOREIGN KEY (`id_user`) REFERENCES `User` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1045 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -55,12 +55,15 @@ DROP TABLE IF EXISTS `TripCell`;
 CREATE TABLE `TripCell` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_trip` int(10) unsigned NOT NULL,
-  `coord_x` int(11) NOT NULL,
-  `coord_y` int(11) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `x` int(11) NOT NULL,
+  `y` int(11) NOT NULL,
+  `cell_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  `lat` float NOT NULL,
+  `lon` float NOT NULL,
+  `duration` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `TripCell_Trip_FK` (`id_trip`),
-  CONSTRAINT `TripCell_Trip_FK` FOREIGN KEY (`id_trip`) REFERENCES `Trip` (`id`)
+  CONSTRAINT `TripCell_Trip_FK` FOREIGN KEY (`id_trip`) REFERENCES `Trip` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -91,7 +94,7 @@ CREATE TABLE `User` (
   `country` varchar(100) NOT NULL,
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -116,4 +119,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-07 17:23:47
+-- Dump completed on 2020-04-10 17:41:36
