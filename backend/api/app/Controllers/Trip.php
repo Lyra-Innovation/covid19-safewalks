@@ -44,10 +44,10 @@ class Trip extends BaseController {
 
         if($tries >= $maxTries) {
             $newTrip = [];
-            return ["success" => false, "found" => false, "trip" => $newTrip];
+            return ["success" => false, "found" => false, "time" => 0, "trip" => $newTrip];
         }
         
-        $newTrip["start_date"] = Database::toTime($startCurrentTime);
+        $newTrip["start_date"] = $startCurrentTime;
         $newTrip["duration"] = $duration;
 
         if($success) {
