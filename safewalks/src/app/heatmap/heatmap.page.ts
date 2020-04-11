@@ -111,9 +111,13 @@ export class HeatmapPage implements OnInit {
         }).subscribe({
         next: (resp: {data: []}) => {
           heatArray = resp.data;
+          console.log(bounds);
+          console.log(heatArray);
           for(var i = 0; i < heatArray.length; i++) {
-            heatPoint = [heatArray[i].lat, heatArray[i].lon, heatArray[i].value];
-            this.heatLayer.addLatLng(heatPoint).addTo(this.map);
+            if (heatArray[i].value > 0) {
+              heatPoint = [heatArray[i].lat, heatArray[i].lon, heatArray[i].value];
+              this.heatLayer.addLatLng(heatPoint).addTo(this.map);
+            }
           }
           this.heatLayer.setOptions({radius: this.getRadius(),
             max: 1.0,
