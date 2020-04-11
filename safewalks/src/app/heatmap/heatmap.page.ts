@@ -94,44 +94,52 @@ export class HeatmapPage implements OnInit {
     var bounds = this.map.getBounds();
     var heatArray = [];
     var heatPoint;
-
+    
+    var time = Math.round(new Date(this.selectedDate).getTime()/1000);
     this.heatLayer.setLatLngs([]);
-    this.api.post('Heatmap', 'getHeatMapZoom', {
-      "left_bot_cell": bounds["southWest"], //Change this for correct values
-      "right_bot_cell" : bounds["northEast"],
-      "time": this.selectedDate.getTime()/1000
-      }).subscribe({
-      next: (resp: {data: []}) => {
-        heatArray = [{lon: 2.1678531+0.0008, lat: 41.3870154+0.0002, value: 0.1},{lon: 2.1678531+0.0003, lat: 41.3870154+0.0005, value: 0.8}];
-        for(var i = 0; i < heatArray.length; i++) {
-          //console.log(heatArray[i]);
-          heatPoint = [heatArray[i].lat, heatArray[i].lon, heatArray[i].value];
-          this.heatLayer.addLatLng(heatPoint).addTo(this.map);
+    if(this.map.getZoom() > 12) {
+      this.api.post('Heatmap', 'getHeatMapZoom', {
+        "left_bot_cell": {
+          "lat": bounds["_southWest"].lat,
+          "lon": bounds["_southWest"].lng
+        },
+        "right_top_cell" : {
+          "lat": bounds["_northEast"].lat,
+          "lon": bounds["_northEast"].lng
+        },
+        "time": time
+        }).subscribe({
+        next: (resp: {data: []}) => {
+          heatArray = resp.data;
+          for(var i = 0; i < heatArray.length; i++) {
+            heatPoint = [heatArray[i].lat, heatArray[i].lon, heatArray[i].value];
+            this.heatLayer.addLatLng(heatPoint).addTo(this.map);
+          }
+          this.heatLayer.setOptions({radius: this.getRadius(),
+            max: 1.0,
+            blur: 25,              
+            gradient: {
+                0.0: 'green',
+                0.33: 'yellow',
+                0.67: 'orange',
+                1.0: 'red'
+            },
+            minOpacity: 0.3,
+            maxZoom: 14});
+          this.heatLayer.redraw();
+        },
+        error: error => {
+          console.error('There was an error!', error);
         }
-        this.heatLayer.setOptions({radius: this.getRadius(),
-          max: 1.0,
-          blur: 15,              
-          gradient: {
-              0.0: 'green',
-              0.33: 'yellow',
-              0.67: 'orange',
-              1.0: 'red'
-          },
-          minOpacity: 0.3,
-          maxZoom: 14});
-        this.heatLayer.redraw();
-      },
-      error: error => {
-        console.error('There was an error!', error);
-      }
-    })
+      })
+    }
     
   }
 
   getRadius(){
     var radius;
     var currentZoom = this.map.getZoom();
-    console.log("Zoom lvl: "+currentZoom);
+
     if (currentZoom <= 7){
         radius = 4;
     }
@@ -168,7 +176,6 @@ export class HeatmapPage implements OnInit {
     else if (currentZoom === 18) {
         radius = 100;
     }
-    console.log("Radius: "+radius);
     return radius;
   }
 
