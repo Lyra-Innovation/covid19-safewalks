@@ -48,7 +48,7 @@ class Trip extends BaseController {
             return ["success" => false, "found" => false, "time" => 0, "trip" => $newTrip];
         }
         
-        $newTrip["start_date"] = $startCurrentTime;
+        $newTrip["start_date"] = Database::toTime($startCurrentTime);
         $newTrip["duration"] = $duration;
 
         if($success) {
@@ -95,7 +95,7 @@ class Trip extends BaseController {
         $cells = [];
 
         foreach($points as $posInfo) {
-            $posInfo = Validate::cell($posInfo);
+            $posInfo = Validator::cell($posInfo);
 
             $timeToAdd = 0;
 
