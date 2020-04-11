@@ -16,7 +16,7 @@
     },
     "heatmap": {
         "title": "Mapa de calor",
-        "datepicker": "Selecciona una hora"
+        "datepicker": "Seleccione una hora"
     },
     "trips": {
         "title": "Salidas",
@@ -26,7 +26,7 @@
         "title": "Nueva salida",
         "back": "Volver",
         "next": "Siguiente",
-        "datepicker": "Selecciona una hora",
+        "datepicker": "Seleccione una hora",
         "start_time": "Hora de inicio",
         "activity": "Actividad",
         "alert_validation_header": "Faltan datos",
@@ -55,7 +55,7 @@
     },
     "login": {
         "title": "Inicio de sesión",
-        "subtitle": "¡Bienvenido a Safewalks!",
+        "subtitle": "¡Bienvenido/a a Safewalks!",
         "dni": "DNI",
         "password": "Contraseña",
         "login": "Entrar",

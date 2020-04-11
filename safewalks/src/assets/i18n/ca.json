@@ -4,7 +4,7 @@
         "subtitle": "Dades de perfil",
         "dni": "DNI",
         "email": "Correu",
-        "fullname": "Nom complert",
+        "fullname": "Nom complet",
         "city": "Ciutat",
         "lang": "Idioma",
         "ca": "Català",
@@ -16,7 +16,7 @@
     },
     "heatmap": {
         "title": "Mapa de calor",
-        "datepicker": "Selecciona una hora"
+        "datepicker": "Seleccioni una hora"
     },
     "trips": {
         "title": "Sortides",
@@ -26,7 +26,7 @@
         "title": "Nova sortida",
         "back": "Tornar",
         "next": "Següent",
-        "datepicker": "Selecciona una hora",
+        "datepicker": "Seleccioni una hora",
         "start_time": "Hora d'inici",
         "activity": "Activitat",
         "alert_validation_header": "Falten dades",
@@ -55,7 +55,7 @@
     },
     "login": {
         "title": "Inici de sessió",
-        "subtitle": "Benvingut a Safewalks!",
+        "subtitle": "Benvingut/da a Safewalks!",
         "dni": "DNI",
         "password": "Contrasenya",
         "login": "Entrar",
@@ -70,7 +70,7 @@
         "06": "de juny",
         "07": "de juliol",
         "08": "d'agost",
-        "09": "de septembre",
+        "09": "de setembre",
         "10": "d'octubre",
         "11": "de novembre",
         "12": "de desembre"
