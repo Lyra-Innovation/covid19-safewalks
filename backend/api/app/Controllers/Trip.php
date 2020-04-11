@@ -59,6 +59,18 @@ class Trip extends BaseController {
         return ["success" => $success, "found" => true, "time" => Database::toTimestamp($newTrip['start_date']), "trip" => $newTrip];
     }
 
+    static function getTrip($params) {
+        global $ME;
+
+        $ret = TripRepository::selectFirst(['id' => $params['id'], 'id_user' => $ME]);
+
+        if ($ret) {
+            $ret['points'] = TripcellRepository::select(['id_trip' => $params['id']]);
+        }
+
+        return $ret;
+    }
+
     static function getTrips($params) {
         global $ME;
 

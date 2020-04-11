@@ -95,5 +95,13 @@
         "10": "d'octubre",
         "11": "de novembre",
         "12": "de desembre"
+    },
+    "viewtrip": {
+        "title": "Veure sortida",
+        "delete": "Eliminar",
+        "alert_delete_header": "Eliminar",
+        "alert_delete_message": "Segur que vols eliminar aquesta sortida?",
+        "ok": "Si",
+        "cancel": "No"
     }
 }
