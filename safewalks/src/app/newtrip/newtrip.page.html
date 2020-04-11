@@ -19,6 +19,19 @@
         <ion-label>{{'newtrip.start_time' | translate}}</ion-label>
         <ion-datetime displayFormat="HH:mm DD/MM/YYYY" pickerFormat="DD/MMMM/YYYY HH:mm" minuteValues="0,15,30,45" min="2020" max="2030" placeholder="{{'newtrip.datepicker' | translate}}" (ionChange)="dateSelected($event)"></ion-datetime>
     </ion-item>
+
+    <!-- Reason selector -->
+    <ion-item>
+        <ion-label>{{'newtrip.reason.title' | translate}}</ion-label>
+        <ion-select interface="popover" placeholder="{{'newtrip.reason.select' | translate}}" okText="{{'newtrip.ok' | translate}}" cancelText="{{'newtrip.cancel' | translate}}" (ionChange)="reasonSelected($event)">
+            <ion-select-option value="0">{{'newtrip.reason.0' | translate}}</ion-select-option>
+            <ion-select-option value="1">{{'newtrip.reason.1' | translate}}</ion-select-option>
+            <ion-select-option value="2">{{'newtrip.reason.2' | translate}}</ion-select-option>
+            <ion-select-option value="3">{{'newtrip.reason.3' | translate}}</ion-select-option>
+            <ion-select-option value="4">{{'newtrip.reason.4' | translate}}</ion-select-option>
+            <ion-select-option value="5">{{'newtrip.reason.5' | translate}}</ion-select-option>
+        </ion-select>
+    </ion-item>
     
     <!-- speed selector -->
     <ion-item style="flex-direction: column; align-items: stretch;">

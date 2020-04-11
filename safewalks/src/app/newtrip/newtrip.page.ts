@@ -18,12 +18,24 @@ export class NewtripPage implements OnInit {
   //date selector
   selectedDate: Date;
   
+  //reason selector
+  selectedReason: number;
+
   //speed selector
   speed_selected = "walk";
   speed = {
     "walk": {},
     "running": {},
     "bicycle": {}
+  }
+
+  reasonid_enforced = {
+    "0": 1,
+    "1": 1,
+    "2": 1,
+    "3": 1,
+    "4": 1,
+    "5": 1,
   }
 
   constructor(
@@ -45,6 +57,10 @@ export class NewtripPage implements OnInit {
 
   dateSelected(event) {
     this.selectedDate = event.detail.value;
+  }
+
+  reasonSelected(event) {
+    this.selectedReason = event.detail.value;
   }
 
   change_speed(speed) {
@@ -91,6 +107,8 @@ export class NewtripPage implements OnInit {
       ret['error'] = 'nodate';
     } else if (this.map.coords.length == 0) {
       ret['error'] = 'nocoords';
+    } else if (this.selectedReason == null) {
+      ret['error'] = 'noreason';
     } else {
       ret['success'] = true;
     }
@@ -115,9 +133,10 @@ export class NewtripPage implements OnInit {
     }
     this.api.post('Trip', 'createTrip', {
       "start_date": Math.floor(new Date(this.selectedDate).getTime() / 1000),
-      "enforced": 0,
+      "enforced": this.reasonid_enforced[this.selectedReason],
       "vehicle": this.speed_selected,
-      "points": points
+      "points": points,
+      "id_reason": this.selectedReason
     }).subscribe({
       next: (resp: {data: any}) => {
         if (resp.data.success) {

@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../services/api.service';
-import { TranslateService } from '@ngx-translate/core';
-
 
 @Component({
   selector: 'app-trips',
@@ -13,7 +11,6 @@ export class TripsPage {
 
   constructor(
     private api: ApiService,
-    private lang: TranslateService
   ) { }
 
   ionViewWillEnter() {
@@ -36,11 +33,4 @@ export class TripsPage {
       }
     })
   }
-
 }
-
-/*
-5km/h
-10
-15
-*/

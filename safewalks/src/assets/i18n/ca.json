@@ -32,9 +32,26 @@
         "alert_validation_header": "Falten dades",
         "nodate": "Introdueixi una data",
         "nocoords": "Introdueixi un itinerari",
+        "noreason": "Introdueixi una raó",
         "alert_success_header": "Èxit!",
         "success": "La sortida s'ha creat correctament",
-        "ok": "D'acord"
+        "ok": "D'acord",
+        "cancel": "Cancel·lar",
+        "reason": {
+            "title": "Raó de la sortida",
+            "select": "Introdueixi una raó",
+            "0": "Adquisició d'aliments",
+            "1": "Adquisició de fàrmacs",
+            "2": "Accés a entitats",
+            "3": "Desplaçament al treball",
+            "4": "Retorn a la seva residència",
+            "5": "Cura a persones vulnerables",
+            "6": "",
+            "7": "",
+            "8": "",
+            "9": "",
+            "10": ""
+        }
     },
     "tabs": {
         "trips": "Sortides",

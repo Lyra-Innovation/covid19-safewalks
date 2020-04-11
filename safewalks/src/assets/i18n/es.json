@@ -32,9 +32,26 @@
         "alert_validation_header": "Faltan datos",
         "nodate": "Introduzca una fecha",
         "nocoords": "Introduzca una ruta",
+        "noreason": "Introduzca una razón",
         "alert_success_header": "¡Éxito!",
         "success": "La salida se ha creado correctamente",
-        "ok": "Aceptar"
+        "ok": "Aceptar",
+        "cancel": "Cancelar",
+        "reason": {
+            "title": "Razón de la salida",
+            "select": "Introduzca una razón",
+            "0": "Adquisición de alimentos",
+            "1": "Adquisición de fármacos",
+            "2": "Acceso a entitadades",
+            "3": "Desplazamiento al trabajo",
+            "4": "Vuelta a su residencia",
+            "5": "Atención a personas vulnerables",
+            "6": "",
+            "7": "",
+            "8": "",
+            "9": "",
+            "10": ""
+        }
     },
     "tabs": {
         "trips": "Salidas",
