@@ -35,6 +35,10 @@
         "noreason": "Introdueixi una raó",
         "alert_success_header": "Èxit!",
         "success": "La sortida s'ha creat correctament",
+        "alert_fail_header": "Ocupat",
+        "fail": "No s'ha trobat cap franja horaria per fer la sortida",
+        "alert_alternative_header": "Alternativa",
+        "alternative": "S'ha trobat una franja horaria alternativa per fer la sortida. La nova data proposada es: ",
         "ok": "D'acord",
         "cancel": "Cancel·lar",
         "reason": {

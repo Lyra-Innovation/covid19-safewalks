@@ -3,6 +3,8 @@ import { AuthService } from '../services/auth.service';
 import { ApiService } from '../services/api.service';
 import { Storage } from '@ionic/storage';
 import { TranslateService } from '@ngx-translate/core';
+import * as CryptoJS from 'crypto-js';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-profile',
@@ -10,14 +12,21 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  user = {};
+  user = {
+    name: '***',
+    surname1: '***',
+    surname2: '***',
+    dni: '***',
+    city: '***'
+  };
   lang: string;
 
   constructor(
     private auth: AuthService,
     private api: ApiService,
     private storage: Storage,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private alertCtrl: AlertController
   ) {}
 
   ngOnInit() {
@@ -28,13 +37,46 @@ export class ProfilePage implements OnInit {
  
   ionViewWillEnter() {
     this.api.post('User', 'getUser').subscribe({
-      next: (resp: {data: object}) => {
-        this.user = resp.data;
+      next: (resp: {data: any}) => {
+        this.presentAlert(resp.data.data);
       },
       error: error => {
         console.error('There was an error!', error);
       }
-    })
+    });
+  }
+
+  async presentAlert(dataEncypted) {
+    const alert = await this.alertCtrl.create({
+      header: 'Login',
+      inputs: [
+        {
+          name: 'password',
+          placeholder: 'Password',
+          type: 'password'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: pwd => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Login',
+          handler: pwd => {
+            console.log(dataEncypted)
+            console.log(pwd.password)
+            var decrypted = CryptoJS.AES.decrypt(dataEncypted, pwd.password).toString(CryptoJS.enc.Utf8);
+            console.log(decrypted)
+            this.user = JSON.parse(decrypted);
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
   logout() {

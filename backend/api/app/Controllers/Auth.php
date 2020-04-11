@@ -4,6 +4,7 @@ namespace Safewalks\Controllers;
 
 use \Safewalks\Repository\User as UserRepository;
 use ReallySimpleJWT\Token;
+use Safewalks\Helpers\Validator;
 
 class Auth extends BaseController {
 
@@ -11,13 +12,13 @@ class Auth extends BaseController {
 
     static function register($params) {
         global $CNF;
-        
-        $params['password'] = password_hash($params['password'], PASSWORD_DEFAULT);
-        $params['country'] = "Spain";
 
-        UserRepository::insert($params);
+        $newUser = ['hash' => $params['hash'], 'dni_hash' => $params['dni_hash'], 
+            'country' => Validator::string($params['country']), 'data' => $params['data']];
         
-        return "registered";
+        UserRepository::insert($newUser);
+        
+        return true;
     }
     
     static function login($params) {
@@ -25,11 +26,15 @@ class Auth extends BaseController {
 
         $ret = [];
     
-        $user = UserRepository::selectFirst(['nif' => $params['nif']], false);
+        $user = UserRepository::selectFirst(['hash' => $params['hash']], false);
 
-        if(!password_verify($params["password"], $user["password"])) {
+        if(!$user) {
             throw new \Exception("Unauthorized", 401);
         }
+
+        /*if(!password_verify($params["password"], $user["password"])) {
+            throw new \Exception("Unauthorized", 401);
+        }*/
 
         $ret["token"] = Token::create($user["id"], $CNF["auth_secret"], $CNF["auth_expiration"], $CNF["auth_issuer"]);
         return $ret;

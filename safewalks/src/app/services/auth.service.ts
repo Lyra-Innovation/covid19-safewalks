@@ -8,6 +8,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators'
 import { Router } from '@angular/router';
 import { ApiService } from './api.service';
+import * as CryptoJS from 'crypto-js';
+
 
 const helper = new JwtHelperService();
 
@@ -47,9 +49,12 @@ export class AuthService {
   }
  
   login(credentials: {dni: string, pw: string }) {
+    //encypt dni with your password
+    var hash = CryptoJS.HmacSHA512(credentials.dni, credentials.pw.trim()).toString();
+    
+    //send login to get JWT
     return this.api.post('Auth', 'login', {
-      "nif": credentials.dni,
-      "password": credentials.pw
+      "hash": hash
     }).pipe(
       catchError((error: HttpErrorResponse) => {
         return of(null);
@@ -65,15 +70,22 @@ export class AuthService {
     );
   }
 
-  register(usr_data: {dni: string, email: string, name: string, surname1: string, surname2: string, city: string, pw: string }) {
+  register(usr_data: {dni: string, name: string, surname1: string, surname2: string, city: string}, pwd) {
+    //encypt dni with your password
+    var hash = CryptoJS.HmacSHA512(usr_data.dni, pwd).toString();
+
+    //enctypt your data with your password
+    var data = CryptoJS.AES.encrypt(JSON.stringify(usr_data), pwd).toString();
+
+    //hash dni (to check rpeated)
+    var dni_hash = CryptoJS.SHA512(usr_data.dni);
+
+    //send register
     return this.api.post('Auth', 'register', {
-      "nif": usr_data.dni,
-      "email" : usr_data.email,
-      "name" : usr_data.name,
-      "surname1": usr_data.surname1,
-      "surname2": usr_data.surname2,
-      "city": usr_data.city,
-      "password": usr_data.pw,
+      "hash": hash,
+      "data": data,
+      "country": "Spain",
+      "dni_hash": dni_hash
     }).pipe(
       catchError((error: HttpErrorResponse) => {
         return of(null);
@@ -86,10 +98,6 @@ export class AuthService {
     );
   }
 
-  getUser() {
-    return this.userData.getValue();
-  }
- 
   logout() {
     this.storage.remove('token').then(() => {
       this.router.navigateByUrl('/');

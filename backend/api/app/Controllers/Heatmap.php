@@ -5,16 +5,17 @@ namespace Safewalks\Controllers;
 use Safewalks\Helpers\Cells;
 use Safewalks\Repository\TripCell;
 use Safewalks\Helpers\Database;
+use Safewalks\Helpers\Validator;
 
 class Heatmap extends BaseController {
 
     static function getHeat($params) {
         global $CNF;
 
-        $cell = Cells::posToCell($params["cell"]);
+        $cell = Cells::posToCell(Validator::cell($params["cell"]));
 
-        $startTime = Database::toTime($params["start_time"]);
-        $endTime = Database::toTime($params["end_time"]);
+        $startTime = Database::toTime(Validator::int($params["start_time"]));
+        $endTime = Database::toTime(Validator::int($params["end_time"]));
 
         $ret = TripCell::selectCount([
             'x' =>  $cell['x'], 
@@ -29,11 +30,11 @@ class Heatmap extends BaseController {
     static function getHeatMapZoom($params) {
         global $CNF;
 
-        $leftBotCell = Cells::posToCell($params["left_bot_cell"]);
-        $rightTopCell =  Cells::posToCell($params["right_top_cell"]);
+        $leftBotCell = Cells::posToCell(Validator::cell($params["left_bot_cell"]));
+        $rightTopCell =  Cells::posToCell(Validator::cell($params["right_top_cell"]));
 
-        $startTime = date("Y-m-d H:i:s", $params["time"] - $CNF["interval_seconds"]);
-        $endTime = date("Y-m-d H:i:s", $params["time"] + $CNF["interval_seconds"]);
+        $startTime = date("Y-m-d H:i:s", Validator::int($params["time"]) - $CNF["interval_seconds"]);
+        $endTime = date("Y-m-d H:i:s", Validator::int($params["time"]) + $CNF["interval_seconds"]);
 
         $ret = [];
 
@@ -41,7 +42,7 @@ class Heatmap extends BaseController {
         $y = $leftBotCell['y'];
 
         while($x <= $rightTopCell['x']) {
-            $y = $rightTopCell['y'];
+            $y = $leftBotCell['y'];
             while($y >= $rightTopCell['y']) {
                 
                 $value = TripCell::selectCount([
