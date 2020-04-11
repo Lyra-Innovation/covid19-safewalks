@@ -89,7 +89,7 @@ export class ProfilePage {
   }
 
   logout() {
-    //this.auth.logout();
+    this.auth.logout();
   }
 
   onChange(params) {
