@@ -70,22 +70,22 @@ export class AuthService {
     );
   }
 
-  register(usr_data: {dni: string, pw: string, name: string, surname1: string, surname2: string, city: string}) {
-    //temp var with pwd
-    var pwd = usr_data.pw.trim();
-
+  register(usr_data: {dni: string, name: string, surname1: string, surname2: string, city: string}, pwd) {
     //encypt dni with your password
     var hash = CryptoJS.HmacSHA512(usr_data.dni, pwd).toString();
 
     //enctypt your data with your password
-    delete usr_data.pw;
     var data = CryptoJS.AES.encrypt(JSON.stringify(usr_data), pwd).toString();
+
+    //hash dni (to check rpeated)
+    var dni_hash = CryptoJS.SHA512(usr_data.dni);
 
     //send register
     return this.api.post('Auth', 'register', {
       "hash": hash,
       "data": data,
       "country": "Spain",
+      "dni_hash": dni_hash
     }).pipe(
       catchError((error: HttpErrorResponse) => {
         return of(null);

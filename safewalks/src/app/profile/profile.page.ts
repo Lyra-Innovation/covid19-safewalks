@@ -67,7 +67,10 @@ export class ProfilePage implements OnInit {
         {
           text: 'Login',
           handler: pwd => {
-            var decrypted = CryptoJS.AES.decrypt(dataEncypted, pwd.password);
+            console.log(dataEncypted)
+            console.log(pwd.password)
+            var decrypted = CryptoJS.AES.decrypt(dataEncypted, pwd.password).toString(CryptoJS.enc.Utf8);
+            console.log(decrypted)
             this.user = JSON.parse(decrypted);
           }
         }
