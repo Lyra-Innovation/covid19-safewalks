@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ApiService } from '../services/api.service';
-import "src/assets/js/leaflet-heat.js";
+import "../../assets/js/leaflet-heat.js";
 
 @Component({
   selector: 'app-heatmap',
