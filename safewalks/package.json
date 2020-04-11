@@ -30,6 +30,7 @@
     "@ngx-translate/core": "^12.1.2",
     "@ngx-translate/http-loader": "^4.0.0",
     "core-js": "^2.5.4",
+    "crypto-js": "^4.0.0",
     "leaflet": "^1.6.0",
     "leaflet.pm": "^2.2.0",
     "rxjs": "~6.5.1",
