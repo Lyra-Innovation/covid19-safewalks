@@ -11,6 +11,8 @@ class Auth extends BaseController {
 
     static function register($params) {
         global $CNF;
+
+        $newUser = [];
         
         UserRepository::insert($params);
         
@@ -23,6 +25,10 @@ class Auth extends BaseController {
         $ret = [];
     
         $user = UserRepository::selectFirst(['hash' => $params['hash']], false);
+
+        if(!$user) {
+            throw new \Exception("Unauthorized", 401);
+        }
 
         /*if(!password_verify($params["password"], $user["password"])) {
             throw new \Exception("Unauthorized", 401);
