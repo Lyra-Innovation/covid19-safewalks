@@ -50,8 +50,8 @@ export class AuthService {
  
   login(credentials: {dni: string, pw: string }) {
     //encypt dni with your password
-    var hash = CryptoJS.AES.encrypt(credentials.dni, credentials.pw.trim()).toString();
-
+    var hash = CryptoJS.HmacSHA512(credentials.dni, credentials.pw.trim()).toString();
+    console.log(hash); 
     //send login to get JWT
     return this.api.post('Auth', 'login', {
       "hash": hash
@@ -72,7 +72,7 @@ export class AuthService {
 
   register(usr_data: {dni: string, pw: string }) {
     //encypt dni with your password
-    var hash = CryptoJS.AES.encrypt(usr_data.dni, usr_data.pw.trim()).toString();
+    var hash = CryptoJS.HmacSHA512(usr_data.dni, usr_data.pw.trim()).toString();
 
     //send register
     return this.api.post('Auth', 'register', {
