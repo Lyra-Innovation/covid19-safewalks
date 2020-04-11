@@ -17,7 +17,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'viewtrip',
+    path: 'viewtrip/:id',
     loadChildren: () => import('./viewtrip/viewtrip.module').then( m => m.ViewtripPageModule),
     canActivate: [AuthGuard]
   },
