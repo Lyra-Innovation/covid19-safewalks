@@ -12,12 +12,9 @@ class Auth extends BaseController {
     static function register($params) {
         global $CNF;
         
-        $params['password'] = password_hash($params['password'], PASSWORD_DEFAULT);
-        $params['country'] = "Spain";
-
         UserRepository::insert($params);
         
-        return "registered";
+        return true;
     }
     
     static function login($params) {
@@ -25,11 +22,11 @@ class Auth extends BaseController {
 
         $ret = [];
     
-        $user = UserRepository::selectFirst(['nif' => $params['nif']], false);
+        $user = UserRepository::selectFirst(['hash' => $params['hash']], false);
 
-        if(!password_verify($params["password"], $user["password"])) {
+        /*if(!password_verify($params["password"], $user["password"])) {
             throw new \Exception("Unauthorized", 401);
-        }
+        }*/
 
         $ret["token"] = Token::create($user["id"], $CNF["auth_secret"], $CNF["auth_expiration"], $CNF["auth_issuer"]);
         return $ret;
