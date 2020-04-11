@@ -18,7 +18,7 @@
         <ion-card class="tripitem" [routerLink]="['/viewtrip', item.id]" routerDirection="forward">
             <ion-item>
                 <ion-icon [hidden]="item.vehicle != 'walk'" src="/assets/walk.svg" slot="start" size="large"></ion-icon>
-                <ion-icon [hidden]="item.vehicle != 'running'" src="/assets/running.svg" slot="start" size="large"></ion-icon>
+                <ion-icon [hidden]="item.vehicle != 'run'" src="/assets/running.svg" slot="start" size="large"></ion-icon>
                 <ion-icon [hidden]="item.vehicle != 'bicycle'" src="/assets/bicycle.svg" slot="start" size="large"></ion-icon>
                 <ion-label>
                     <ion-card-title>
