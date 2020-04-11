@@ -14,9 +14,9 @@ export class RegisterPage implements OnInit {
     surname1: '',
     surname2: '',
     dni: '',
-    pw: '',
     city: ''
   };
+  pwd = '';
 
   constructor(
     private auth: AuthService,
@@ -24,19 +24,18 @@ export class RegisterPage implements OnInit {
     private alertCtrl: AlertController
   ){ }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   register() {
-    this.auth.register(this.user_data).subscribe(async res => {
+    this.auth.register(this.user_data, this.pwd).subscribe(async res => {
       if (res) {
-        this.auth.login({dni: this.user_data.dni, pw: this.user_data.pw}).subscribe(async res => {
+        this.auth.login({dni: this.user_data.dni, pw: this.pwd}).subscribe(async res => {
           this.router.navigateByUrl('/app');
         });
       } else {
         const alert = await this.alertCtrl.create({
           header: 'Register error',
-          message: '',
+          message: 'DNI exists',
           buttons: ['OK']
         });
         await alert.present();

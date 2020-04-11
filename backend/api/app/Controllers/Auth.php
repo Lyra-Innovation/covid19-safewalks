@@ -13,7 +13,8 @@ class Auth extends BaseController {
     static function register($params) {
         global $CNF;
 
-        $newUser = ['hash' => $params['hash'], 'country' => Validator::string($params['country']), 'data' => $params['data']];
+        $newUser = ['hash' => $params['hash'], 'dni_hash' => $params['dni_hash'], 
+            'country' => Validator::string($params['country']), 'data' => $params['data']];
         
         UserRepository::insert($newUser);
         

@@ -34,7 +34,7 @@ CREATE TABLE `Trip` (
   PRIMARY KEY (`id`),
   KEY `Trip_User_FK` (`id_user`),
   CONSTRAINT `Trip_User_FK` FOREIGN KEY (`id_user`) REFERENCES `User` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1154 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1157 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +66,7 @@ CREATE TABLE `TripCell` (
   PRIMARY KEY (`id`),
   KEY `TripCell_Trip_FK` (`id_trip`),
   CONSTRAINT `TripCell_Trip_FK` FOREIGN KEY (`id_trip`) REFERENCES `Trip` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=313 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=316 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -90,9 +90,11 @@ CREATE TABLE `User` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `hash` varchar(1024) NOT NULL,
   `data` text DEFAULT NULL,
+  `dni_hash` varchar(1024) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `User_UN` (`hash`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+  UNIQUE KEY `User_UN` (`hash`),
+  UNIQUE KEY `User_DNI` (`dni_hash`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,4 +119,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-11 17:49:01
+-- Dump completed on 2020-04-11 18:44:35

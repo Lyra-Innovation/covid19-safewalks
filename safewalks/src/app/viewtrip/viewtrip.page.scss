@@ -4,9 +4,24 @@
     align-items: center;
 }
 
+ion-toolbar {
+    --background: rgb(131, 179, 138);
+}
+
+ion-back-button {
+    color: white;
+}
+
+ion-title {
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+}
+
 .header-button {
     margin-left: auto;
     margin-right: 10px;
+    font-weight: bold;
 }
 
 #header-transport {
