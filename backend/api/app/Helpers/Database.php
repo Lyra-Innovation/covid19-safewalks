@@ -23,5 +23,10 @@ class Database {
         return date("Y-m-d H:i:s", $timestamp);
     }
 
+    static function toTimestamp($date) {
+        $date = \DateTime::createFromFormat("Y-m-d H:i:s", $date);
+        return $date->getTimestamp();
+    }
+
 }
 

@@ -9,7 +9,7 @@ abstract class BaseRepository {
 
     static function execute($sql) {
         global $DB, $CNF;
-        
+
         $result = $DB->query($sql);
         if(!$result) {
 

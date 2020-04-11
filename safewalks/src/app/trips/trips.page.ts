@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 
 @Component({
@@ -14,6 +14,10 @@ export class TripsPage {
   ) { }
 
   ionViewWillEnter() {
+    this.getTrips();
+  }
+
+  getTrips() {
     this.api.post('Trip', 'getTrips').subscribe({
       next: (resp: {data: {trips: []}}) => {
         this.triplist = resp.data.trips;

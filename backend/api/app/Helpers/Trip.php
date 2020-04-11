@@ -37,6 +37,5 @@ class Trip {
             $dist = rad2deg($dist);
             return $dist * 60 * 1.1515 * 1609.344;
         }
-          
     }
 }

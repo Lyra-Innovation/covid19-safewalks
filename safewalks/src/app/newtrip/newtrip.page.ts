@@ -1,9 +1,9 @@
-import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import '@geoman-io/leaflet-geoman-free';
 import { ApiService } from '../services/api.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -25,7 +25,7 @@ export class NewtripPage implements OnInit {
   speed_selected = "walk";
   speed = {
     "walk": {},
-    "running": {},
+    "run": {},
     "bicycle": {}
   }
 
@@ -43,6 +43,7 @@ export class NewtripPage implements OnInit {
     private api: ApiService,
     public alertController: AlertController,
     private translate: TranslateService,
+    private navCtrl: NavController
   ) {}
 
   ngOnInit(): void {
@@ -65,7 +66,7 @@ export class NewtripPage implements OnInit {
 
   change_speed(speed) {
     this.speed_selected = speed;
-    this.speed = {"walk": {}, "running": {} , "bicycle": {}}
+    this.speed = {"walk": {}, "run": {} , "bicycle": {}}
     this.speed[speed] = {"background-color": "#EEE"};
   }
 
@@ -91,7 +92,7 @@ export class NewtripPage implements OnInit {
       drawRectangle: false,
       drawPolygon: false,
       drawCircle: false,
-      editMode: false,
+      editMode: true,
       dragMode: false,
       cutPolygon: false,
       removalMode: false,
@@ -173,6 +174,10 @@ export class NewtripPage implements OnInit {
       buttons: [
         {
           text: this.translate.instant('newtrip.ok'),
+          handler: () => {
+            console.log('Agree clicked');
+            this.navCtrl.navigateBack("/app/trips");
+          }
         }
       ]
     });
