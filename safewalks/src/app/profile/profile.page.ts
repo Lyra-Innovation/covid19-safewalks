@@ -27,14 +27,7 @@ export class ProfilePage implements OnInit {
   }
  
   ionViewWillEnter() {
-    this.api.post('User', 'getUser').subscribe({
-      next: (resp: {data: object}) => {
-        this.user = resp.data;
-      },
-      error: error => {
-        console.error('There was an error!', error);
-      }
-    })
+    this.user = this.auth.getUserData();
   }
 
   logout() {
