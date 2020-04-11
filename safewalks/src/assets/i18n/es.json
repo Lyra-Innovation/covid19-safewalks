@@ -35,6 +35,10 @@
         "noreason": "Introduzca una razón",
         "alert_success_header": "¡Éxito!",
         "success": "La salida se ha creado correctamente",
+        "alert_fail_header": "Ocupado",
+        "fail": "No se ha encontrado ninguna franja horaria para esta salida",
+        "alert_alternative_header": "Alternativa",
+        "alternative": "Se ha encontrado una franja horaria alternativa para esta salida. La nueva fecha propuesta es: ",
         "ok": "Aceptar",
         "cancel": "Cancelar",
         "reason": {

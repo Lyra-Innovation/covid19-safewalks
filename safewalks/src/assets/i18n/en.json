@@ -35,6 +35,10 @@
         "noreason": "Insert a reason",
         "alert_success_header": "Success!",
         "success": "The trip was created successfully",
+        "alert_fail_header": "Busy",
+        "fail": "No alternative time was found for this trip",
+        "alert_alternative_header": "Alternative",
+        "alternative": "An alternative time was found to make the trip. The new suggested date is: ",
         "ok": "Ok",
         "cancel": "Cancel",
         "reason": {
