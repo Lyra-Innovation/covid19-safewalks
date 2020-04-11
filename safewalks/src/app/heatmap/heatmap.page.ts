@@ -68,88 +68,63 @@ export class HeatmapPage implements OnInit {
     var ctx = this;
 
     // Heatmap
-    this.heatLayer = L.heatLayer([
-        [41.3870154+0.0005, 2.1678531+0.0003, 0.3]
-      ], {radius: ctx.getRadius(),
+    this.heatLayer = L.heatLayer([], {radius: ctx.getRadius(),
       max: 1.0,
-      blur: 15,              
+      blur: 10,              
       gradient: {
           0.0: 'green',
           0.5: 'yellow',
           1.0: 'red'
       },
-      minOpacity: 0.3}).addTo(this.map);
+      minOpacity: 0.3,
+      maxZoom: 17}).addTo(this.map);
 
     this.map.on({
       moveend: function () { ctx.paintHeatmap(); },
-      zoomend: function () { ctx.paintHeatmap(); },
     });
 
-    this.map.on('zoomstart', function(ev) {
-      // zoom level changed... adjust heatmap layer options!
-      ctx.heatLayer.setOptions({
-          radius: ctx.getRadius(),
-          max: 1.0,
-          blur: 15,              
-          gradient: {
-              0.0: 'green',
-              0.5: 'yellow',
-              1.0: 'red'
-          },
-          minOpacity: 0.7
-      });
-      // render the new options
-      ctx.heatLayer.redraw();
-    });
   }
 
   dateSelected(event) {
     this.selectedDate = event.detail.value;
-    this.heatLayer.setLatLngs([]);
-    this.heatLayer.paintHeatmap();
+    this.paintHeatmap();
   }
 
   paintHeatmap() {
     var bounds = this.map.getBounds();
-    console.log(bounds);
     var heatArray = [];
+    var heatPoint;
 
-    this.api.post('Heatmap', 'getHeaMapZoom', {
-      "left_bot_cell": bounds[0], //Change this for correct values
-      "right_bot_cell" : bounds[1],
-      "time": this.selectedDate
+    this.heatLayer.setLatLngs([]);
+    this.api.post('Heatmap', 'getHeatMapZoom', {
+      "left_bot_cell": bounds["southWest"], //Change this for correct values
+      "right_bot_cell" : bounds["northEast"],
+      "time": this.selectedDate.getTime()/1000
       }).subscribe({
       next: (resp: {data: []}) => {
-        heatArray = resp.data;
+        heatArray = [{lon: 2.1678531+0.0008, lat: 41.3870154+0.0002, value: 0.1},{lon: 2.1678531+0.0003, lat: 41.3870154+0.0005, value: 0.8}];
         for(var i = 0; i < heatArray.length; i++) {
-          this.heatLayer.addLatLng(heatArray[i], {radius: 25,
-            max: 1.0,
-            blur: 25,              
-            gradient: {
-                0.0: 'green',
-                0.5: 'yellow',
-                1.0: 'red'
-            },
-            minOpacity: 0.3}).addTo(this.map);
+          //console.log(heatArray[i]);
+          heatPoint = [heatArray[i].lat, heatArray[i].lon, heatArray[i].value];
+          this.heatLayer.addLatLng(heatPoint).addTo(this.map);
         }
+        this.heatLayer.setOptions({radius: this.getRadius(),
+          max: 1.0,
+          blur: 15,              
+          gradient: {
+              0.0: 'green',
+              0.33: 'yellow',
+              0.67: 'orange',
+              1.0: 'red'
+          },
+          minOpacity: 0.3,
+          maxZoom: 14});
+        this.heatLayer.redraw();
       },
       error: error => {
         console.error('There was an error!', error);
       }
     })
-    
-    //TODO fer crida backend amb this.selectedDate
-    for(var i; i < heatArray.length; i++) {
-      this.heatLayer.addLatLng(heatArray[i], {radius: 25,
-        max: 1.0,
-        blur: 25,              
-        gradient: {
-            0.0: 'green',
-            0.5: 'yellow',
-            1.0: 'red'
-        },
-        minOpacity: 0.3}).addTo(this.map);
-    }
     
   }
 
@@ -173,38 +148,28 @@ export class HeatmapPage implements OnInit {
         radius = 10;
     }
     else if (currentZoom === 12) {
-        radius = 14;
+        radius = 12;
     }
     else if (currentZoom === 13) {
-        radius = 18;
+        radius = 14;
     }
     else if (currentZoom === 14) {
-        radius = 22;
+        radius = 18;
     }
     else if (currentZoom === 15) {
-        radius = 32;
+        radius = 24;
     }
     else if (currentZoom === 16) {
-        radius = 36;
-    }
-    else if (currentZoom === 17) {
         radius = 40;
     }
-    else if (currentZoom === 18) {
-        radius = 45;
+    else if (currentZoom === 17) {
+        radius = 60;
     }
+    else if (currentZoom === 18) {
+        radius = 100;
+    }
+    console.log("Radius: "+radius);
     return radius;
-}
-
-    /*var draw=true;
-    this.map.on({
-        movestart: function () { draw = false; },
-        moveend:   function () { draw = true; },
-        mousemove: function (e) {
-            if (draw) {
-              heat.addLatLng(e.latlng);
-            }
-        }
-    })*/
+  }
 
 }
