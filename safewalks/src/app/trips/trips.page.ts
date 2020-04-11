@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../services/api.service';
+import { NavController } from '@ionic/angular';
+import {Router,NavigationEnd} from '@angular/router';
 
 @Component({
   selector: 'app-trips',
@@ -8,10 +10,19 @@ import { ApiService } from '../services/api.service';
 })
 export class TripsPage {
   triplist = [];
+  firstLoad = true;
 
   constructor(
     private api: ApiService,
-  ) { }
+    private navCtrl: NavController,
+    private router: Router
+  ) {
+    router.events.subscribe((val) => {
+      if(val instanceof NavigationEnd && (val.url == "/app/trips") && !this.firstLoad) {
+        this.getTrips();
+      }
+    });
+  }
 
   ionViewWillEnter() {
     this.getTrips();
@@ -35,6 +46,7 @@ export class TripsPage {
           //duration format
           this.triplist[i].duration = Math.floor(this.triplist[i].duration/60);
         }
+        this.firstLoad = false;
       },
       error: error => {
         console.error('There was an error!', error);
