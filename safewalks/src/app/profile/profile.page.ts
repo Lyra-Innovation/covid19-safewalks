@@ -36,6 +36,14 @@ export class ProfilePage implements OnInit {
   }
  
   ionViewWillEnter() {
+    this.user = {
+      name: '***',
+      surname1: '***',
+      surname2: '***',
+      dni: '***',
+      city: '***'
+    };
+
     this.api.post('User', 'getUser').subscribe({
       next: (resp: {data: any}) => {
         this.presentAlert(resp.data.data);

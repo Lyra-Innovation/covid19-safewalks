@@ -15,10 +15,10 @@
 
 <ion-content [fullscreen]="true">
     <div class="tripitem" *ngFor="let item of triplist">
-        <ion-card class="tripitem">
+        <ion-card class="tripitem" [routerLink]="['/viewtrip', item.id]" routerDirection="forward">
             <ion-item>
                 <ion-icon [hidden]="item.vehicle != 'walk'" src="/assets/walk.svg" slot="start" size="large"></ion-icon>
-                <ion-icon [hidden]="item.vehicle != 'running'" src="/assets/running.svg" slot="start" size="large"></ion-icon>
+                <ion-icon [hidden]="item.vehicle != 'run'" src="/assets/running.svg" slot="start" size="large"></ion-icon>
                 <ion-icon [hidden]="item.vehicle != 'bicycle'" src="/assets/bicycle.svg" slot="start" size="large"></ion-icon>
                 <ion-label>
                     <ion-card-title>
@@ -26,7 +26,7 @@
                     </ion-card-title>
                     <ion-card-subtitle>{{'trips.aprox_duration' | translate}} {{item.duration}} min</ion-card-subtitle>
                 </ion-label>
-                <ion-icon class="icon_pointer" name="arrow-forward" slot="end" [routerLink]="['/viewtrip', item.id]" routerDirection="forward"></ion-icon>
+                <ion-icon class="icon_pointer" name="arrow-forward" slot="end"></ion-icon>
             </ion-item>
         </ion-card>
     </div>
