@@ -14,7 +14,7 @@
         "cancel": "Cancel·lar",
         "close": "Tancar sessió",
         "login": {
-            "title": "Introdueix la contrasenya per veure les dades personals",
+            "title": "Introdueix la contrasenya per accedir a les dades personals",
             "password": "Contrasenya",
             "cancel": "Més tard",
             "login": "D'acord"
@@ -39,7 +39,7 @@
         "alert_validation_header": "Falten dades",
         "nodate": "Introdueixi una data",
         "nocoords": "Introdueixi un itinerari",
-        "noreason": "Introdueixi una raó",
+        "noreason": "Introdueixi un motiu",
         "alert_success_header": "Èxit!",
         "success": "La sortida s'ha creat correctament",
         "alert_fail_header": "Ocupat",
@@ -49,8 +49,8 @@
         "ok": "D'acord",
         "cancel": "Cancel·lar",
         "reason": {
-            "title": "Raó de la sortida",
-            "select": "Introdueixi una raó",
+            "title": "Motiu de la sortida",
+            "select": "Introdueixi un motiu",
             "0": "Adquisició d'aliments",
             "1": "Adquisició de fàrmacs",
             "2": "Accés a entitats",
