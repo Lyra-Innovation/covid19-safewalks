@@ -9,7 +9,7 @@ import "src/assets/js/leaflet-heat.js";
   templateUrl: './heatmap.page.html',
   styleUrls: ['./heatmap.page.scss'],
 })
-export class HeatmapPage implements OnInit {
+export class HeatmapPage {
 
   map: L.Map;
   locationMarker: any;
@@ -18,7 +18,7 @@ export class HeatmapPage implements OnInit {
 
   constructor(private geolocation: Geolocation, private api: ApiService) {}
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.selectedDate = new Date();
     this.geolocation.getCurrentPosition().then((resp) => {
       this.loadMap(resp.coords.latitude, resp.coords.longitude);
@@ -60,7 +60,9 @@ export class HeatmapPage implements OnInit {
         opacity: 1,
         icon: myIcon
         }).addTo(this.map);
-      this.locationMarker.bindPopup("Vostè és aquí").openPopup();
+      var latLngs = [ this.locationMarker.getLatLng() ];
+      var markerBounds = L.latLngBounds(latLngs);
+      this.map.fitBounds(markerBounds);
     });
   }
 
@@ -97,7 +99,7 @@ export class HeatmapPage implements OnInit {
     
     var time = Math.round(new Date(this.selectedDate).getTime()/1000);
     this.heatLayer.setLatLngs([]);
-    if(this.map.getZoom() > 12) {
+    if(this.map.getZoom() >= 14) {
       this.api.post('Heatmap', 'getHeatMapZoom', {
         "left_bot_cell": {
           "lat": bounds["_southWest"].lat,
