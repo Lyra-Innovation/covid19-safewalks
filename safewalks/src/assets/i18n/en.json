@@ -95,5 +95,13 @@
         "10": "of October",
         "11": "of November",
         "12": "of December"
+    },
+    "viewtrip": {
+        "title": "Check trip",
+        "delete": "Delete",
+        "alert_delete_header": "Delete",
+        "alert_delete_message": "Are you sure you want to delete this trip?",
+        "ok": "Yes",
+        "cancel": "No"
     }
 }
