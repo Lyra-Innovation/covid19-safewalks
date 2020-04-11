@@ -22,19 +22,29 @@ export class TripsPage {
       next: (resp: {data: {trips: []}}) => {
         this.triplist = resp.data.trips;
         for(var i = 0; i < this.triplist.length; i++) {
-          var date = this.triplist[i].start_date;
+          //date format
+          var date = new Date(this.triplist[i].start_date*1000);
           this.triplist[i].start_date = {
-            "year": date.slice(0, 4),
-            "month": date.slice(5, 7),
-            "day": date.slice(8, 10),
-            "hour": date.slice(11, 13),
-            "minute": date.slice(14, 16),
+            "year": date.getFullYear(),
+            "month": date.getMonth()+1,
+            "day": date.getDate(),
+            "hour": date.getHours(),
+            "minute": this.pad(date.getMinutes(), 2, 0) 
           }
+
+          //duration format
+          this.triplist[i].duration = Math.floor(this.triplist[i].duration/60);
         }
       },
       error: error => {
         console.error('There was an error!', error);
       }
     })
+  }
+
+  pad(n, width, z) {
+    z = z || '0';
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
   }
 }

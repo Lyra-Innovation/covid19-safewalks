@@ -24,6 +24,7 @@
                     <ion-card-title>
                         {{item.start_date.day}} {{'months.'+item.start_date.month | translate}} - {{item.start_date.hour}}:{{item.start_date.minute}}
                     </ion-card-title>
+                    <ion-card-subtitle>{{'newtrip.reason.'+item.id_reason | translate}}</ion-card-subtitle>
                     <ion-card-subtitle>{{'trips.aprox_duration' | translate}} {{item.duration}} min</ion-card-subtitle>
                 </ion-label>
                 <ion-icon class="icon_pointer" name="arrow-forward" slot="end"></ion-icon>
