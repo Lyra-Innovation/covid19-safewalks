@@ -19,19 +19,21 @@ class Heatmap extends BaseController {
         $ret = TripCell::selectCount([
             'x' =>  $cell['x'], 
             'y' =>  $cell['y'],
-            'timestamp1' => ['key' => 'cell_time', 'value' => $startTime, 'op' => '>='],
-            'timestamp2' => ['key' => 'cell_time', 'value' => $endTime, 'op' => '<=']
+            'timestamp1' => ['key' => 'cell_time',  'op' => '<=', 'value' => $endTime],
+            'timestamp2' => ['key' => 'cell_end_time', 'op' => '>=', 'value' => $startTime]
         ]);
 
         return min($ret / $CNF['map_max_heat'], 1);
     }
 
     static function getHeatMapZoom($params) {
+        global $CNF;
+
         $leftBotCell = Cells::posToCell($params["left_bot_cell"]);
         $rightTopCell =  Cells::posToCell($params["right_top_cell"]);
 
-        $startTime = date("Y-m-d H:i:s", $params["time"] - 60*60);
-        $endTime = date("Y-m-d H:i:s", $params["time"] + 60*60);
+        $startTime = date("Y-m-d H:i:s", $params["time"] - $CNF["interval_seconds"]);
+        $endTime = date("Y-m-d H:i:s", $params["time"] + $CNF["interval_seconds"]);
 
         $ret = [];
 
@@ -39,13 +41,14 @@ class Heatmap extends BaseController {
         $y = $leftBotCell['y'];
 
         while($x <= $rightTopCell['x']) {
+            $y = $rightTopCell['y'];
             while($y >= $rightTopCell['y']) {
                 
                 $value = TripCell::selectCount([
                     'x' =>  $x, 
                     'y' =>  $y,
-                    'timestamp1' => ['key' => 'cell_time', 'value' => $startTime, 'op' => '>='],
-                    'timestamp2' => ['key' => 'cell_time', 'value' => $endTime, 'op' => '<=']
+                    'timestamp1' => ['key' => 'cell_time',  'op' => '<=', 'value' => $endTime],
+                    'timestamp2' => ['key' => 'cell_end_time', 'op' => '>=', 'value' => $startTime]
                 ]);
 
                 $y--;
