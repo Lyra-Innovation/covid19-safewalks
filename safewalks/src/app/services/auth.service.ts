@@ -50,8 +50,8 @@ export class AuthService {
  
   login(credentials: {dni: string, pw: string }) {
     //encypt dni with your password
-    var hash = CryptoJS.AES.encrypt(credentials.dni, credentials.pw.trim()).toString();
-
+    var hash = CryptoJS.HmacSHA512(credentials.dni, credentials.pw.trim()).toString();
+    
     //send login to get JWT
     return this.api.post('Auth', 'login', {
       "hash": hash
@@ -70,13 +70,21 @@ export class AuthService {
     );
   }
 
-  register(usr_data: {dni: string, pw: string }) {
+  register(usr_data: {dni: string, pw: string, name: string, surname1: string, surname2: string, city: string}) {
+    //temp var with pwd
+    var pwd = usr_data.pw.trim();
+
     //encypt dni with your password
-    var hash = CryptoJS.AES.encrypt(usr_data.dni, usr_data.pw.trim()).toString();
+    var hash = CryptoJS.HmacSHA512(usr_data.dni, pwd).toString();
+
+    //enctypt your data with your password
+    delete usr_data.pw;
+    var data = CryptoJS.AES.encrypt(JSON.stringify(usr_data), pwd).toString();
 
     //send register
     return this.api.post('Auth', 'register', {
       "hash": hash,
+      "data": data,
       "country": "Spain",
     }).pipe(
       catchError((error: HttpErrorResponse) => {
@@ -90,16 +98,10 @@ export class AuthService {
     );
   }
 
-  getUserData() {
-    return this.storage.get('usr_data');
-  }
- 
   logout() {
     this.storage.remove('token').then(() => {
-      this.storage.remove('usr_data').then(() => {
-        this.router.navigateByUrl('/');
-        this.userData.next(null);
-      });
+      this.router.navigateByUrl('/');
+      this.userData.next(null);
     });
   }
 

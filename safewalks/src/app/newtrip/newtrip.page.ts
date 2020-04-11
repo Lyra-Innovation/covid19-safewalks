@@ -30,7 +30,7 @@ export class NewtripPage implements OnInit {
   }
 
   reasonid_enforced = {
-    "0": 1,
+    "0": 0,
     "1": 1,
     "2": 1,
     "3": 1,
@@ -117,14 +117,7 @@ export class NewtripPage implements OnInit {
     return ret;
   }
 
-  send_trip() {
-    var validation = this.validate();
-
-    if (!validation['success']) {
-      this.alertValidation(validation['error']);
-      return;
-    }
-
+  get_points() {
     var points = [];
     for (var i = 0; i < this.map.coords.length; i++) {
       points.push({
@@ -132,8 +125,24 @@ export class NewtripPage implements OnInit {
         "lon": this.map.coords[i].lng
       });
     }
+    return points;
+  }
+
+  prepare_trip() {
+    var validation = this.validate();
+
+    if (!validation['success']) {
+      this.alertValidation(validation['error']);
+      return;
+    }
+
+    var points = this.get_points();
+    this.send_trip(points, Math.floor(new Date(this.selectedDate).getTime() / 1000));
+  }
+
+  send_trip(points, start_date) {
     this.api.post('Trip', 'createTrip', {
-      "start_date": Math.floor(new Date(this.selectedDate).getTime() / 1000),
+      "start_date": start_date,
       "enforced": this.reasonid_enforced[this.selectedReason],
       "vehicle": this.speed_selected,
       "points": points,
@@ -142,9 +151,10 @@ export class NewtripPage implements OnInit {
       next: (resp: {data: any}) => {
         if (resp.data.success) {
           this.alertSuccess();
+        } else if (resp.data.found) {
+          this.alertAlternative(resp.data);
         } else {
-          // show popup with resp.data.alternative
-          console.log(resp.data.alternative);
+          this.alertFail();
         }
       },
       error: error => {
@@ -175,7 +185,6 @@ export class NewtripPage implements OnInit {
         {
           text: this.translate.instant('newtrip.ok'),
           handler: () => {
-            console.log('Agree clicked');
             this.navCtrl.navigateBack("/app/trips");
           }
         }
@@ -184,4 +193,40 @@ export class NewtripPage implements OnInit {
 
     await alert.present();
   }
+
+  async alertAlternative(data) {
+    const alert = await this.alertController.create({
+      header: this.translate.instant('newtrip.alert_alternative_header'),
+      message: this.translate.instant('newtrip.alternative') + new Date(data.time * 1000).toLocaleString(),
+      buttons: [
+        {
+          text: this.translate.instant('newtrip.ok'),
+          handler: () => {
+            this.send_trip(this.get_points(), data.time);
+          }
+        },
+        {
+          text: this.translate.instant('newtrip.cancel'),
+          role: 'cancel'
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async alertFail() {
+    const alert = await this.alertController.create({
+      header: this.translate.instant('newtrip.alert_fail_header'),
+      message: this.translate.instant('newtrip.fail'),
+      buttons: [
+        {
+          text: this.translate.instant('newtrip.ok'),
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+  
 }
