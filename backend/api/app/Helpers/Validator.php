@@ -37,6 +37,9 @@ class Validator {
     }
 
     static function vehicle($vehicle) {
-        return in_array($vehicle, ["walk", "run", "bicycle"]);
+        if(!in_array($vehicle, ["walk", "run", "bicycle"])) {
+            throw new \Exception("Bad request", 400);
+        }
+        return $vehicle;
     }
 }
