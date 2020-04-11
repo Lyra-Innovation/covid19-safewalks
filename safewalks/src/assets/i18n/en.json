@@ -15,7 +15,7 @@
         "close": "Logout"
     },
     "heatmap": {
-        "title": "Heatmap",
+        "title": "Map",
         "datepicker": "Choose time"
     },
     "trips": {
