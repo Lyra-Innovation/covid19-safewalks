@@ -78,7 +78,7 @@ export class AuthService {
     var data = CryptoJS.AES.encrypt(JSON.stringify(usr_data), pwd).toString();
 
     //hash dni (to check rpeated)
-    var dni_hash = CryptoJS.SHA512(usr_data.dni);
+    var dni_hash = CryptoJS.SHA512(usr_data.dni).toString();
 
     //send register
     return this.api.post('Auth', 'register', {
