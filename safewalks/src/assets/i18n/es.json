@@ -14,9 +14,9 @@
         "cancel": "Cancelar",
         "close": "Cerrar sesión",
         "login": {
-            "title": "Introduzca la contraseña para ver los datos personales",
+            "title": "Introduzca la contraseña para acceder a los datos personales",
             "password": "Contraseña",
-            "cancel": "Mas tarde",
+            "cancel": "Más tarde",
             "login": "De acuerdo"
         }
     },
