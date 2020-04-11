@@ -20,7 +20,8 @@
     },
     "trips": {
         "title": "Salidas",
-        "aprox_duration": "Duración "
+        "aprox_duration": "Duración ",
+        "add": "Nuevo"
     },
     "newtrip": {
         "title": "Nueva salida",

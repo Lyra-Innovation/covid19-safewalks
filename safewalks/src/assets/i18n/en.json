@@ -20,7 +20,8 @@
     },
     "trips": {
         "title": "Trips",
-        "aprox_duration": "Time "
+        "aprox_duration": "Time ",
+        "add": "New"
     },
     "newtrip": {
         "title": "New trip",
