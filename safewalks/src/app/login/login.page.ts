@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginPage implements OnInit {
   constructor(
     private auth: AuthService,
     private router: Router,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private translate: TranslateService
   ){ }
 
   ngOnInit() {}
@@ -28,9 +30,9 @@ export class LoginPage implements OnInit {
         this.router.navigateByUrl('/app');
       } else {
         const alert = await this.alertCtrl.create({
-          header: 'Login Failed',
-          message: 'Wrong credentials.',
-          buttons: ['OK']
+          header: this.translate.instant('login.error.title'),
+          message: this.translate.instant('login.error.message'),
+          buttons: [this.translate.instant('login.error.button')]
         });
         await alert.present();
       }

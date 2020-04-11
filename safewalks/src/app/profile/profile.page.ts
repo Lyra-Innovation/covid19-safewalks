@@ -54,24 +54,24 @@ export class ProfilePage {
 
   async presentAlert(dataEncypted) {
     const alert = await this.alertCtrl.create({
-      header: 'Login',
+      header: this.translate.instant('profile.login.title'),
       inputs: [
         {
           name: 'password',
-          placeholder: 'Password',
+          placeholder: this.translate.instant('profile.login.password'),
           type: 'password'
         }
       ],
       buttons: [
         {
-          text: 'Cancel',
+          text: this.translate.instant('profile.login.cancel'),
           role: 'cancel',
           handler: pwd => {
             console.log('Cancel clicked');
           }
         },
         {
-          text: 'Login',
+          text: this.translate.instant('profile.login.login'),
           handler: pwd => {
             try {
               var decrypted = CryptoJS.AES.decrypt(dataEncypted, pwd.password).toString(CryptoJS.enc.Utf8);

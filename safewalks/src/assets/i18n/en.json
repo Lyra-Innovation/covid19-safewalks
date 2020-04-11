@@ -12,7 +12,13 @@
         "en": "English",
         "accept": "Ok",
         "cancel": "Cancel",
-        "close": "Logout"
+        "close": "Logout",
+        "login": {
+            "title": "Fill the password to see the personal data",
+            "password": "Password",
+            "cancel": "Later",
+            "login": "Ok"
+        }
     },
     "heatmap": {
         "title": "Map",
@@ -73,15 +79,25 @@
         "email": "Email",
         "city": "City",
         "password": "Password",
-        "register": "Register"
+        "register": "Register",
+        "error": {
+            "title": "Error",
+            "message": "ID already registered",
+            "button": "Ok"
+        }
     },
     "login": {
         "title": "Login",
-        "subtitle": "Welcome to Safewalks!",
+        "subtitle": "Welcome to Desconfinapp!",
         "dni": "DNI",
         "password": "Password",
         "login": "Login",
-        "register": "Register"
+        "register": "Register",
+        "error": {
+            "title": "Error",
+            "message": "ID or password not correct",
+            "button": "Ok"
+        }
     },
     "months": {
         "1": "of January",

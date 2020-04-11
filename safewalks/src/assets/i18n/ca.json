@@ -12,7 +12,13 @@
         "en": "Anglès",
         "accept": "D'acord",
         "cancel": "Cancel·lar",
-        "close": "Tancar sessió"
+        "close": "Tancar sessió",
+        "login": {
+            "title": "Introdueix la contrasenya per veure les dades personals",
+            "password": "Contrasenya",
+            "cancel": "Més tard",
+            "login": "D'acord"
+        }
     },
     "heatmap": {
         "title": "Mapa",
@@ -73,15 +79,25 @@
         "email": "Correu",
         "city": "Ciutat",
         "password": "Contrasenya",
-        "register": "Registrar-se"
+        "register": "Registrar-se",
+        "error": {
+            "title": "Error",
+            "message": "EL DNI ja existeix",
+            "button": "D'acord"
+        }
     },
     "login": {
         "title": "Inici de sessió",
-        "subtitle": "Benvingut/da a Safewalks!",
+        "subtitle": "Benvingut/da a Desconfinapp!",
         "dni": "DNI",
         "password": "Contrasenya",
         "login": "Entrar",
-        "register": "Registrar-se"
+        "register": "Registrar-se",
+        "error": {
+            "title": "Error",
+            "message": "DNI o contrasenya incorrectes",
+            "button": "D'acord"
+        }
     },
     "months": {
         "1": "de gener",

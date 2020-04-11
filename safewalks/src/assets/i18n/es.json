@@ -12,7 +12,13 @@
         "en": "Inglés",
         "accept": "Aceptar",
         "cancel": "Cancelar",
-        "close": "Cerrar sesión"
+        "close": "Cerrar sesión",
+        "login": {
+            "title": "Introduzca la contraseña para ver los datos personales",
+            "password": "Contraseña",
+            "cancel": "Mas tarde",
+            "login": "De acuerdo"
+        }
     },
     "heatmap": {
         "title": "Mapa",
@@ -73,15 +79,25 @@
         "email": "Correo",
         "city": "Ciudad",
         "password": "Contraseña",
-        "register": "Registrarse"
+        "register": "Registrarse",
+        "error": {
+            "title": "Error",
+            "message": "El DNI ya existe",
+            "button": "De acuerdo"
+        }
     },
     "login": {
         "title": "Inicio de sesión",
-        "subtitle": "¡Bienvenido/a a Safewalks!",
+        "subtitle": "¡Bienvenido/a a Desconfinapp!",
         "dni": "DNI",
         "password": "Contraseña",
         "login": "Entrar",
-        "register": "Registrarse"
+        "register": "Registrarse",
+        "error": {
+            "title": "Error",
+            "message": "El DNI o contraseña son incorrectos",
+            "button": "De acuerdo"
+        }
     },
     "months": {
         "1": "de enero",
