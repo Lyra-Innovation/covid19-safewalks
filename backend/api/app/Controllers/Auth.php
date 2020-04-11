@@ -4,6 +4,7 @@ namespace Safewalks\Controllers;
 
 use \Safewalks\Repository\User as UserRepository;
 use ReallySimpleJWT\Token;
+use Safewalks\Helpers\Validator;
 
 class Auth extends BaseController {
 
@@ -12,9 +13,9 @@ class Auth extends BaseController {
     static function register($params) {
         global $CNF;
 
-        $newUser = [];
+        $newUser = ['hash' => $params['hash'], 'country' => Validator::string($params['country']), 'data' => $params['data']];
         
-        UserRepository::insert($params);
+        UserRepository::insert($newUser);
         
         return true;
     }

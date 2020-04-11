@@ -8,6 +8,7 @@ use \Safewalks\Repository\TripCell as TripCellRepository;
 use \Safewalks\Helpers\Trip as TripHelper;
 use Safewalks\Helpers\Database;
 use Safewalks\Helpers\Cells;
+use Safewalks\Helpers\Validator;
 
 
 class Trip extends BaseController {
@@ -17,14 +18,14 @@ class Trip extends BaseController {
         $success = true;
 
         $newTrip = [
-            "enforced" => $params["enforced"],
+            "enforced" => Validator::int($params["enforced"]),
             "id_user" => $ME,
-            "id_reason" => $params['id_reason'],
-            "vehicle" => $params["vehicle"]
+            "id_reason" => Validator::int($params['id_reason']),
+            "vehicle" => Validator::vehicle($params["vehicle"])
         ];
 
         $speed = TripHelper::vehicleToSpeed($newTrip["vehicle"]);
-        $startCurrentTime = $params["start_date"];
+        $startCurrentTime = Validator::int($params["start_date"]);
         $points = $params['points'];
 
         $newTrip["speed"] = $speed;
@@ -94,6 +95,8 @@ class Trip extends BaseController {
         $cells = [];
 
         foreach($points as $posInfo) {
+            $posInfo = Validate::cell($posInfo);
+
             $timeToAdd = 0;
 
             if(!$first) {

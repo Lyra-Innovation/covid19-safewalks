@@ -13,10 +13,4 @@ class User extends BaseController {
         return $ret;
     }
 
-    static function updateUser($params) {
-        global $ME;
-        // TODO
-        return $ret;
-    }
-
 }
