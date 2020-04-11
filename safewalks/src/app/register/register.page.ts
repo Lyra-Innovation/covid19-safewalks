@@ -34,7 +34,7 @@ export class RegisterPage implements OnInit {
       if (res) {
         this.auth.login({dni: this.user_data.dni, pw: this.user_data.pw}).subscribe(async res => {
           delete this.user_data.pw;
-          this.storage.set('usr_data', this.user_data);
+          this.storage.set('usr_data', JSON.stringify(this.user_data));
           this.router.navigateByUrl('/app');
         });
       } else {

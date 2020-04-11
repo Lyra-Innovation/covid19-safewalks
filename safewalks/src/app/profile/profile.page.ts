@@ -27,7 +27,9 @@ export class ProfilePage implements OnInit {
   }
  
   ionViewWillEnter() {
-    this.user = this.auth.getUserData();
+    this.storage.get('usr_data').then((val) => {
+      this.user = JSON.parse(val);
+    });
   }
 
   logout() {
