@@ -13,13 +13,13 @@
 </ion-header>
 
 <ion-content>
-    
+
     <!-- Date selector -->
     <ion-item>
         <ion-label>{{'newtrip.start_time' | translate}}</ion-label>
         <ion-datetime displayFormat="HH:mm DD/MM/YYYY" pickerFormat="DD/MMMM/YYYY HH:mm" minuteValues="0,15,30,45" min="2020" max="2030" placeholder="{{'newtrip.datepicker' | translate}}" (ionChange)="dateSelected($event)"></ion-datetime>
     </ion-item>
-    
+
     <!-- speed selector -->
     <ion-item style="flex-direction: column; align-items: stretch;">
         <ion-label>{{'newtrip.activity' | translate}}</ion-label>
@@ -30,7 +30,7 @@
                         <ion-icon src="/assets/walk.svg" slot="start" size="large"></ion-icon>
                     </div>
                 </ion-col>
-                <ion-col [ngStyle]="speed.running" (click)="change_speed('running')">
+                <ion-col [ngStyle]="speed.run" (click)="change_speed('run')">
                     <div style="text-align: center;">
                         <ion-icon src="/assets/running.svg" slot="start" size="large"></ion-icon>
                     </div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -14,9 +14,15 @@ export class TripsPage {
   constructor(
     private api: ApiService,
     private lang: TranslateService
-  ) { }
+  ) { 
+
+  }
 
   ionViewWillEnter() {
+    this.getTrips();
+  }
+
+  getTrips() {
     this.api.post('Trip', 'getTrips').subscribe({
       next: (resp: {data: {trips: []}}) => {
         this.triplist = resp.data.trips;
