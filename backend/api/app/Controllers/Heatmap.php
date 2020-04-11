@@ -41,7 +41,7 @@ class Heatmap extends BaseController {
         $y = $leftBotCell['y'];
 
         while($x <= $rightTopCell['x']) {
-            $y = $rightTopCell['y'];
+            $y = $leftBotCell['y'];
             while($y >= $rightTopCell['y']) {
                 
                 $value = TripCell::selectCount([
