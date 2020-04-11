@@ -1,7 +1,34 @@
+ion-toolbar {
+    --background: rgb(131, 179, 138);
+}
+
+ion-title {
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.flexrow {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+}
+
+.col-center {}
+
+h4 {
+    margin-left: 10px;
+}
+
 .label_max_width {
     max-width: 362.95px;
 }
 
 .select_no_padding {
     padding: 0;
+}
+
+.logout-button {
+    font-weight: bold;
 }

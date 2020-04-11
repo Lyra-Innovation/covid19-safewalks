@@ -5,10 +5,10 @@
                 {{'trips.title' | translate}}
             </ion-title>
 
-            <ion-button class="header-button" expand="block" routerLink="/newtrip" routerDirection="forward">
+            <ion-button class="header-button" expand="full" routerLink="/newtrip" routerDirection="forward">
                 <ion-icon name="add"></ion-icon>
             </ion-button>
-            
+
         </div>
     </ion-toolbar>
 </ion-header>
@@ -22,10 +22,7 @@
                 <ion-icon [hidden]="item.speed != 15" src="/assets/bicycle.svg" slot="start" size="large"></ion-icon>
                 <ion-label>
                     <ion-card-title>
-                        {{item.start_date.day}}
-                        {{'months.'+item.start_date.month | translate}}
-                        -
-                        {{item.start_date.hour}}:{{item.start_date.minute}}
+                        {{item.start_date.day}} {{'months.'+item.start_date.month | translate}} - {{item.start_date.hour}}:{{item.start_date.minute}}
                     </ion-card-title>
                     <ion-card-subtitle>{{'trips.aprox_duration' | translate}} {{item.duration}} min</ion-card-subtitle>
                 </ion-label>
