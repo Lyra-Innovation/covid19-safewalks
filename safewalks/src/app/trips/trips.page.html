@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header>
     <ion-toolbar>
         <div class="flexrow">
             <ion-title>
@@ -12,7 +12,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content>
     <div class="tripitem" *ngFor="let item of triplist">
         <ion-card class="tripitem" [routerLink]="['/viewtrip', item.id]" routerDirection="forward">
             <ion-item>
