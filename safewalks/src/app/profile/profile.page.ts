@@ -11,7 +11,7 @@ import { AlertController } from '@ionic/angular';
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
 })
-export class ProfilePage implements OnInit {
+export class ProfilePage {
   user = {
     name: '***',
     surname1: '***',
@@ -28,14 +28,12 @@ export class ProfilePage implements OnInit {
     private translate: TranslateService,
     private alertCtrl: AlertController
   ) {}
-
-  ngOnInit() {
+ 
+  ionViewWillEnter() {
     this.storage.get('lang').then((val) => {
       this.lang = val;
     });
-  }
- 
-  ionViewWillEnter() {
+    
     this.user = {
       name: '***',
       surname1: '***',
@@ -91,7 +89,7 @@ export class ProfilePage implements OnInit {
   }
 
   logout() {
-    this.auth.logout();
+    //this.auth.logout();
   }
 
   onChange(params) {
