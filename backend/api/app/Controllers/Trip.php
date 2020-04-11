@@ -12,60 +12,50 @@ use Safewalks\Helpers\Cells;
 
 class Trip extends BaseController {
     static function createTrip($params) {
-        global $ME;
+        global $ME, $CNF;
+
+        $success = true;
 
         $newTrip = [
-            "start_date" => Database::toTime($params["start_date"]),
             "enforced" => $params["enforced"],
             "id_user" => $ME,
+            "id_reason" => $params['id_reason'],
             "vehicle" => $params["vehicle"]
         ];
 
         $speed = TripHelper::vehicleToSpeed($newTrip["vehicle"]);
+        $startCurrentTime = $params["start_date"];
+        $points = $params['points'];
 
-        $newTrip["duration"] = 0;
         $newTrip["speed"] = $speed;
 
-        $trip_id = TripRepository::insert($newTrip);
+        [$valid, $duration, $cells] = self::isTripValid($startCurrentTime, $speed, $points);
 
-        $previousPosInfo = null;
-        $first = true;
+        $maxTries = $CNF["max_iterations"];
+        $tries = $startMaxTries;
+        while(!$newTrip["enforced"] && !$valid && $tries < $maxTries) {
+            $success = false;
+            $tries++;
 
-        $duration = 0;
-        $currentTime = $params["start_date"];
+            $startCurrentTime += $CNF["interval_seconds"];
 
-        foreach($params["points"] as $posInfo) {
-            $timeToAdd = 0;
-
-            if(!$first) {
-                $distance = TripHelper::distanceBetween($previousPosInfo, $posInfo);
-                $timeToAdd = $distance / $speed / 2;
-
-                $previousCell = Cells::posToCell($previousPosInfo);
-                $previousCell['lon'] = $previousPosInfo['lon'];
-                $previousCell['lat'] = $previousPosInfo['lat'];
-                $previousCell["id_trip"] = $trip_id;
-                $previousCell["duration"] = $timeToAdd + $previousPosInfo["duration"];
-                
-                $currentTime += (int) $previousCell["duration"];
-                $previousCell["cell_time"] = Database::toTime($currentTime);
-                TripCellRepository::insert($previousCell);
-            }
-
-            $duration += $timeToAdd * 2;
-
-            $previousPosInfo = $posInfo;
-            $previousPosInfo["duration"] = $timeToAdd;
-            $first = false;
-
+            [$valid, $duration, $cells] = self::isTripValid($startCurrentTime, $speed, $points);
         }
 
-        TripRepository::update(['duration' => $duration], ['id' => $trip_id]);
-
-        $newTrip["id"] = $trip_id;
-        $newTrip["duration"] = $duration;
+        if($tries >= $maxTries) {
+            $newTrip = [];
+            return ["success" => false, "found" => false, "time" => 0, "trip" => $newTrip];
+        }
         
-        return ["success" => true, "trip" => $newTrip];
+        $newTrip["start_date"] = $startCurrentTime;
+        $newTrip["duration"] = $duration;
+
+        if($success) {
+            $id_trip = self::saveTrip($newTrip, $cells);
+            $newTrip["id"] = $id_trip;
+        }
+
+        return ["success" => $success, "found" => true, "time" => Database::toTimestamp($newTrip['start_date']), "trip" => $newTrip];
     }
 
     static function getTrips($params) {
@@ -90,4 +80,68 @@ class Trip extends BaseController {
         return $ret;
     }
 
+
+    private static function isTripValid($currentTime, $speed, $points) {
+        global $CNF;
+
+        $previousPosInfo = null;
+        $first = true;
+
+        $valid = true;
+
+        $duration = 0;
+
+        $cells = [];
+
+        foreach($points as $posInfo) {
+            $timeToAdd = 0;
+
+            if(!$first) {
+                $distance = TripHelper::distanceBetween($previousPosInfo, $posInfo);
+                $timeToAdd = $distance / $speed / 2;
+
+                $previousCell = Cells::posToCell($previousPosInfo);
+                $previousCell['lon'] = $previousPosInfo['lon'];
+                $previousCell['lat'] = $previousPosInfo['lat'];
+                $previousCell["duration"] = $timeToAdd + $previousPosInfo["duration"];
+                
+                $previousCell["cell_time"] = Database::toTime($currentTime);
+                $currentTime += (int) $previousCell["duration"];
+                $previousCell["cell_end_time"] = Database::toTime($currentTime);
+
+                $alreadyThere = TripCellRepository::selectCount([
+                    'x' =>  $previousCell['x'], 
+                    'y' =>  $previousCell['y'],
+                    'timestamp1' => ['key' => 'cell_time',  'op' => '<=', 'value' => $previousCell["cell_end_time"]],
+                    'timestamp2' => ['key' => 'cell_end_time', 'op' => '>=', 'value' => $previousCell["cell_time"]]
+                ]);
+
+                if($alreadyThere >= $CNF['map_max_heat']) {
+                    $valid = false;
+                }
+
+                $cells[] = $previousCell;
+            }
+
+            $duration += $timeToAdd * 2;
+
+            $previousPosInfo = $posInfo;
+            $previousPosInfo["starting_time"] = $currentTime;
+            $previousPosInfo["duration"] = $timeToAdd;
+            $first = false;
+        }
+
+        return [$valid, $duration, $cells];
+    }
+
+    private static function saveTrip($trip, $cells) {
+
+        $trip_id = TripRepository::insert($trip);
+        foreach($cells as $cell) {
+            $cell["id_trip"] = $trip_id;
+            TripCellRepository::insert($cell);
+        }
+
+        return $trip_id;
+    }
 }

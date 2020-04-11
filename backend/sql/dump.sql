@@ -30,10 +30,11 @@ CREATE TABLE `Trip` (
   `id_user` int(10) unsigned NOT NULL,
   `speed` float NOT NULL,
   `vehicle` varchar(100) NOT NULL,
+  `id_reason` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `Trip_User_FK` (`id_user`),
   CONSTRAINT `Trip_User_FK` FOREIGN KEY (`id_user`) REFERENCES `User` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1045 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1154 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -61,10 +62,11 @@ CREATE TABLE `TripCell` (
   `lat` float NOT NULL,
   `lon` float NOT NULL,
   `duration` int(10) unsigned NOT NULL,
+  `cell_end_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `TripCell_Trip_FK` (`id_trip`),
   CONSTRAINT `TripCell_Trip_FK` FOREIGN KEY (`id_trip`) REFERENCES `Trip` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=313 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -84,17 +86,12 @@ DROP TABLE IF EXISTS `User`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `User` (
-  `nif` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `surname1` varchar(100) NOT NULL,
-  `surname2` varchar(100) NOT NULL,
-  `city` varchar(100) NOT NULL,
   `country` varchar(100) NOT NULL,
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+  `hash` varchar(1024) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `User_UN` (`hash`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -119,4 +116,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-10 17:41:36
+-- Dump completed on 2020-04-11 16:38:44

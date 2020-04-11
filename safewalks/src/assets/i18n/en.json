@@ -32,9 +32,26 @@
         "alert_validation_header": "Missing fields",
         "nodate": "Insert a date",
         "nocoords": "Insert a path",
+        "noreason": "Insert a reason",
         "alert_success_header": "Success!",
         "success": "The trip was created successfully",
-        "ok": "Ok"
+        "ok": "Ok",
+        "cancel": "Cancel",
+        "reason": {
+            "title": "Reason of the trip",
+            "select": "Insert a reason",
+            "0": "Food acquisition",
+            "1": "Acquisition of pharmaceuticals",
+            "2": "Access to institutions",
+            "3": "Travel to the workplace",
+            "4": "Return to your residence",
+            "5": "Care for vulnerable people",
+            "6": "",
+            "7": "",
+            "8": "",
+            "9": "",
+            "10": ""
+        }
     },
     "tabs": {
         "trips": "Trips",

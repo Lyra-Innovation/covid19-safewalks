@@ -16,6 +16,11 @@ const routes: Routes = [
     loadChildren: () => import('./newtrip/newtrip.module').then( m => m.NewtripPageModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'viewtrip',
+    loadChildren: () => import('./viewtrip/viewtrip.module').then( m => m.ViewtripPageModule),
+    canActivate: [AuthGuard]
+  },
   
   //public pages
   {
