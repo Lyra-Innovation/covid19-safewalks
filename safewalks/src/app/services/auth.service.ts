@@ -8,6 +8,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators'
 import { Router } from '@angular/router';
 import { ApiService } from './api.service';
+import * as CryptoJS from 'crypto-js';
+
 
 const helper = new JwtHelperService();
 
@@ -47,9 +49,12 @@ export class AuthService {
   }
  
   login(credentials: {dni: string, pw: string }) {
+    //encypt dni with your password
+    var hash = CryptoJS.HmacSHA512(credentials.dni, credentials.pw.trim()).toString();
+    console.log(hash); 
+    //send login to get JWT
     return this.api.post('Auth', 'login', {
-      "nif": credentials.dni,
-      "password": credentials.pw
+      "hash": hash
     }).pipe(
       catchError((error: HttpErrorResponse) => {
         return of(null);
@@ -65,15 +70,14 @@ export class AuthService {
     );
   }
 
-  register(usr_data: {dni: string, email: string, name: string, surname1: string, surname2: string, city: string, pw: string }) {
+  register(usr_data: {dni: string, pw: string }) {
+    //encypt dni with your password
+    var hash = CryptoJS.HmacSHA512(usr_data.dni, usr_data.pw.trim()).toString();
+
+    //send register
     return this.api.post('Auth', 'register', {
-      "nif": usr_data.dni,
-      "email" : usr_data.email,
-      "name" : usr_data.name,
-      "surname1": usr_data.surname1,
-      "surname2": usr_data.surname2,
-      "city": usr_data.city,
-      "password": usr_data.pw,
+      "hash": hash,
+      "country": "Spain",
     }).pipe(
       catchError((error: HttpErrorResponse) => {
         return of(null);
@@ -86,14 +90,16 @@ export class AuthService {
     );
   }
 
-  getUser() {
-    return this.userData.getValue();
+  getUserData() {
+    return this.storage.get('usr_data');
   }
  
   logout() {
     this.storage.remove('token').then(() => {
-      this.router.navigateByUrl('/');
-      this.userData.next(null);
+      this.storage.remove('usr_data').then(() => {
+        this.router.navigateByUrl('/');
+        this.userData.next(null);
+      });
     });
   }
 
