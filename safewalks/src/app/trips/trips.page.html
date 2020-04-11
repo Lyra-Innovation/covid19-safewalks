@@ -17,9 +17,9 @@
     <div class="tripitem" *ngFor="let item of triplist">
         <ion-card class="tripitem">
             <ion-item>
-                <ion-icon [hidden]="item.speed != 5" src="/assets/walk.svg" slot="start" size="large"></ion-icon>
-                <ion-icon [hidden]="item.speed != 10" src="/assets/running.svg" slot="start" size="large"></ion-icon>
-                <ion-icon [hidden]="item.speed != 15" src="/assets/bicycle.svg" slot="start" size="large"></ion-icon>
+                <ion-icon [hidden]="item.vehicle != 'walk'" src="/assets/walk.svg" slot="start" size="large"></ion-icon>
+                <ion-icon [hidden]="item.vehicle != 'running'" src="/assets/running.svg" slot="start" size="large"></ion-icon>
+                <ion-icon [hidden]="item.vehicle != 'bicycle'" src="/assets/bicycle.svg" slot="start" size="large"></ion-icon>
                 <ion-label>
                     <ion-card-title>
                         {{item.start_date.day}} {{'months.'+item.start_date.month | translate}} - {{item.start_date.hour}}:{{item.start_date.minute}}
