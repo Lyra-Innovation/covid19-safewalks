@@ -37,8 +37,16 @@
           </ion-item>
   
           <ion-item>
-            <ion-input type="password" placeholder="{{'register.password' | translate}}" name="password" [(ngModel)]="pwd" required minlength="5"></ion-input>
+            <ion-input type="password" placeholder="{{'register.password' | translate}}" name="password" [(ngModel)]="pwd" required minlength="6"></ion-input>
           </ion-item>
+
+          <div style="padding: 15px;">
+            <ion-checkbox color="primary" [(ngModel)]="user_data.terms"></ion-checkbox>
+            &nbsp;
+            {{'register.terms' | translate}}
+            &nbsp;
+            <ion-icon name="eye-outline" routerLink="/terms" routerDirection="forward"></ion-icon>
+          </div>
         </div>
         <br/><br/>
         <div padding>

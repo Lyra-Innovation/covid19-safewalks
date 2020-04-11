@@ -84,6 +84,17 @@
             "title": "Error",
             "message": "ID already registered",
             "button": "Ok"
+        },
+        "terms": "I accept the privacy conditions",
+        "validation": {
+            "title": "Error with data",
+            "button": "Ok",
+            "dni": "The format of DNI/NIE is not valid",
+            "name": "The name is mandatory",
+            "surname1": "The first surname is mandatory",
+            "city": "The city is mandatory",
+            "password": "The password has to be at least of 6 chracters",
+            "terms": "Required to accept the privacy conditions"
         }
     },
     "login": {
@@ -120,5 +131,9 @@
         "alert_delete_message": "Are you sure you want to delete this trip?",
         "ok": "Yes",
         "cancel": "No"
+    },
+    "terms": {
+        "title": "Policies",
+        "subtitle": "Privacitat: política de protecció de dades de caràcter personal"
     }
 }
