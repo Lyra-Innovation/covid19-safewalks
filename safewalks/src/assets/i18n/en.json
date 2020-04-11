@@ -16,7 +16,7 @@
     },
     "heatmap": {
         "title": "Heatmap",
-        "datepicker": "Select a time"
+        "datepicker": "Choose time"
     },
     "trips": {
         "title": "Trips",
@@ -30,9 +30,9 @@
         "start_time": "Start time",
         "activity": "Activity",
         "alert_validation_header": "Missing fields",
-        "nodate": "Insert a date",
-        "nocoords": "Insert a path",
-        "noreason": "Insert a reason",
+        "nodate": "Insert date",
+        "nocoords": "Insert path",
+        "noreason": "Insert reason",
         "alert_success_header": "Success!",
         "success": "The trip was created successfully",
         "ok": "Ok",
@@ -55,7 +55,7 @@
     },
     "tabs": {
         "trips": "Trips",
-        "heatmap": "Heatmap",
+        "heatmap": "Map",
         "profile": "Profile"
     },
     "register": {

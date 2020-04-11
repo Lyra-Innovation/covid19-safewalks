@@ -15,8 +15,8 @@
         "close": "Tancar sessió"
     },
     "heatmap": {
-        "title": "Mapa de calor",
-        "datepicker": "Seleccioni una hora"
+        "title": "Mapa",
+        "datepicker": "Triar hora"
     },
     "trips": {
         "title": "Sortides",
@@ -55,7 +55,7 @@
     },
     "tabs": {
         "trips": "Sortides",
-        "heatmap": "Mapa de calor",
+        "heatmap": "Mapa",
         "profile": "Perfil"
     },
     "register": {

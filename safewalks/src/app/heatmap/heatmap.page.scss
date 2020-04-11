@@ -4,7 +4,29 @@
     align-items: center;
 }
 
+ion-toolbar {
+    --background: rgb(131, 179, 138);
+}
+
+ion-title {
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+ion-datetime {
+    background: rgb(101, 139, 107);
+    height: 40px;
+    color: white;
+    font-size: 19px;
+    margin-right: 10px;
+    --padding-start: 10px;
+    --padding-end: 10px;
+    border-radius: 4px;
+}
+
 #filter {
+    color: white;
     font-size: 16px;
 }
 
