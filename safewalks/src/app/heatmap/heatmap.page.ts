@@ -30,14 +30,14 @@ export class HeatmapPage {
     }).catch((error) => {
       console.log('Error getting location', error);
       // Default location
-      this.loadMap(41.3870154, 2.1678531);
+      this.loadMap(41.7021966, 1.659107);
       this.loadHeatmap();
     });
   }
 
   loadMap(lat, long) {
     if (this.map != undefined) { this.map.remove(); }
-    this.map = new L.Map('map', {drawControl: true}).setView([lat, long], 6);
+    this.map = new L.Map('map', {drawControl: true}).setView([lat, long], 8);
     this.map.invalidateSize();
 
     L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
