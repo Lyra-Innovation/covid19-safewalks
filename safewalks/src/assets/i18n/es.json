@@ -22,7 +22,7 @@
     },
     "heatmap": {
         "title": "Mapa",
-        "datepicker": "Escoger hora"
+        "datepicker": "Hora:"
     },
     "trips": {
         "title": "Salidas",
