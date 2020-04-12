@@ -52,9 +52,13 @@ export class AuthService {
     //encypt dni with your password
     var hash = CryptoJS.HmacSHA512(credentials.dni, credentials.pw.trim()).toString();
     
+    //hash dni (identifier)
+    var dni_hash = CryptoJS.SHA512(credentials.pw).toString();
+
     //send login to get JWT
     return this.api.post('Auth', 'login', {
-      "hash": hash
+      "hash": hash,
+      "dni_hash": dni_hash
     }).pipe(
       catchError((error: HttpErrorResponse) => {
         return of(null);
@@ -77,7 +81,7 @@ export class AuthService {
     //enctypt your data with your password
     var data = CryptoJS.AES.encrypt(JSON.stringify(usr_data), pwd).toString();
 
-    //hash dni (to check rpeated)
+    //hash dni (to check rpeated and identifier)
     var dni_hash = CryptoJS.SHA512(usr_data.dni).toString();
 
     //send register
