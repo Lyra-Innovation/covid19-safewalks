@@ -24,6 +24,14 @@
             opacity: 0.5 !important;
         }
     </style>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+            .then(() => console.log('service worker installed'))
+            .catch(err => console.log('Error', err));
+        }
+    </script>
 </head>
 
 <body>
