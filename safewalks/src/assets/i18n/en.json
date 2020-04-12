@@ -14,7 +14,7 @@
         "cancel": "Cancel",
         "close": "Logout",
         "login": {
-            "title": "Fill the password to access the personal data",
+            "title": "Enter the password to access the personal data",
             "password": "Password",
             "cancel": "Later",
             "login": "Ok"
