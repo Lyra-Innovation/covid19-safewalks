@@ -14,12 +14,18 @@ ion-title {
     font-size: 24px;
 }
 
+ion-label {
+    color: white;
+    font-weight: bold;
+    font-size: 22x;
+}
+
 ion-datetime {
     background: rgb(101, 139, 107);
     height: 40px;
     color: white;
-    font-size: 19px;
-    margin-right: 10px;
+    font-size: 15px;
+    margin: 0px 10px;
     --padding-start: 10px;
     --padding-end: 10px;
     border-radius: 4px;
@@ -33,11 +39,7 @@ ion-datetime {
 #map {
     position: absolute;
     top: 0px;
+    left: 0px;
+    right: 0px;
     bottom: 0px;
-    width: 100%;
-    height: 100%;
-}
-
-.leaflet-map-pane canvas {
-    opacity: 0.5;
 }

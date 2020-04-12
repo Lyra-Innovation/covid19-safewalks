@@ -36,6 +36,9 @@ export class NewtripPage implements OnInit {
     "3": 1,
     "4": 1,
     "5": 1,
+    "6": 1,
+    "7": 1,
+    "8": 0
   }
 
   constructor(
@@ -99,6 +102,16 @@ export class NewtripPage implements OnInit {
       pinningOption: false,
       snappingOption: false
     });
+
+    this.map.pm.enableDraw('Line', {
+      templineStyle: { color: 'rgb(101, 139, 107)' },
+      hintlineStyle: { color: 'rgb(101, 139, 107)' },
+      pathOptions: {
+        color: 'rgb(101, 139, 107)',
+        fillColor: 'green',
+      }
+    });
+    
   }
 
   validate() {

@@ -22,13 +22,13 @@
     },
     "heatmap": {
         "title": "Mapa",
-        "datepicker": "Triar hora"
+        "datepicker": "Hora:"
     },
     "trips": {
         "title": "Sortides",
         "aprox_duration": "Duració ",
         "add": "Crear",
-        "onboarding_top": "Per començar a desconfiarte, crea una nova sortida!",
+        "onboarding_top": "Per començar a desconfiar-te, crea una nova sortida!",
         "onboarding_bottom": "Per veure la densitat de persones a cada lloc, consulta el mapa!"
     },
     "newtrip": {
@@ -59,11 +59,9 @@
             "3": "Desplaçament al treball",
             "4": "Retorn a la seva residència",
             "5": "Cura a persones vulnerables",
-            "6": "",
-            "7": "",
-            "8": "",
-            "9": "",
-            "10": ""
+            "6": "Anar a donar sang",
+            "7": "Passejar mascota",
+            "8": "Fer esport"
         }
     },
     "tabs": {

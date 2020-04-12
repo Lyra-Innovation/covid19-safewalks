@@ -14,12 +14,15 @@ export class HeatmapPage {
   map: L.Map;
   locationMarker: any;
   selectedDate: Date;
+  defaultDate: string;
   heatLayer: L.HeatLayer;
 
-  constructor(private geolocation: Geolocation, private api: ApiService) {}
+  constructor(private geolocation: Geolocation, private api: ApiService) {
+    this.selectedDate = new Date();
+    this.defaultDate = new Date().toISOString();
+  }
 
   ngAfterViewInit(): void {
-    this.selectedDate = new Date();
     this.geolocation.getCurrentPosition().then((resp) => {
       this.loadMap(resp.coords.latitude, resp.coords.longitude);
       this.locatePosition();
@@ -31,8 +34,6 @@ export class HeatmapPage {
       this.loadHeatmap();
     });
   }
-
-  ionViewDidEnter() {}
 
   loadMap(lat, long) {
     if (this.map != undefined) { this.map.remove(); }
@@ -127,9 +128,9 @@ export class HeatmapPage {
           heatArray = resp.data;
           for(var i = 0; i < heatArray.length; i++) {
             if (heatArray[i].value > 0) {
-              var points = this.getPoints(heatArray[i].lat, heatArray[i].lon)
+              var points = this.getPoints(heatArray[i].lat, heatArray[i].lon);
               for(var j = 0; j < points.length; j++) {
-                heatPoint = [points[j][0], points[j][1], heatArray[i].value];
+                heatPoint = [points[j][0], points[j][1], heatArray[i].value/9];
                 this.heatLayer.addLatLng(heatPoint).addTo(this.map);
               }
             }
