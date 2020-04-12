@@ -126,9 +126,9 @@ export class HeatmapPage {
           heatArray = resp.data;
           for(var i = 0; i < heatArray.length; i++) {
             if (heatArray[i].value > 0) {
-              var points = this.getPoints(heatArray[i].lat, heatArray[i].lon)
+              var points = this.getPoints(heatArray[i].lat, heatArray[i].lon);
               for(var j = 0; j < points.length; j++) {
-                heatPoint = [points[j][0], points[j][1], heatArray[i].value];
+                heatPoint = [points[j][0], points[j][1], heatArray[i].value/9];
                 this.heatLayer.addLatLng(heatPoint).addTo(this.map);
               }
             }
