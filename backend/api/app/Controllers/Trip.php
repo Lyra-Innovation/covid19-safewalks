@@ -67,7 +67,7 @@ class Trip extends BaseController {
         $ret = TripRepository::selectFirst(['id' => $params['id'], 'id_user' => $ME]);
 
         if ($ret) {
-            $ret['points'] = TripcellRepository::select(['id_trip' => $params['id']]);
+            $ret['points'] = TripcellRepository::select(['id_trip' => $params['id'], 'original' => 1]);
         }
 
         return $ret;
