@@ -83,7 +83,7 @@ export class NewtripPage implements OnInit {
       this.coords = this.coords.concat(e.layer.getLatLngs());
     });
 
-    L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
       attribution: 'edupala.com',
     }).addTo(this.map);
 

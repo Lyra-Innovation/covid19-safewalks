@@ -40,7 +40,7 @@ export class HeatmapPage {
     this.map = new L.Map('map', {drawControl: true}).setView([lat, long], 8);
     this.map.invalidateSize();
 
-    L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
       attribution: 'edupala.com',
     }).addTo(this.map);
   }
