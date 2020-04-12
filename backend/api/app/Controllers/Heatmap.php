@@ -55,7 +55,7 @@ class Heatmap extends BaseController {
                 $y--;
 
                 $newCell = Cells::cellToPos(['x' => $x, 'y' => $y]);
-                $newCell["value"] = $value;
+                $newCell["value"] = min($value  / $CNF['map_max_heat'], 1);
 
                 $ret[] = $newCell;
             }

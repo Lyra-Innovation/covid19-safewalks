@@ -6,3 +6,5 @@ $CNF['walk'] = 5;
 
 $CNF['max_iterations'] = 18;
 $CNF['interval_seconds'] = 60*10;
+
+$CNF['max_distance_points'] = 50;
