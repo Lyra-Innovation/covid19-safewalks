@@ -36,6 +36,7 @@ export class NewtripPage implements OnInit {
     "3": 1,
     "4": 1,
     "5": 1,
+    "6": 0
   }
 
   constructor(
