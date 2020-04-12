@@ -22,7 +22,7 @@
     },
     "heatmap": {
         "title": "Mapa",
-        "datepicker": "Triar hora"
+        "datepicker": "Hora:"
     },
     "trips": {
         "title": "Sortides",
@@ -59,11 +59,7 @@
             "3": "Desplaçament al treball",
             "4": "Retorn a la seva residència",
             "5": "Cura a persones vulnerables",
-            "6": "",
-            "7": "",
-            "8": "",
-            "9": "",
-            "10": ""
+            "6": "Fer esport"
         }
     },
     "tabs": {

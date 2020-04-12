@@ -5,7 +5,8 @@
                 {{'heatmap.title' | translate}}
             </ion-title>
 
-            <ion-datetime displayFormat="HH:mm DD/MM/YYYY" pickerFormat="DD/MMMM/YYYY HH:mm" minuteValues="0,15,30,45" min="2020" max="2030" placeholder="{{'heatmap.datepicker' | translate}}" (ionChange)="dateSelected($event)">
+            <ion-label>{{'heatmap.datepicker' | translate}}</ion-label>
+            <ion-datetime displayFormat="HH:mm DD/MM/YYYY" pickerFormat="DD/MMMM/YYYY HH:mm" minuteValues="0,15,30,45" min="2020" max="2030" [(ngModel)]="defaultDate" (ionChange)="dateSelected($event)">
             </ion-datetime>
 
         </div>
