@@ -28,6 +28,7 @@ export class HeatmapPage {
       console.log('Error getting location', error);
       // Default location
       this.loadMap(41.3870154, 2.1678531);
+      this.loadHeatmap();
     });
   }
 
