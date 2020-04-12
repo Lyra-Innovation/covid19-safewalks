@@ -100,6 +100,16 @@ export class NewtripPage implements OnInit {
       pinningOption: false,
       snappingOption: false
     });
+
+    this.map.pm.enableDraw('Line', {
+      templineStyle: { color: 'rgb(101, 139, 107)' },
+      hintlineStyle: { color: 'rgb(101, 139, 107)' },
+      pathOptions: {
+        color: 'rgb(101, 139, 107)',
+        fillColor: 'green',
+      }
+    });
+    
   }
 
   validate() {

@@ -36,7 +36,9 @@ export class ViewtripPage implements OnInit {
           pointList.push(point);
         }
         
-        var polyline = new L.Polyline(pointList);
+        var polyline = new L.Polyline(pointList, {
+          color: 'rgb(101, 139, 107)'
+        });
         polyline.addTo(this.map);
       },
       error: error => {
