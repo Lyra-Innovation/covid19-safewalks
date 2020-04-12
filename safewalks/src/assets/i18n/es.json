@@ -27,7 +27,9 @@
     "trips": {
         "title": "Salidas",
         "aprox_duration": "Duración ",
-        "add": "Nuevo"
+        "add": "Nuevo",
+        "onboarding_top": "Para empezar a desconfinarte, crea una nueva salida!",
+        "onboarding_bottom": "Para ver la densidad de personas en cada lugar, consulta el mapa!"
     },
     "newtrip": {
         "title": "Nueva salida",

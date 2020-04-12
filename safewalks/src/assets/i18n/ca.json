@@ -27,7 +27,9 @@
     "trips": {
         "title": "Sortides",
         "aprox_duration": "Duració ",
-        "add": "Crear"
+        "add": "Crear",
+        "onboarding_top": "Per començar a desconfiarte, crea una nova sortida!",
+        "onboarding_bottom": "Per veure la densitat de persones a cada lloc, consulta el mapa!"
     },
     "newtrip": {
         "title": "Nova sortida",

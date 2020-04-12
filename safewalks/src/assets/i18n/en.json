@@ -27,7 +27,9 @@
     "trips": {
         "title": "Trips",
         "aprox_duration": "Time ",
-        "add": "New"
+        "add": "New",
+        "onboarding_top": "To start unconfining, create a new trip!",
+        "onboarding_bottom": "To see the density of persons every place, chech the map!"
     },
     "newtrip": {
         "title": "New trip",

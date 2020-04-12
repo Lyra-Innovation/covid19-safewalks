@@ -34,3 +34,62 @@ ion-content {
 ion-card {
     background: rgb(221, 235, 223);
 }
+
+@font-face {
+    font-family: 'ComicNeue';
+    font-style: normal;
+    font-weight: normal;
+    src: url('/assets/ComicNeue-Regular.ttf');
+}
+
+.onboarding_text {
+    font-size: 4vw;
+    font-family: 'ComicNeue';
+    color: rgb(131, 179, 138);
+    width: 40%;
+    display: inline-block;
+    max-width: 360px;
+}
+
+@media screen and (min-width: 900px) {
+    .onboarding_text {
+        font-size: 36px;
+    }
+}
+
+#onboarding_top_container {
+    position: absolute;
+    top: 10px;
+    width: 100%;
+    text-align: right;
+}
+
+    #onboarding_top_container img {
+        width: 15%;
+        margin-right: 15px;
+    }
+
+    #onboarding_top_container .onboarding_text {
+        position:absolute;
+        right: 20%;
+        bottom: 0px;
+    }
+
+#onboarding_bottom_container {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
+}
+
+    #onboarding_bottom_container img {
+        width: 15%;
+        margin-right: 6%;
+    }
+
+    #onboarding_bottom_container .onboarding_text {
+        position:absolute;
+        top:-5vh;
+        right: 58%;
+    }
+
