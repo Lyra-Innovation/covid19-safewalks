@@ -21,6 +21,7 @@ export class TokenInterceptor implements HttpInterceptor {
     return from(this.storage.get('token'))
       .pipe(
         switchMap(token => {
+          //token auth
           if (token) {
             request = request.clone({
               setHeaders: {
@@ -28,6 +29,7 @@ export class TokenInterceptor implements HttpInterceptor {
               }
             });
           }
+
           // Presentamos el Loading al inicio de la llamada
           this.presentLoading();
           return next.handle(request).pipe(
@@ -45,25 +47,30 @@ export class TokenInterceptor implements HttpInterceptor {
               return throwError(error);
             })
           );
+
         })
       );
   }
   // Creación del loading
   async presentLoading() {
-    this.isLoading = true;
-    return await this.loadingCtrl.create({
-      duration: 5000,
-    }).then(a => {
-      a.present().then(() => {
-        if (!this.isLoading) {
-          a.dismiss().then(() => console.log());
-        }
+    if(!this.isLoading) {
+      this.isLoading = true;
+      return await this.loadingCtrl.create({
+        duration: 5000,
+      }).then(a => {
+        a.present().then(() => {
+          if (!this.isLoading) {
+            a.dismiss().then(() => console.log());
+          }
+        });
       });
-    });
+    }
   }
   // Cierre del loading
   async dismissLoading() {
-    this.isLoading = false;
-    return await this.loadingCtrl.dismiss().then(() => console.log('dismissed'));
+    if(this.isLoading) {
+      this.isLoading = false;
+      return await this.loadingCtrl.dismiss().then(() => console.log('dismissed'));
+    }
   }
 }
