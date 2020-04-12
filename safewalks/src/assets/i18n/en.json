@@ -29,7 +29,7 @@
         "aprox_duration": "Time ",
         "add": "New",
         "onboarding_top": "To start unconfining, create a new trip!",
-        "onboarding_bottom": "To see the density of persons every place, chech the map!"
+        "onboarding_bottom": "To see the density of persons at each place, check the map!"
     },
     "newtrip": {
         "title": "New trip",
