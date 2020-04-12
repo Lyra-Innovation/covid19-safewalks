@@ -72,14 +72,14 @@ export class HeatmapPage {
     // Heatmap
     this.heatLayer = L.heatLayer([], {radius: ctx.getRadius(),
       max: 1.0,
-      blur: 10,              
+      blur: 30,              
       gradient: {
           0.0: 'green',
           0.5: 'yellow',
           1.0: 'red'
       },
-      minOpacity: 0.3,
-      maxZoom: 17}).addTo(this.map);
+      minOpacity: 0.2,
+      maxZoom: 14}).addTo(this.map);
 
     this.map.on({
       moveend: function () { ctx.paintHeatmap(); },
@@ -100,37 +100,49 @@ export class HeatmapPage {
     var time = Math.round(new Date(this.selectedDate).getTime()/1000);
     this.heatLayer.setLatLngs([]);
     if(this.map.getZoom() >= 14) {
+      var SWlat = bounds["_southWest"].lat;
+      var SWlon = bounds["_southWest"].lng;
+      var NElat = bounds["_northEast"].lat;
+      var NElon = bounds["_northEast"].lng;
+      if(this.map.getZoom() >= 17) {
+        SWlat = SWlat-0.002;
+        SWlon = SWlon-0.002;
+        NElat = NElat+0.002;
+        NElon = NElon+0.002;
+      }
+      
       this.api.post('Heatmap', 'getHeatMapZoom', {
         "left_bot_cell": {
-          "lat": bounds["_southWest"].lat,
-          "lon": bounds["_southWest"].lng
+          "lat": SWlat,
+          "lon": SWlon
         },
         "right_top_cell" : {
-          "lat": bounds["_northEast"].lat,
-          "lon": bounds["_northEast"].lng
+          "lat": NElat,
+          "lon": NElon
         },
         "time": time
         }).subscribe({
         next: (resp: {data: []}) => {
           heatArray = resp.data;
-          console.log(bounds);
-          console.log(heatArray);
           for(var i = 0; i < heatArray.length; i++) {
             if (heatArray[i].value > 0) {
-              heatPoint = [heatArray[i].lat, heatArray[i].lon, heatArray[i].value];
-              this.heatLayer.addLatLng(heatPoint).addTo(this.map);
+              var points = this.getPoints(heatArray[i].lat, heatArray[i].lon)
+              for(var j = 0; j < points.length; j++) {
+                heatPoint = [points[j][0], points[j][1], heatArray[i].value];
+                this.heatLayer.addLatLng(heatPoint).addTo(this.map);
+              }
             }
           }
           this.heatLayer.setOptions({radius: this.getRadius(),
             max: 1.0,
-            blur: 25,              
+            blur: 30,              
             gradient: {
                 0.0: 'green',
                 0.33: 'yellow',
                 0.67: 'orange',
                 1.0: 'red'
             },
-            minOpacity: 0.3,
+            minOpacity: 0.2,
             maxZoom: 14});
           this.heatLayer.redraw();
         },
@@ -139,7 +151,6 @@ export class HeatmapPage {
         }
       })
     }
-    
   }
 
   getRadius(){
@@ -168,21 +179,27 @@ export class HeatmapPage {
         radius = 14;
     }
     else if (currentZoom === 14) {
-        radius = 18;
+        radius = 17;
     }
     else if (currentZoom === 15) {
-        radius = 24;
+        radius = 32;
     }
     else if (currentZoom === 16) {
-        radius = 40;
+        radius = 46;
     }
     else if (currentZoom === 17) {
-        radius = 60;
+        radius = 70;
     }
     else if (currentZoom === 18) {
         radius = 100;
     }
     return radius;
+  }
+
+  getPoints(lat, lon) {
+    var d = 0.002/2;
+    var d2 = 2*d/3;
+    return [[lat, lon], [lat-d, lon], [lat+d, lon], [lat, lon-d], [lat, lon+d], [lat-d2, lon-d2], [lat-d2, lon+d2], [lat+d2, lon-d2], [lat+d2, lon+d2]]
   }
 
 }
