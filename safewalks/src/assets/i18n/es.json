@@ -27,7 +27,9 @@
     "trips": {
         "title": "Salidas",
         "aprox_duration": "Duración ",
-        "add": "Nuevo"
+        "add": "Nuevo",
+        "onboarding_top": "Para empezar a desconfinarte, crea una nueva salida!",
+        "onboarding_bottom": "Para ver la densidad de personas en cada lugar, consulta el mapa!"
     },
     "newtrip": {
         "title": "Nueva salida",
@@ -84,6 +86,17 @@
             "title": "Error",
             "message": "El DNI ya existe",
             "button": "De acuerdo"
+        },
+        "terms": "Acepto las condiciones de privacidad",
+        "validation": {
+            "title": "Error de datos",
+            "button": "De acuerdo",
+            "dni": "El formato del DNI/NIE no es correcto",
+            "name": "El nombre es obligatorio",
+            "surname1": "El primer apellido es obligatorio",
+            "city": "La ciudad es obligatioria",
+            "password": "La contraseña, mínimo de 6 caracteres",
+            "terms": "Obligatorio aceptar las condiciones de privacidad"
         }
     },
     "login": {
@@ -120,5 +133,8 @@
         "alert_delete_message": "Seguro que quiere eliminar esta salida?",
         "ok": "Si",
         "cancel": "No"
+    },
+    "terms": {
+        "title": "Politicas"
     }
 }

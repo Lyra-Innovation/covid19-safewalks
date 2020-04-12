@@ -27,7 +27,9 @@
     "trips": {
         "title": "Sortides",
         "aprox_duration": "Duració ",
-        "add": "Crear"
+        "add": "Crear",
+        "onboarding_top": "Per començar a desconfiarte, crea una nova sortida!",
+        "onboarding_bottom": "Per veure la densitat de persones a cada lloc, consulta el mapa!"
     },
     "newtrip": {
         "title": "Nova sortida",
@@ -84,6 +86,17 @@
             "title": "Error",
             "message": "EL DNI ja existeix",
             "button": "D'acord"
+        },
+        "terms": "Accepto les condicions de privacitat",
+        "validation": {
+            "title": "Error amb les dades",
+            "button": "D'acord",
+            "dni": "El format del DNI/NIE no és correcte",
+            "name": "El nom és obligatori",
+            "surname1": "El primer cognom és obligatori",
+            "city": "La ciutat és obligatoria",
+            "password": "La contrasenya ha de tenir mínim 6 caràcters",
+            "terms": "Obligatori acceptar les condicions de privacitat"
         }
     },
     "login": {
@@ -120,5 +133,8 @@
         "alert_delete_message": "Segur que vols eliminar aquesta sortida?",
         "ok": "Si",
         "cancel": "No"
+    },
+    "terms": {
+        "title": "Polítiques"
     }
 }

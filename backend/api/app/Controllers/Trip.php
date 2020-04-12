@@ -26,7 +26,8 @@ class Trip extends BaseController {
 
         $speed = TripHelper::vehicleToSpeed($newTrip["vehicle"]);
         $startCurrentTime = Validator::int($params["start_date"]);
-        $points = $params['points'];
+
+        $points = self::correctPoints($params['points']);
 
         $newTrip["speed"] = $speed;
 
@@ -34,6 +35,7 @@ class Trip extends BaseController {
 
         $maxTries = $CNF["max_iterations"];
         $tries = $startMaxTries;
+
         while(!$newTrip["enforced"] && !$valid && $tries < $maxTries) {
             $success = false;
             $tries++;
@@ -78,7 +80,7 @@ class Trip extends BaseController {
         $ret["trips"] = TripRepository::select(['id_user' =>  $ME], true, ['order' => 'start_date DESC']);
 
         foreach($ret["trips"] as &$trip) {
-            $trip['start_date'] = strtotime($trip['start_date']);
+            $trip['start_date'] = Database::toTimestamp($trip['start_date']);
         }
 
         return $ret;
@@ -88,6 +90,53 @@ class Trip extends BaseController {
         global $ME;
         $ret = TripRepository::delete(['id_user' =>  $ME, 'id' => $params['id_trip']]);
         return $ret;
+    }
+
+    private static function correctPoints($points) {
+        global $CNF;
+
+        $newPoints = [];
+
+        $first = true;
+        $previousPosInfo = null;
+        foreach($points as $posInfo) {
+            $posInfo = Validator::cell($posInfo);
+
+            if(!$first) {
+
+                $newPoint = ['lat' => $previousPosInfo['lat'], 'lon' => $previousPosInfo['lon']];
+                $newPoint["original"] = 1;
+                $newPoints[] = $newPoint;
+
+                $distanceToPoint = TripHelper::distanceBetween($newPoint, $posInfo);
+            
+                while($distanceToPoint > $CNF["max_distance_points"]) {
+
+                    $newLat = $newPoint['lat'] + ($posInfo['lat'] - $newPoint['lat'])*$CNF['max_distance_points']/$distanceToPoint;
+                    $newLon = $newPoint['lon'] + ($posInfo['lon'] - $newPoint['lon'])*$CNF['max_distance_points']/$distanceToPoint;
+
+                    $newPoint = ['lat' => $newLat, 'lon' => $newLon];
+                    $newPoint["original"] = 0;
+                    $newPoints[] = $newPoint;
+
+                    $distanceToPoint = TripHelper::distanceBetween($newPoint, $posInfo);
+                }
+                
+            }
+
+            $previousPosInfo = $posInfo;
+
+            $first = false;
+        }
+
+        $newPoint = ['lat' => $previousPosInfo['lat'], 'lon' => $previousPosInfo['lon']];
+        $newPoint["original"] = 1;
+        
+        // added to times to simplify last point skip in next bucle
+        $newPoints[] = $newPoint;
+        $newPoints[] = $newPoint;
+
+        return $newPoints;
     }
 
 
@@ -104,7 +153,6 @@ class Trip extends BaseController {
         $cells = [];
 
         foreach($points as $posInfo) {
-            $posInfo = Validator::cell($posInfo);
 
             $timeToAdd = 0;
 
@@ -115,6 +163,8 @@ class Trip extends BaseController {
                 $previousCell = Cells::posToCell($previousPosInfo);
                 $previousCell['lon'] = $previousPosInfo['lon'];
                 $previousCell['lat'] = $previousPosInfo['lat'];
+                $previousCell['original'] = $previousPosInfo['original'];
+
                 $previousCell["duration"] = $timeToAdd + $previousPosInfo["duration"];
                 
                 $previousCell["cell_time"] = Database::toTime($currentTime);

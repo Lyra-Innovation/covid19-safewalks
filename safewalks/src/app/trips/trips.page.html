@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header>
     <ion-toolbar>
         <div class="flexrow">
             <ion-title>
@@ -12,7 +12,21 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content>
+    <!-- No trips -->
+    <div *ngIf="triplist.length == 0">
+        <div id="onboarding_top_container">
+            <div class="onboarding_text">{{'trips.onboarding_top' | translate}}</div>
+            <img src="/assets/onboarding_top.png" />
+        </div>
+        
+        <div id="onboarding_bottom_container">
+            <div class="onboarding_text">{{'trips.onboarding_bottom' | translate}}</div>
+            <img src="/assets/onboarding_bottom.png" />
+        </div>
+    </div>
+
+    <!-- We have trips to show -->
     <div class="tripitem" *ngFor="let item of triplist">
         <ion-card class="tripitem" [routerLink]="['/viewtrip', item.id]" routerDirection="forward">
             <ion-item>
